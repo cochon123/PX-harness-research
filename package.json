@@ -1,0 +1,14 @@
+{
+  "name": "px-harness-research",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "baseline": "node runner/baseline.mjs",
+    "baseline:quick": "node runner/baseline.mjs --runs-no-thinking=1 --run-low-thinking=false",
+    "baseline:browser": "node runner/browser-baseline.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.60.0"
+  }
+}

@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Perso XXL Baseline Observations</title>
+    <style>
+      :root { --bg: #f7f4ee; --ink: #211f1b; --muted: #615c52; --panel: #fff; --line: #d7cfc0; --accent: #0f766e; --bad: #991b1b; }
+      * { box-sizing: border-box; }
+      body { margin: 0; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: var(--ink); line-height: 1.55; }
+      header { background: #183a37; color: white; padding: 38px 24px 30px; }
+      .wrap { width: min(1120px, calc(100vw - 32px)); margin: 0 auto; }
+      h1 { margin: 0; font-size: clamp(2rem, 4vw, 4rem); line-height: 1.05; letter-spacing: 0; }
+      h2 { margin: 0 0 12px; font-size: 1.35rem; }
+      p { margin: 10px 0 0; }
+      main { padding: 26px 0 54px; }
+      .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
+      .card { grid-column: span 6; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 18px; }
+      .full { grid-column: 1 / -1; }
+      .metric { font-size: 2.2rem; font-weight: 800; color: var(--accent); line-height: 1; }
+      .muted { color: var(--muted); }
+      table { width: 100%; border-collapse: collapse; font-size: 0.93rem; }
+      th, td { border: 1px solid var(--line); padding: 10px; text-align: left; vertical-align: top; }
+      th { background: #f0eadf; }
+      code { background: #e8f0ef; padding: 0.1rem 0.28rem; border-radius: 4px; }
+      ul { margin: 8px 0 0; padding-left: 20px; }
+      li { margin: 7px 0; }
+      .bar { height: 12px; border-radius: 999px; background: #e7e0d3; overflow: hidden; margin-top: 8px; }
+      .bar span { display: block; height: 100%; width: 76%; background: var(--accent); }
+      @media (max-width: 840px) { .grid { display: block; } .card { margin: 14px 0; } }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="wrap">
+        <h1>Perso XXL baseline observations</h1>
+        <p>Generated 2026-05-25T17:49:14.557Z using deepseek/deepseek-v4-flash against the v1 PX harness.</p>
+      </div>
+    </header>
+    <main class="wrap">
+      <section class="grid">
+        <article class="card">
+          <h2>No-thinking average</h2>
+          <div class="metric">76%</div>
+          <div class="bar"><span></span></div>
+          <p class="muted">Average over 10 runs of the full v1 task set.</p>
+        </article>
+        <article class="card">
+          <h2>Low-thinking run</h2>
+          <div class="metric">79%</div>
+          <p class="muted">Single run with OpenRouter reasoning set to low.</p>
+        </article>
+        <article class="card full">
+          <h2>First Observations</h2>
+          <ul><li>The no-thinking baseline currently averages 76% over 10 run(s).</li><li>The single low-thinking run scored 79%, a +3% delta from the no-thinking average.</li><li>easy-selected-hide is one of the weakest tasks at 64%. Low thinking did better on the sampled run, but one run is not enough to conclude.</li><li>hard-youtube-stop-scroll is one of the weakest tasks at 70%. This likely needs a trusted behavior capability, not just declarative style rules.</li><li>V1 measures plan quality and selector grounding on structured fixtures. It does not yet load the real extension in Chromium, so browser-side mutation/reapply failures remain unmeasured.</li></ul>
+        </article>
+        <article class="card full">
+          <h2>Run Summary</h2>
+          <table>
+            <thead><tr><th>Run</th><th>Reasoning</th><th>Score</th><th>Passed tasks</th><th>Avg duration</th></tr></thead>
+            <tbody>
+    <tr>
+      <td>no-thinking-1</td>
+      <td>none</td>
+      <td>80%</td>
+      <td>4/6</td>
+      <td>10699 ms</td>
+    </tr>
+  
+    <tr>
+      <td>no-thinking-2</td>
+      <td>none</td>
+      <td>61%</td>
+      <td>1/6</td>
+      <td>11255 ms</td>
+    </tr>
+  
+    <tr>
+      <td>no-thinking-3</td>
+      <td>none</td>
+      <td>93%</td>
+      <td>6/6</td>
+      <td>10620 ms</td>
+    </tr>
+  
+    <tr>
+      <td>no-thinking-4</td>
+      <td>none</td>
+      <td>73%</td>
+      <td>4/6</td>
+      <td>14554 ms</td>
+    </tr>
+  
+    <tr>
+      <td>no-thinking-5</td>
+      <td>none</td>
+      <td>67%</td>
+      <td>3/6</td>
+      <td>12215 ms</td>
+    </tr>
+  
+    <tr>
+      <td>no-thinking-6</td>
+      <td>none</td>
+      <td>79%</td>
+      <td>3/6</td>
+      <td>13826 ms</td>
+    </tr>
+  
+    <tr>
+      <td>no-thinking-7</td>
+      <td>none</td>
+      <td>79%</td>
+      <td>5/6</td>
+      <td>10730 ms</td>
+    </tr>
+  
+    <tr>
+      <td>no-thinking-8</td>
+      <td>none</td>
+      <td>67%</td>
+      <td>3/6</td>
+      <td>11807 ms</td>
+    </tr>
+  
+    <tr>
+      <td>no-thinking-9</td>
+      <td>none</td>
+      <td>96%</td>
+      <td>6/6</td>
+      <td>7374 ms</td>
+    </tr>
+  
+    <tr>
+      <td>no-thinking-10</td>
+      <td>none</td>
+      <td>70%</td>
+      <td>4/6</td>
+      <td>8669 ms</td>
+    </tr>
+  
+    <tr>
+      <td>low-thinking-1</td>
+      <td>low</td>
+      <td>79%</td>
+      <td>5/6</td>
+      <td>16825 ms</td>
+    </tr>
+  </tbody>
+          </table>
+        </article>
+        <article class="card full">
+          <h2>Task Averages</h2>
+          <table>
+            <thead><tr><th>Task</th><th>Tier</th><th>No-thinking avg</th><th>Low-thinking</th><th>Observation</th></tr></thead>
+            <tbody>
+    <tr>
+      <td>easy-selected-color</td>
+      <td>easy</td>
+      <td>93%</td>
+      <td>92%</td>
+      <td>Current planner usually handles this task.</td>
+    </tr>
+  
+    <tr>
+      <td>easy-selected-hide</td>
+      <td>easy</td>
+      <td>64%</td>
+      <td>100%</td>
+      <td>Low thinking did better on the sampled run, but one run is not enough to conclude.</td>
+    </tr>
+  
+    <tr>
+      <td>medium-docs-remove-gallery</td>
+      <td>medium</td>
+      <td>82%</td>
+      <td>40%</td>
+      <td>Current planner usually handles this task.</td>
+    </tr>
+  
+    <tr>
+      <td>medium-youtube-hide-creator-typo</td>
+      <td>medium</td>
+      <td>72%</td>
+      <td>80%</td>
+      <td>Failures usually mean typo resolution or card-level targeting is weak.</td>
+    </tr>
+  
+    <tr>
+      <td>hard-youtube-stop-scroll</td>
+      <td>hard</td>
+      <td>70%</td>
+      <td>80%</td>
+      <td>This likely needs a trusted behavior capability, not just declarative style rules.</td>
+    </tr>
+  
+    <tr>
+      <td>hard-one-piece-theme</td>
+      <td>hard</td>
+      <td>78%</td>
+      <td>84%</td>
+      <td>This is intentionally subjective; the text-only grader only checks broad deterministic signals.</td>
+    </tr>
+  </tbody>
+          </table>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>

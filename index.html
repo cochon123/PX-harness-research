@@ -1,0 +1,1131 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Perso XXL Harness Research Plan</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f7f4ee;
+        --ink: #211f1b;
+        --muted: #666156;
+        --panel: #ffffff;
+        --panel-2: #f0eadf;
+        --line: #d7cfc0;
+        --accent: #0f766e;
+        --accent-2: #9f1239;
+        --code: #17313a;
+        --ok: #166534;
+        --warn: #92400e;
+        --bad: #991b1b;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        line-height: 1.55;
+        color: var(--ink);
+        background: var(--bg);
+      }
+
+      a {
+        color: var(--accent);
+        text-decoration-thickness: 1px;
+        text-underline-offset: 3px;
+      }
+
+      header {
+        background: #183a37;
+        color: #fbfaf7;
+        padding: 42px 24px 34px;
+      }
+
+      .wrap {
+        width: min(1120px, calc(100vw - 32px));
+        margin: 0 auto;
+      }
+
+      .eyebrow {
+        margin: 0 0 10px;
+        color: #b7ddd7;
+        font-size: 0.84rem;
+        font-weight: 700;
+        letter-spacing: 0;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        max-width: 920px;
+        margin: 0;
+        font-size: clamp(2.1rem, 4vw, 4.8rem);
+        line-height: 1.02;
+        letter-spacing: 0;
+      }
+
+      .lead {
+        max-width: 920px;
+        margin: 18px 0 0;
+        color: #e7f1ed;
+        font-size: 1.12rem;
+      }
+
+      main {
+        padding: 28px 0 56px;
+      }
+
+      section {
+        margin: 22px 0;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 16px;
+      }
+
+      .card {
+        grid-column: span 6;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 20px;
+      }
+
+      .card.full {
+        grid-column: 1 / -1;
+      }
+
+      .card.third {
+        grid-column: span 4;
+      }
+
+      h2 {
+        margin: 0 0 12px;
+        font-size: 1.45rem;
+        line-height: 1.18;
+        letter-spacing: 0;
+      }
+
+      h3 {
+        margin: 18px 0 8px;
+        font-size: 1rem;
+        letter-spacing: 0;
+      }
+
+      p {
+        margin: 0 0 12px;
+      }
+
+      ul,
+      ol {
+        margin: 10px 0 0;
+        padding-left: 20px;
+      }
+
+      li {
+        margin: 7px 0;
+      }
+
+      code,
+      pre {
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      }
+
+      code {
+        color: var(--code);
+        background: #e8f0ef;
+        border-radius: 4px;
+        padding: 0.12rem 0.28rem;
+      }
+
+      pre {
+        overflow-x: auto;
+        margin: 12px 0 0;
+        background: #102726;
+        color: #eef7f4;
+        border-radius: 8px;
+        padding: 16px;
+        font-size: 0.88rem;
+      }
+
+      .pill-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 12px;
+      }
+
+      .pill {
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 4px 10px;
+        background: var(--panel-2);
+        color: var(--muted);
+        font-size: 0.86rem;
+      }
+
+      .callout {
+        border-left: 4px solid var(--accent);
+        background: #e8f4f1;
+        padding: 14px 16px;
+        border-radius: 6px;
+      }
+
+      .diagram {
+        margin-top: 18px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fbfaf7;
+        padding: 16px;
+      }
+
+      .diagram-title {
+        margin: 0 0 12px;
+        color: var(--muted);
+        font-size: 0.86rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0;
+      }
+
+      .flow {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 10px;
+        align-items: stretch;
+      }
+
+      .flow.step-6 {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+      }
+
+      .node {
+        position: relative;
+        min-height: 86px;
+        border: 1px solid #c6d7d3;
+        border-radius: 8px;
+        background: #eef7f4;
+        padding: 12px;
+      }
+
+      .node strong {
+        display: block;
+        margin-bottom: 4px;
+        line-height: 1.2;
+      }
+
+      .node span {
+        display: block;
+        color: var(--muted);
+        font-size: 0.84rem;
+        line-height: 1.35;
+      }
+
+      .node:not(:last-child)::after {
+        content: ">";
+        position: absolute;
+        top: 50%;
+        right: -9px;
+        z-index: 1;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: #183a37;
+        color: #ffffff;
+        font-size: 0.72rem;
+        font-weight: 800;
+        line-height: 18px;
+        text-align: center;
+        transform: translateY(-50%);
+      }
+
+      .loop {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 12px;
+      }
+
+      .loop .node {
+        min-height: 108px;
+      }
+
+      .loop .node:nth-child(4),
+      .loop .node:nth-child(5),
+      .loop .node:nth-child(6) {
+        background: #fff7ed;
+        border-color: #e7cfa7;
+      }
+
+      .matrix {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 12px;
+      }
+
+      .matrix-card {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #ffffff;
+        padding: 14px;
+      }
+
+      .matrix-card h3 {
+        margin-top: 0;
+      }
+
+      .bar {
+        display: grid;
+        grid-template-columns: var(--w) 1fr;
+        gap: 8px;
+        align-items: center;
+        margin-top: 9px;
+      }
+
+      .bar-fill {
+        height: 12px;
+        border-radius: 999px;
+        background: var(--accent);
+      }
+
+      .bar-label {
+        color: var(--muted);
+        font-size: 0.82rem;
+      }
+
+      .boundary {
+        display: grid;
+        grid-template-columns: 1fr 44px 1fr;
+        gap: 12px;
+        align-items: stretch;
+      }
+
+      .boundary-box {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #ffffff;
+        padding: 14px;
+      }
+
+      .boundary-box.locked {
+        background: #fdf2f2;
+        border-color: #e9b4b4;
+      }
+
+      .boundary-wall {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        background: repeating-linear-gradient(
+          45deg,
+          #183a37,
+          #183a37 8px,
+          #2b5954 8px,
+          #2b5954 16px
+        );
+        color: #ffffff;
+        font-weight: 800;
+        writing-mode: vertical-rl;
+        text-transform: uppercase;
+        font-size: 0.72rem;
+        letter-spacing: 0;
+      }
+
+      .pyramid {
+        display: grid;
+        gap: 8px;
+        max-width: 720px;
+        margin: 12px auto 0;
+      }
+
+      .pyramid-level {
+        margin: 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 13px 16px;
+        text-align: center;
+        background: #ffffff;
+      }
+
+      .pyramid-level.hard {
+        width: 46%;
+        background: #fae8e8;
+      }
+
+      .pyramid-level.medium {
+        width: 70%;
+        background: #fff7ed;
+      }
+
+      .pyramid-level.easy {
+        width: 94%;
+        background: #e8f4f1;
+      }
+
+      .pyramid-level strong {
+        display: block;
+      }
+
+      .pyramid-level span {
+        color: var(--muted);
+        font-size: 0.86rem;
+      }
+
+      .danger {
+        border-left-color: var(--accent-2);
+        background: #fae8e8;
+      }
+
+      .metric {
+        display: grid;
+        grid-template-columns: 132px 1fr;
+        gap: 10px;
+        border-top: 1px solid var(--line);
+        padding-top: 10px;
+        margin-top: 10px;
+      }
+
+      .metric strong {
+        color: #183a37;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 12px;
+        font-size: 0.93rem;
+      }
+
+      th,
+      td {
+        text-align: left;
+        vertical-align: top;
+        border: 1px solid var(--line);
+        padding: 10px;
+      }
+
+      th {
+        background: var(--panel-2);
+      }
+
+      .status {
+        font-weight: 700;
+      }
+
+      .status.ok {
+        color: var(--ok);
+      }
+
+      .status.warn {
+        color: var(--warn);
+      }
+
+      .status.bad {
+        color: var(--bad);
+      }
+
+      footer {
+        border-top: 1px solid var(--line);
+        padding: 24px 0 40px;
+        color: var(--muted);
+      }
+
+      @media (max-width: 840px) {
+        header {
+          padding-top: 32px;
+        }
+
+        .grid {
+          display: block;
+        }
+
+        .card {
+          margin: 14px 0;
+        }
+
+        .metric {
+          grid-template-columns: 1fr;
+        }
+
+        .flow,
+        .flow.step-6,
+        .loop,
+        .matrix,
+        .boundary {
+          grid-template-columns: 1fr;
+        }
+
+        .node:not(:last-child)::after {
+          top: auto;
+          right: 50%;
+          bottom: -9px;
+          transform: translateX(50%) rotate(90deg);
+        }
+
+        .boundary-wall {
+          min-height: 40px;
+          writing-mode: horizontal-tb;
+        }
+
+        .pyramid-level.hard,
+        .pyramid-level.medium,
+        .pyramid-level.easy {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="wrap">
+        <p class="eyebrow">Perso XXL agent harness research</p>
+        <h1>Build a testing environment first, not a bigger prompt.</h1>
+        <p class="lead">
+          The current extension proves the concept, but reliability will come from an eval loop:
+          reproducible pages, controlled browser runs, clear oracles, trace capture, and a small holdout set
+          that the optimizing agent cannot tamper with.
+        </p>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <section class="grid">
+        <article class="card full">
+          <h2>Executive Take</h2>
+          <p>
+            Use a local "web zoo" as the main benchmark: a small app with YouTube-like, Docs-like,
+            dashboard, article, ecommerce, and weird dynamic DOM pages. Drive the Perso XXL extension
+            through Playwright, collect before and after DOM, accessibility, screenshot, console, plan,
+            and matched-node traces, then score each task with deterministic assertions first. Screenshots
+            and visual graders are useful, but the core harness must also work with text-only models.
+          </p>
+          <div class="callout">
+            <strong>Best near-term objective:</strong> create a repeatable experiment loop where a harness change
+            can be run against the same train/dev tasks in minutes, while a hidden holdout stays locked.
+            This lets you learn whether a new tool, prompt, schema rule, selector strategy, or verifier
+            actually improves the agent.
+          </div>
+          <div class="diagram">
+            <p class="diagram-title">Core research loop</p>
+            <div class="flow">
+              <div class="node">
+                <strong>Fixture page</strong>
+                <span>Stable local page with seeded DOM variants and hidden target labels.</span>
+              </div>
+              <div class="node">
+                <strong>User request</strong>
+                <span>Prompt, selected element, attachment, ambiguity, or behavior request.</span>
+              </div>
+              <div class="node">
+                <strong>Perso XXL</strong>
+                <span>Context extraction, model plan, validation, execution, reapply.</span>
+              </div>
+              <div class="node">
+                <strong>Trusted grader</strong>
+                <span>DOM, style, accessibility, optional screenshot, and simple integrity checks.</span>
+              </div>
+              <div class="node">
+                <strong>Decision</strong>
+                <span>Keep, repair, reject, or add a new capability to test.</span>
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="grid">
+        <article class="card">
+          <h2>What The Demo Already Gets Right</h2>
+          <ul>
+            <li>Plans are declarative JSON, not arbitrary model-generated JavaScript.</li>
+            <li>The prompt asks the model to use <code>targetMap</code> selectors and typed rules instead of putting raw selectors directly on actions.</li>
+            <li>The picker snapshot includes hierarchy candidates, nearby text, computed style, selector hints, and a semantic-target guess.</li>
+            <li>The executor logs matched elements and can reapply plans after page mutations.</li>
+            <li>Validation blocks some unsafe CSS and invalid selectors before applying a plan.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h2>Where Reliability Leaks</h2>
+          <ul>
+            <li><code>totalMatched &gt; 0</code> is treated as progress, but matching anything is not the same as matching the intended element.</li>
+            <li>The DOM summary is capped at 220 visible nodes, so below-fold or late-rendered targets can disappear from context.</li>
+            <li>The agent gets text and DOM hints, but not a first-class accessibility tree, layout summary, or optional visual verification loop.</li>
+            <li>Plan repair fixes schema validation, not failed outcomes. There is no "observe result, diagnose, repair selector" cycle.</li>
+            <li>The current rule set is intentionally narrow. That is good for safety, but hard tasks like scroll control, collision, animation, or page behavior need trusted capability modules.</li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="grid">
+        <article class="card full">
+          <h2>Literature Signals Worth Trusting</h2>
+          <p>
+            I would weight reproducible benchmarks, released harnesses, and papers with explicit task
+            environments more heavily than blog posts claiming generic "agent magic."
+          </p>
+          <table>
+            <thead>
+              <tr>
+                <th>Source</th>
+                <th>Useful lesson for this harness</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><a href="https://arxiv.org/abs/2307.13854">WebArena</a></td>
+                <td>Use realistic but reproducible web environments and score functional correctness, not just whether the agent clicked something.</td>
+              </tr>
+              <tr>
+                <td><a href="https://arxiv.org/abs/2306.06070">Mind2Web</a></td>
+                <td>Real-world HTML is too large and messy; filtered, task-relevant page representation matters as much as the model.</td>
+              </tr>
+              <tr>
+                <td><a href="https://www.servicenow.com/research/publication/alexandre-drouin-work-icml2024.html">WorkArena / BrowserGym</a></td>
+                <td>Good web-agent research environments expose multimodal observations and standardized actions, then measure task completion in a real browser.</td>
+              </tr>
+              <tr>
+                <td><a href="https://proceedings.mlr.press/v235/zheng24e.html">SeeAct</a></td>
+                <td>Vision alone and DOM alone are both insufficient. The strongest grounding combines HTML structure and visuals, and grounding remains a major failure point.</td>
+              </tr>
+              <tr>
+                <td><a href="https://openai.com/index/evals-drive-next-chapter-of-ai/">OpenAI eval guidance</a></td>
+                <td>Define success in plain terms, build a golden set, run under realistic conditions, log failures, and audit LLM graders with humans.</td>
+              </tr>
+              <tr>
+                <td><a href="https://github.com/karpathy/autoresearch">Karpathy autoresearch</a></td>
+                <td>The powerful pattern is a fixed harness, bounded experiment budget, scalar result, keep-or-discard loop, and logs of every attempt.</td>
+              </tr>
+              <tr>
+                <td><a href="https://arxiv.org/abs/2603.11337">RewardHackingAgents</a> and <a href="https://arxiv.org/abs/2605.02964">Reward Hacking Benchmark</a></td>
+                <td>Useful warning for later autonomous optimization. For the first version, handle it with clear rules, patch review, and a small holdout set.</td>
+              </tr>
+              <tr>
+                <td><a href="https://github.com/browser-use/browser-use">browser-use</a></td>
+                <td>Useful as a browser-control baseline or sub-agent, especially because it supports custom tools. For extension CI, Playwright should still be the deterministic runner.</td>
+              </tr>
+            </tbody>
+          </table>
+        </article>
+      </section>
+
+      <section class="grid">
+        <article class="card full">
+          <h2>Open-Source Pieces To Reuse</h2>
+          <p>
+            We do not need to invent the browser runner, basic accessibility checks, visual diffing, or
+            benchmark conventions. This is not legal advice, but these licenses look usable for a local
+            research harness if we keep notices and comply with each project license.
+          </p>
+          <table>
+            <thead>
+              <tr>
+                <th>Piece</th>
+                <th>License</th>
+                <th>Use it for</th>
+                <th>Recommendation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><a href="https://github.com/microsoft/playwright">Playwright</a></td>
+                <td>Apache-2.0</td>
+                <td>Chromium automation, extension loading, screenshots, traces, accessibility snapshots.</td>
+                <td><span class="status ok">Use as core runner.</span></td>
+              </tr>
+              <tr>
+                <td><a href="https://github.com/ServiceNow/BrowserGym">BrowserGym</a></td>
+                <td>Apache-2.0</td>
+                <td>Reference architecture for web-agent tasks, benchmark packaging, and trace analysis.</td>
+                <td><span class="status ok">Copy ideas; maybe integrate later.</span></td>
+              </tr>
+              <tr>
+                <td><a href="https://github.com/browser-use/browser-use">browser-use</a></td>
+                <td>MIT</td>
+                <td>Baseline browser agent or optional comparison path. It supports non-visual and visual modes.</td>
+                <td><span class="status warn">Useful baseline, not trusted grader.</span></td>
+              </tr>
+              <tr>
+                <td><a href="https://github.com/web-arena-x/webarena">WebArena</a></td>
+                <td>Apache-2.0</td>
+                <td>Self-hosted benchmark design and functional task scoring patterns.</td>
+                <td><span class="status ok">Reuse evaluation ideas.</span></td>
+              </tr>
+              <tr>
+                <td><a href="https://github.com/Farama-Foundation/miniwob-plusplus">MiniWoB++</a></td>
+                <td>MIT</td>
+                <td>Small browser-interaction tasks and simple synthetic page patterns.</td>
+                <td><span class="status warn">Good inspiration; not enough for Perso-specific DOM edits.</span></td>
+              </tr>
+              <tr>
+                <td><a href="https://github.com/dequelabs/axe-core">axe-core</a></td>
+                <td>MPL-2.0</td>
+                <td>Automated accessibility checks in the grader.</td>
+                <td><span class="status ok">Use as optional grader dependency.</span></td>
+              </tr>
+              <tr>
+                <td><a href="https://github.com/testing-library/dom-testing-library">@testing-library/dom</a></td>
+                <td>MIT</td>
+                <td>User-facing DOM queries by role, label, text, and test ids.</td>
+                <td><span class="status ok">Use for readable deterministic oracles.</span></td>
+              </tr>
+              <tr>
+                <td><a href="https://github.com/mapbox/pixelmatch">pixelmatch</a></td>
+                <td>ISC</td>
+                <td>Screenshot diffing for layout regressions and visual tasks.</td>
+                <td><span class="status ok">Use for low-cost visual checks.</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </article>
+      </section>
+
+      <section class="grid">
+        <article class="card full">
+          <h2>Bad Ideas To Avoid</h2>
+          <div class="grid">
+            <div class="card third">
+              <h3>Making live YouTube and Google Docs the core benchmark</h3>
+              <p>
+                They are useful smoke tests, but bad primary evals: unstable DOMs, accounts, localization,
+                experiments, ads, and rate limits will make the metric noisy.
+              </p>
+            </div>
+            <div class="card third">
+              <h3>Using one VLM judge as the score</h3>
+              <p>
+                Vision judges are useful for subjective theming, but they are too easy to fool and too noisy
+                for simple tasks. Prefer DOM and computed-style assertions where possible.
+              </p>
+            </div>
+            <div class="card third">
+              <h3>Rewarding "number of changes"</h3>
+              <p>
+                This directly incentivizes noisy page-wide CSS, broken layouts, and theatrical output. Score
+                intent completion, blast radius, reversibility, and whether important controls still work.
+              </p>
+            </div>
+            <div class="card third">
+              <h3>Letting the optimizing agent edit the evals</h3>
+              <p>
+                That is the shortest path to fake improvement. Evals, expected labels, and judges need a
+                write-protected boundary.
+              </p>
+            </div>
+            <div class="card third">
+              <h3>Giving arbitrary JavaScript as the default tool</h3>
+              <p>
+                It will solve demos and create security, persistence, and reward-hacking problems. Add trusted
+                capability modules for behavior changes instead.
+              </p>
+            </div>
+            <div class="card third">
+              <h3>Defining easy, medium, hard by vibes</h3>
+              <p>
+                Keep the labels, but attach capability tags: selected target, inferred target, external lookup,
+                ambiguity, dynamic DOM, visual design, behavior change, and multi-step repair.
+              </p>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="grid">
+        <article class="card full">
+          <h2>Recommended Test Environment</h2>
+          <div class="diagram">
+            <p class="diagram-title">Harness architecture</p>
+            <div class="flow step-6">
+              <div class="node">
+                <strong>Task spec</strong>
+                <span>Prompt, page URL, pick coordinates, assets, expected behavior.</span>
+              </div>
+              <div class="node">
+                <strong>Browser runner</strong>
+                <span>Playwright launches Chromium with the unpacked extension.</span>
+              </div>
+              <div class="node">
+                <strong>Extension bridge</strong>
+                <span>Invokes the real Perso path without brittle manual clicks.</span>
+              </div>
+              <div class="node">
+                <strong>Trace collector</strong>
+                <span>Plan, matched selectors, logs, DOM, accessibility tree, optional screenshots.</span>
+              </div>
+              <div class="node">
+                <strong>Graders</strong>
+                <span>Deterministic oracles first; LLM/VLM only when the model and task need it.</span>
+              </div>
+              <div class="node">
+                <strong>Report</strong>
+                <span>Score, cost, latency, regressions, failure clusters.</span>
+              </div>
+            </div>
+          </div>
+          <pre><code>px-harness/
+  apps/
+    web-zoo/                 # Local fixture app with many page types and DOM traps
+    extension-adapter/       # Thin bridge to load and drive Perso XXL in Chromium
+  evals/
+    train/                   # Iteration set, visible to developers
+    dev/                     # Release gate, visible but not tuned every run
+    holdout/                 # Locked, not visible to optimizing agents
+  runner/
+    playwright/              # Browser orchestration, traces, screenshots
+    graders/                 # DOM, computed style, accessibility, optional visual, optional LLM/VLM
+    traces/
+    runs/&lt;run-id&gt;/           # Plan, logs, before/after snapshots, screenshots, videos
+  reports/
+    leaderboard.json
+    failure-browser.html</code></pre>
+          <div class="pill-row">
+            <span class="pill">Playwright first</span>
+            <span class="pill">browser-use as baseline</span>
+            <span class="pill">small holdout</span>
+            <span class="pill">deterministic oracles</span>
+            <span class="pill">trace bundles</span>
+            <span class="pill">patch review</span>
+          </div>
+        </article>
+      </section>
+
+      <section class="grid">
+        <article class="card">
+          <h2>The Web Zoo</h2>
+          <p>
+            Build a local app that simulates the product surfaces you care about without depending on live sites.
+            Each page should have randomized variants so selector strategies are tested against realistic drift.
+          </p>
+          <ul>
+            <li><strong>YouTube-like feed:</strong> cards, thumbnails, channel names, typo-prone creator names, lazy rendering, infinite scroll, hidden menus.</li>
+            <li><strong>Docs-like home:</strong> template gallery, ugly nested roles, listboxes, generated class names, responsive layouts.</li>
+            <li><strong>Dashboard:</strong> text-only panels that need semantic icons, SVG insertion, accessibility labels.</li>
+            <li><strong>Theme page:</strong> many components where global design changes can succeed or break layout.</li>
+            <li><strong>Physics page:</strong> controlled sandbox for collision/gravity behavior, with a trusted behavior module.</li>
+            <li><strong>Adversarial page:</strong> decoy text, hidden labels, misleading classes, canary elements that must not change.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h2>The Agent Interface Under Test</h2>
+          <p>
+            Do not test only the model response. Test the whole product path: prompt plus attachments or picked
+            elements, DOM summarization, plan generation, validation, execution, reapply after mutation, and
+            result verification.
+          </p>
+          <ul>
+            <li>Load Perso XXL as an unpacked Chrome extension in Playwright.</li>
+            <li>Inject prompts through a test bridge instead of relying on brittle manual UI clicks.</li>
+            <li>Simulate element picks by passing actual fixture DOM nodes to the extension picker path.</li>
+            <li>Capture extension logs from the local logger and browser console.</li>
+            <li>Record every generated plan and every selector match.</li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="grid">
+        <article class="card full">
+          <h2>Task Set Design</h2>
+          <div class="diagram">
+            <p class="diagram-title">Task pyramid</p>
+            <div class="pyramid">
+              <div class="pyramid-level hard">
+                <strong>Hard</strong>
+                <span>Behavior changes, large themes, physics, subjective visual quality.</span>
+              </div>
+              <div class="pyramid-level medium">
+                <strong>Medium</strong>
+                <span>Unselected targets, ambiguity, external lookup, semantic assets.</span>
+              </div>
+              <div class="pyramid-level easy">
+                <strong>Easy</strong>
+                <span>Selected target, direct style or visibility change, exact oracle.</span>
+              </div>
+            </div>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Tier</th>
+                <th>Example</th>
+                <th>Primary oracle</th>
+                <th>What it tests</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Easy</td>
+                <td>Change this selected button text color to red.</td>
+                <td>Computed style on hidden ground-truth target equals expected color; sibling controls unchanged.</td>
+                <td>Selection grounding, selector generation, style application, blast radius.</td>
+              </tr>
+              <tr>
+                <td>Easy</td>
+                <td>Delete this selected promo block.</td>
+                <td>Ground-truth block hidden or removed; layout still has no overlap.</td>
+                <td>Visibility rule correctness and layout safety.</td>
+              </tr>
+              <tr>
+                <td>Medium</td>
+                <td>I do not want to see videos from "Mark Ruber" in my feed.</td>
+                <td>Agent asks a clarification or resolves "Mark Rober" through approved lookup, then hides only that creator.</td>
+                <td>Ambiguity handling, external lookup, confirmation before action.</td>
+              </tr>
+              <tr>
+                <td>Medium</td>
+                <td>Add SVG icons to this dashboard.</td>
+                <td>Expected panels receive semantically appropriate icons from approved icon set; accessible names exist.</td>
+                <td>Asset/tool use, semantic design, non-destructive insertion.</td>
+              </tr>
+              <tr>
+                <td>Medium</td>
+                <td>Remove the model gallery, I always start from a new document.</td>
+                <td>Gallery region removed on Docs-like page; new document button remains visible and clickable.</td>
+                <td>Unselected target inference on ugly DOM.</td>
+              </tr>
+              <tr>
+                <td>Hard</td>
+                <td>Stop me from scrolling YouTube; show only the first loaded video.</td>
+                <td>Scroll position cannot advance; only first feed item visible; page controls still usable.</td>
+                <td>Trusted behavior capability, persistence, side effects.</td>
+              </tr>
+              <tr>
+                <td>Hard</td>
+                <td>Give this page a One Piece theme.</td>
+                <td>Hybrid score: DOM/theming coverage, layout invariants, screenshot diff, optional VLM rubric.</td>
+                <td>Large visual transform without breaking page function.</td>
+              </tr>
+              <tr>
+                <td>Hard</td>
+                <td>Apply gravity and collision to all elements.</td>
+                <td>Uses approved physics module; elements animate in bounded container; controls remain accessible.</td>
+                <td>Recognizing when schema needs a capability, not raw JS improvisation.</td>
+              </tr>
+            </tbody>
+          </table>
+        </article>
+      </section>
+
+      <section class="grid">
+        <article class="card">
+          <h2>Scoring Model</h2>
+          <div class="metric">
+            <strong>Task success</strong>
+            <span>Did the requested change happen on the intended target?</span>
+          </div>
+          <div class="metric">
+            <strong>Grounding</strong>
+            <span>Did selectors point to the semantic target, not a decorative child or unrelated shared class?</span>
+          </div>
+          <div class="metric">
+            <strong>Blast radius</strong>
+            <span>How many non-target nodes changed? Did text, layout, or clickability break?</span>
+          </div>
+          <div class="metric">
+            <strong>Persistence</strong>
+            <span>Does the change survive rerender, lazy loading, route changes, and viewport changes?</span>
+          </div>
+          <div class="metric">
+            <strong>Interaction safety</strong>
+            <span>Can important controls still be clicked, typed into, and read by accessibility APIs?</span>
+          </div>
+          <div class="metric">
+            <strong>Integrity</strong>
+            <span>Did the agent avoid modifying eval files, reading holdout labels, or exploiting grader artifacts?</span>
+          </div>
+          <div class="metric">
+            <strong>Cost and latency</strong>
+            <span>Tokens, tool calls, wall time, browser actions, and retries.</span>
+          </div>
+        </article>
+
+        <article class="card">
+          <h2>Grader Stack</h2>
+          <ol>
+            <li><strong>Plan validator:</strong> schema, unsafe CSS, selector validity, capability permissions.</li>
+            <li><strong>DOM oracle:</strong> hidden server-side target map, expected element count, node visibility, attributes.</li>
+            <li><strong>Computed style oracle:</strong> exact colors, backgrounds, dimensions, overflow, pointer events.</li>
+            <li><strong>Accessibility oracle:</strong> role/name preservation, no hidden primary controls, tab order checks.</li>
+            <li><strong>Visual oracle:</strong> optional screenshot diff, overlap detection, viewport-specific checks.</li>
+            <li><strong>LLM/VLM judge:</strong> optional and only for subjective tasks, with a tight rubric.</li>
+          </ol>
+        </article>
+      </section>
+
+      <section class="grid">
+        <article class="card full">
+          <h2>Reward Hacking Controls</h2>
+          <div class="callout danger">
+            Keep this simple at first. A <code>PROGRAM.md</code> rule saying what the optimizer must not touch is
+            enough for the first manual experiments. Add stronger controls only when we actually automate optimizer
+            runs or see suspicious behavior.
+          </div>
+          <div class="diagram">
+            <p class="diagram-title">Write boundary for autonomous optimizer runs</p>
+            <div class="boundary">
+              <div class="boundary-box">
+                <h3>Normal workspace</h3>
+                <ul>
+                  <li>Perso tools and prompts</li>
+                  <li>Context extraction code</li>
+                  <li>Capability modules</li>
+                  <li>Train tasks</li>
+                  <li>Experiment notes</li>
+                  <li><code>PROGRAM.md</code> constraints</li>
+                </ul>
+              </div>
+              <div class="boundary-wall">later</div>
+              <div class="boundary-box locked">
+                <h3>Optional later boundary</h3>
+                <ul>
+                  <li>Holdout labels</li>
+                  <li>Final graders</li>
+                  <li>Reference screenshots</li>
+                  <li>Release score reporting</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <ul>
+            <li>Start with <code>PROGRAM.md</code>: do not edit grader code, expected answers, task labels, or reports to improve scores.</li>
+            <li>Keep a small holdout set and do not tune against it every run.</li>
+            <li>Review the patch diff before accepting an automated harness change.</li>
+            <li>Add file-access logging or workspace isolation later only if autonomous optimization becomes serious.</li>
+            <li>Use one or two canary tasks if they are cheap, but do not build a heavy anti-cheat system yet.</li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="grid">
+        <article class="card full">
+          <h2>Implementation Plan</h2>
+          <div class="diagram">
+            <p class="diagram-title">Autoresearch-style improvement loop</p>
+            <div class="loop">
+              <div class="node">
+                <strong>1. Baseline</strong>
+                <span>Run current Perso against train/dev and freeze the starting score.</span>
+              </div>
+              <div class="node">
+                <strong>2. Propose patch</strong>
+                <span>Agent changes one harness idea: tool, prompt, schema, repair, or capability.</span>
+              </div>
+              <div class="node">
+                <strong>3. Public eval</strong>
+                <span>Run train/dev with full traces and deterministic graders.</span>
+              </div>
+              <div class="node">
+                <strong>6. Keep or revert</strong>
+                <span>Keep only if trusted metrics improve and the patch diff looks legitimate.</span>
+              </div>
+              <div class="node">
+                <strong>5. Holdout gate</strong>
+                <span>Run the small holdout after a candidate passes public eval.</span>
+              </div>
+              <div class="node">
+                <strong>4. Error analysis</strong>
+                <span>Cluster failures by grounding, selector, capability, visual, or persistence.</span>
+              </div>
+            </div>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Phase</th>
+                <th>Build</th>
+                <th>Exit criterion</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>0. Baseline</td>
+                <td>Run 15 to 25 manual representative tasks against the current extension and save plans, logs, screenshots, and notes.</td>
+                <td>Known failure taxonomy: wrong target, no target, broad selector, schema limit, visual break, persistence break.</td>
+              </tr>
+              <tr>
+                <td>1. Web zoo MVP</td>
+                <td>Create local fixture app with 6 pages and 30 tasks split across easy, medium, hard.</td>
+                <td>Every task has a deterministic reset, seed, target oracle, and browser URL.</td>
+              </tr>
+              <tr>
+                <td>2. Runner</td>
+                <td>Playwright loads Chromium with Perso XXL, sends prompt/picks/assets, waits for completion, captures traces.</td>
+                <td>One command runs the full public suite and writes JSON plus HTML report.</td>
+              </tr>
+              <tr>
+                <td>3. Graders</td>
+                <td>Implement DOM, computed style, accessibility, and optional visual diff adapters.</td>
+                <td>Easy tasks are deterministic; subjective hard tasks can add screenshots or VLM rubrics when available.</td>
+              </tr>
+              <tr>
+                <td>4. Harness experiments</td>
+                <td>Try changes to context extraction, accessibility tree, layout summaries, optional screenshot labels, selector repair, and capability modules.</td>
+                <td>Each experiment produces comparable task, cost, and latency metrics.</td>
+              </tr>
+              <tr>
+                <td>5. Autoresearch loop</td>
+                <td>Let an agent propose harness changes against train/dev while following <code>PROGRAM.md</code>.</td>
+                <td>Only keep patches that improve trusted metrics and pass manual diff review.</td>
+              </tr>
+            </tbody>
+          </table>
+        </article>
+      </section>
+
+      <section class="grid">
+        <article class="card">
+          <h2>Tool Experiments To Try</h2>
+          <ul>
+            <li><strong>Accessibility tree tool:</strong> expose role, accessible name, hierarchy, visibility, and clickability.</li>
+            <li><strong>Target probe tool:</strong> given a selector, return count, sample text, bounds, styles, and whether it overlaps the user-selected target.</li>
+            <li><strong>Layout summary tool:</strong> expose bounding boxes, stacking, overlap, and viewport position as text for non-visual models.</li>
+            <li><strong>Screenshot crop tool:</strong> optional crop around selected or candidate nodes for visual-capable models.</li>
+            <li><strong>Selector repair tool:</strong> after zero or wrong match, search by fingerprint and nearby text.</li>
+            <li><strong>Capability tools:</strong> trusted modules for scroll locking, icon insertion, themes, and physics.</li>
+            <li><strong>Clarification tool:</strong> require a question when intent is ambiguous or external lookup has low confidence.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h2>What Not To Implement Yet</h2>
+          <ul>
+            <li>Do not build a full fake internet before the first benchmark. Six high-quality pages beat fifty shallow pages.</li>
+            <li>Do not optimize prompts before measuring the current prompt. Otherwise you cannot tell what helped.</li>
+            <li>Do not add broad JavaScript execution as a quick fix for hard tasks. Add named, auditable capabilities.</li>
+            <li>Do not make holdout huge at first. A small set is enough to keep us honest.</li>
+            <li>Do not rely on browser-use to verify your extension. Use it to compare agent-control approaches, not as the trusted judge.</li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="grid">
+        <article class="card full">
+          <h2>First Sprint Backlog</h2>
+          <ol>
+            <li>Create <code>apps/web-zoo</code> with YouTube-like feed, Docs-like home, dashboard, and theme page.</li>
+            <li>Write 12 easy, 8 medium, and 4 hard task specs in JSON.</li>
+            <li>Add Playwright extension loader and one task runner command.</li>
+            <li>Implement deterministic graders for color, visibility, text, element count, clickability, and layout overlap.</li>
+            <li>Capture trace bundle: prompt, picks, plan, validator errors, matched nodes, before/after DOM, accessibility snapshot, optional screenshot, console logs.</li>
+            <li>Run the current Perso XXL build and produce a baseline report.</li>
+            <li>Only then start iterating on new agent tools.</li>
+          </ol>
+        </article>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap">
+        <p>
+          Generated on 2026-05-25 after reviewing the local Perso XXL demo and current web-agent evaluation literature.
+          This page is a research and implementation plan, not the final harness implementation.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

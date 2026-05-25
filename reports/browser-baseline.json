@@ -1,0 +1,922 @@
+{
+  "generatedAt": "2026-05-25T18:33:37.428Z",
+  "model": "deepseek/deepseek-v4-flash",
+  "config": {
+    "mode": "browser",
+    "reasoningMode": "low",
+    "executionMode": "injected-perso-scripts",
+    "taskCount": 6,
+    "extensionPath": "/home/cochon/Documents/Perso-XXL"
+  },
+  "summary": {
+    "noThinkingRuns": 0,
+    "noThinkingAverage": 0,
+    "lowThinkingScore": 0.5681666666666667
+  },
+  "runs": [
+    {
+      "label": "browser-low-thinking-1",
+      "reasoningMode": "low",
+      "averageScore": 0.5681666666666667,
+      "passedTasks": 3,
+      "totalTasks": 6,
+      "averageDurationMs": 17628.166666666668
+    }
+  ],
+  "taskAverages": [
+    {
+      "id": "easy-selected-color",
+      "tier": "easy",
+      "noThinkingAverage": 1,
+      "lowThinkingScore": 1,
+      "observation": "browser target has expected style browser forbidden nodes avoided"
+    },
+    {
+      "id": "easy-selected-hide",
+      "tier": "easy",
+      "noThinkingAverage": 0.235,
+      "lowThinkingScore": 0.235,
+      "observation": "browser target is still visible browser forbidden nodes remain visible"
+    },
+    {
+      "id": "medium-docs-remove-gallery",
+      "tier": "medium",
+      "noThinkingAverage": 1,
+      "lowThinkingScore": 1,
+      "observation": "browser target is hidden browser forbidden nodes remain visible"
+    },
+    {
+      "id": "medium-youtube-hide-creator-typo",
+      "tier": "medium",
+      "noThinkingAverage": 0.091,
+      "lowThinkingScore": 0.091,
+      "observation": "browser target is still visible browser forbidden nodes remain visible"
+    },
+    {
+      "id": "hard-youtube-stop-scroll",
+      "tier": "hard",
+      "noThinkingAverage": 0.265,
+      "lowThinkingScore": 0.265,
+      "observation": "browser can still scroll first video remains visible"
+    },
+    {
+      "id": "hard-one-piece-theme",
+      "tier": "hard",
+      "noThinkingAverage": 0.818,
+      "lowThinkingScore": 0.818,
+      "observation": "browser has visual CSS changes 13 nodes marked as changed theme keywords: one piece"
+    }
+  ],
+  "observations": [
+    "Browser low-reasoning baseline scored 57% across 6 tasks.",
+    "Chrome did not load unpacked extensions in this environment, so this run injects Perso DOM/executor scripts into Chrome pages and uses the Node planner. It tests real browser DOM execution, but not extension loading.",
+    "medium-youtube-hide-creator-typo scored 9%. browser target is still visible browser forbidden nodes remain visible",
+    "easy-selected-hide scored 24%. browser target is still visible browser forbidden nodes remain visible"
+  ],
+  "raw": [
+    {
+      "label": "browser-low-thinking-1",
+      "reasoningMode": "low",
+      "executionMode": "injected-perso-scripts",
+      "averageScore": 0.5681666666666667,
+      "passedTasks": 3,
+      "totalTasks": 6,
+      "averageDurationMs": 17628.166666666668,
+      "tasks": [
+        {
+          "taskId": "easy-selected-color",
+          "tier": "easy",
+          "score": 1,
+          "passed": true,
+          "durationMs": 30275,
+          "grade": {
+            "score": 1,
+            "passed": true,
+            "planGrade": {
+              "score": 1,
+              "passed": true,
+              "validation": {
+                "ok": true,
+                "errors": []
+              },
+              "expectation": {
+                "score": 1,
+                "notes": [
+                  "matched intended target",
+                  "set color close to expected value"
+                ],
+                "targetHit": true,
+                "forbiddenHit": false
+              },
+              "targetMatches": {
+                "selected_label": {
+                  "selectors": [
+                    "main:nth-of-type(1) > section:nth-of-type(2) > article:nth-of-type(1) > h2:nth-of-type(1) > span:nth-of-type(1)"
+                  ],
+                  "usedFallback": true,
+                  "uids": [
+                    "revenue-title-text"
+                  ],
+                  "sampleText": [
+                    "Revenue"
+                  ]
+                }
+              }
+            },
+            "actual": {
+              "score": 1,
+              "notes": [
+                "browser target has expected style",
+                "browser forbidden nodes avoided"
+              ],
+              "targetHit": true,
+              "forbiddenHit": false,
+              "details": {
+                "targetValues": [
+                  {
+                    "uid": "revenue-title-text",
+                    "exists": true,
+                    "value": "rgb(0, 128, 0)"
+                  },
+                  {
+                    "uid": "revenue-title",
+                    "exists": true,
+                    "value": "rgb(33, 31, 27)"
+                  },
+                  {
+                    "uid": "revenue-card",
+                    "exists": true,
+                    "value": "rgb(33, 31, 27)"
+                  }
+                ],
+                "forbiddenValues": [
+                  {
+                    "uid": "churn-title-text",
+                    "exists": true,
+                    "value": "rgb(33, 31, 27)"
+                  },
+                  {
+                    "uid": "latency-title-text",
+                    "exists": true,
+                    "value": "rgb(33, 31, 27)"
+                  }
+                ]
+              }
+            }
+          },
+          "plan": {
+            "version": "2.0",
+            "site": {
+              "hostname": "127.0.0.1",
+              "pathname": "/dashboard",
+              "urlPattern": "127.0.0.1/dashboard"
+            },
+            "sourcePrompt": "Change this element text color to green.",
+            "selections": [
+              {
+                "id": "sel_1",
+                "tag": "span",
+                "text": "Revenue"
+              }
+            ],
+            "targetMap": {
+              "selected_label": {
+                "source": "selection",
+                "selectionRef": "sel_1",
+                "selectors": [
+                  "[data-uid=\"revenue-title-text\"]"
+                ],
+                "fallbackSelectors": [
+                  "main:nth-of-type(1) > section:nth-of-type(2) > article:nth-of-type(1) > h2:nth-of-type(1) > span:nth-of-type(1)"
+                ]
+              }
+            },
+            "rules": [
+              {
+                "id": "green-label",
+                "type": "style",
+                "targetRef": "selected_label",
+                "styles": {
+                  "color": "green"
+                }
+              }
+            ]
+          },
+          "validation": {
+            "ok": true,
+            "errors": []
+          },
+          "applyResult": {
+            "totalMatched": 1,
+            "cssRuleCount": 0,
+            "targetCssRuleCount": 1
+          },
+          "selectionCount": 1,
+          "pageNodeCount": 15,
+          "executionMode": "injected-perso-scripts",
+          "consoleMessages": [
+            {
+              "type": "error",
+              "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+            }
+          ]
+        },
+        {
+          "taskId": "easy-selected-hide",
+          "tier": "easy",
+          "score": 0.235,
+          "passed": false,
+          "durationMs": 8922,
+          "grade": {
+            "score": 0.235,
+            "passed": false,
+            "planGrade": {
+              "score": 0.4,
+              "passed": false,
+              "validation": {
+                "ok": false,
+                "errors": [
+                  "Rule 0 has unsupported visibility action."
+                ]
+              },
+              "expectation": {
+                "score": 0.5,
+                "notes": [
+                  "matched intended target",
+                  "did not use expected hide action"
+                ],
+                "targetHit": true,
+                "forbiddenHit": false
+              },
+              "targetMatches": {
+                "promo_section": {
+                  "selectors": [
+                    "section[aria-label=\"Upgrade promotion\"]"
+                  ],
+                  "usedFallback": false,
+                  "uids": [
+                    "promo-banner"
+                  ],
+                  "sampleText": [
+                    "Upgrade today to unlock forecasts"
+                  ]
+                }
+              }
+            },
+            "actual": {
+              "score": 0.1,
+              "notes": [
+                "browser target is still visible",
+                "browser forbidden nodes remain visible"
+              ],
+              "targetHit": false,
+              "forbiddenHit": false,
+              "details": {
+                "targetVisibility": [
+                  {
+                    "uid": "promo-banner",
+                    "exists": true,
+                    "hidden": false
+                  },
+                  {
+                    "uid": "promo-banner-copy",
+                    "exists": true,
+                    "hidden": false
+                  }
+                ],
+                "forbiddenVisibility": [
+                  {
+                    "uid": "revenue-card",
+                    "exists": true,
+                    "hidden": false
+                  },
+                  {
+                    "uid": "churn-card",
+                    "exists": true,
+                    "hidden": false
+                  }
+                ]
+              }
+            }
+          },
+          "plan": {
+            "version": "2.0",
+            "site": {
+              "hostname": "127.0.0.1",
+              "pathname": "/dashboard",
+              "urlPattern": "127.0.0.1/dashboard"
+            },
+            "sourcePrompt": "Delete this element.",
+            "selections": [
+              {
+                "id": "sel_1",
+                "tag": "p",
+                "text": "Upgrade today to unlock forecasts"
+              }
+            ],
+            "targetMap": {
+              "promo_section": {
+                "source": "selection",
+                "selectionRef": "sel_1",
+                "selectors": [
+                  "section[aria-label=\"Upgrade promotion\"]"
+                ],
+                "fallbackSelectors": [
+                  "section.promo",
+                  "[data-testid=\"promo-banner\"]"
+                ]
+              }
+            },
+            "rules": [
+              {
+                "id": "delete-promo-section",
+                "type": "visibility",
+                "targetRef": "promo_section",
+                "visible": false
+              }
+            ]
+          },
+          "validation": {
+            "ok": true,
+            "errors": []
+          },
+          "applyResult": {
+            "totalMatched": 1,
+            "cssRuleCount": 0,
+            "targetCssRuleCount": 0
+          },
+          "selectionCount": 1,
+          "pageNodeCount": 15,
+          "executionMode": "injected-perso-scripts",
+          "consoleMessages": []
+        },
+        {
+          "taskId": "medium-docs-remove-gallery",
+          "tier": "medium",
+          "score": 1,
+          "passed": true,
+          "durationMs": 29285,
+          "grade": {
+            "score": 1,
+            "passed": true,
+            "planGrade": {
+              "score": 1,
+              "passed": true,
+              "validation": {
+                "ok": true,
+                "errors": []
+              },
+              "expectation": {
+                "score": 1,
+                "notes": [
+                  "matched intended target",
+                  "used a hide operation"
+                ],
+                "targetHit": true,
+                "forbiddenHit": false
+              },
+              "targetMatches": {
+                "template_gallery": {
+                  "selectors": [
+                    "section.docs-homescreen-item-section.docs-template-gallery"
+                  ],
+                  "usedFallback": false,
+                  "uids": [
+                    "template-gallery"
+                  ],
+                  "sampleText": [
+                    "Template gallery Blank Resume Project proposal"
+                  ]
+                }
+              }
+            },
+            "actual": {
+              "score": 1,
+              "notes": [
+                "browser target is hidden",
+                "browser forbidden nodes remain visible"
+              ],
+              "targetHit": true,
+              "forbiddenHit": false,
+              "details": {
+                "targetVisibility": [
+                  {
+                    "uid": "template-gallery",
+                    "exists": true,
+                    "hidden": true
+                  },
+                  {
+                    "uid": "template-gallery-list",
+                    "exists": true,
+                    "hidden": true
+                  }
+                ],
+                "forbiddenVisibility": [
+                  {
+                    "uid": "blank-document-button",
+                    "exists": true,
+                    "hidden": false
+                  },
+                  {
+                    "uid": "recent-docs-list",
+                    "exists": true,
+                    "hidden": false
+                  }
+                ]
+              }
+            }
+          },
+          "plan": {
+            "version": "2.0",
+            "site": {
+              "hostname": "127.0.0.1",
+              "pathname": "/docs",
+              "urlPattern": "127.0.0.1/docs*"
+            },
+            "sourcePrompt": "Remove the model gallery, I never use it, I am always starting from a new document.",
+            "selections": [],
+            "targetMap": {
+              "template_gallery": {
+                "source": "inferred",
+                "selectors": [
+                  "section.docs-homescreen-item-section.docs-template-gallery"
+                ],
+                "fallbackSelectors": [
+                  "#docs-homescreen > section:nth-child(2)"
+                ]
+              }
+            },
+            "rules": [
+              {
+                "id": "hide-template-gallery",
+                "type": "style",
+                "targetRef": "template_gallery",
+                "styles": {
+                  "display": "none"
+                }
+              }
+            ]
+          },
+          "validation": {
+            "ok": true,
+            "errors": []
+          },
+          "applyResult": {
+            "totalMatched": 1,
+            "cssRuleCount": 0,
+            "targetCssRuleCount": 1
+          },
+          "selectionCount": 0,
+          "pageNodeCount": 8,
+          "executionMode": "injected-perso-scripts",
+          "consoleMessages": []
+        },
+        {
+          "taskId": "medium-youtube-hide-creator-typo",
+          "tier": "medium",
+          "score": 0.091,
+          "passed": false,
+          "durationMs": 8297,
+          "grade": {
+            "score": 0.091,
+            "passed": false,
+            "planGrade": {
+              "score": 0.08,
+              "passed": false,
+              "validation": {
+                "ok": false,
+                "errors": [
+                  "Rule 0 has unsupported visibility action.",
+                  "Target mark_rober_video has unsupported or invalid selector article.ytd-rich-item-renderer:has([class*=\"channel-name\"]:is(:contains(\"Mark Rober\")))."
+                ]
+              },
+              "expectation": {
+                "score": 0.1,
+                "notes": [
+                  "did not match intended target",
+                  "did not use expected hide action"
+                ],
+                "targetHit": false,
+                "forbiddenHit": false
+              },
+              "targetMatches": {
+                "mark_rober_video": {
+                  "selectors": [
+                    "article.ytd-rich-item-renderer:has([class*=\"channel-name\"]:is(:contains(\"Mark Rober\")))"
+                  ],
+                  "usedFallback": false,
+                  "uids": [],
+                  "sampleText": []
+                }
+              }
+            },
+            "actual": {
+              "score": 0.1,
+              "notes": [
+                "browser target is still visible",
+                "browser forbidden nodes remain visible"
+              ],
+              "targetHit": false,
+              "forbiddenHit": false,
+              "details": {
+                "targetVisibility": [
+                  {
+                    "uid": "video-mark-rober-card",
+                    "exists": true,
+                    "hidden": false
+                  },
+                  {
+                    "uid": "video-mark-rober-link",
+                    "exists": true,
+                    "hidden": false
+                  },
+                  {
+                    "uid": "video-mark-rober-channel",
+                    "exists": true,
+                    "hidden": false
+                  }
+                ],
+                "forbiddenVisibility": [
+                  {
+                    "uid": "video-cooking-card",
+                    "exists": true,
+                    "hidden": false
+                  },
+                  {
+                    "uid": "video-rocket-card",
+                    "exists": true,
+                    "hidden": false
+                  },
+                  {
+                    "uid": "video-mkbhd-card",
+                    "exists": true,
+                    "hidden": false
+                  }
+                ]
+              }
+            }
+          },
+          "plan": {
+            "version": "2.0",
+            "site": {
+              "hostname": "127.0.0.1",
+              "pathname": "/youtube",
+              "urlPattern": "127.0.0.1/youtube/*"
+            },
+            "sourcePrompt": "I don't want to see the video of Mark Ruber in my feed.",
+            "selections": [],
+            "targetMap": {
+              "mark_rober_video": {
+                "source": "inferred",
+                "selectors": [
+                  "article.video-card:has(a[ariaLabel*=\"Mark Rober\"])"
+                ],
+                "fallbackSelectors": [
+                  "article.ytd-rich-item-renderer:has([class*=\"channel-name\"]:is(:contains(\"Mark Rober\")))"
+                ]
+              }
+            },
+            "rules": [
+              {
+                "id": "hide-mark-rober-video",
+                "type": "visibility",
+                "targetRef": "mark_rober_video",
+                "visibility": "hidden"
+              }
+            ]
+          },
+          "validation": {
+            "ok": true,
+            "errors": []
+          },
+          "applyResult": {
+            "totalMatched": 0,
+            "cssRuleCount": 0,
+            "targetCssRuleCount": 0
+          },
+          "selectionCount": 0,
+          "pageNodeCount": 14,
+          "executionMode": "injected-perso-scripts",
+          "consoleMessages": []
+        },
+        {
+          "taskId": "hard-youtube-stop-scroll",
+          "tier": "hard",
+          "score": 0.265,
+          "passed": false,
+          "durationMs": 16020,
+          "grade": {
+            "score": 0.265,
+            "passed": false,
+            "planGrade": {
+              "score": 0.16,
+              "passed": false,
+              "validation": {
+                "ok": false,
+                "errors": [
+                  "Rule 0 has unsupported visibility action.",
+                  "Target all_video_cards_except_first has unsupported or invalid selector main#contents > article.video-card:not(:first-child).",
+                  "Target all_video_cards_except_first has unsupported or invalid selector article.video-card ~ article.video-card."
+                ]
+              },
+              "expectation": {
+                "score": 0.2,
+                "notes": [
+                  "no clear scroll lock",
+                  "does not target page/feed level",
+                  "does not hide the first video"
+                ],
+                "targetHit": false,
+                "forbiddenHit": false
+              },
+              "targetMatches": {
+                "all_video_cards_except_first": {
+                  "selectors": [
+                    "article.video-card ~ article.video-card"
+                  ],
+                  "usedFallback": false,
+                  "uids": [],
+                  "sampleText": []
+                }
+              }
+            },
+            "actual": {
+              "score": 0.35,
+              "notes": [
+                "browser can still scroll",
+                "first video remains visible"
+              ],
+              "targetHit": false,
+              "forbiddenHit": false,
+              "details": {
+                "scrollY": 576,
+                "bodyOverflow": "visible",
+                "htmlOverflow": "visible",
+                "firstVisible": true
+              }
+            }
+          },
+          "plan": {
+            "version": "2.0",
+            "site": {
+              "hostname": "127.0.0.1",
+              "pathname": "/youtube",
+              "urlPattern": "127.0.0.1/youtube"
+            },
+            "sourcePrompt": "I am spending too much time on YouTube. I don't want to be able to scroll anymore; I just want to see the first video that appears when I load the page.",
+            "selections": [],
+            "targetMap": {
+              "all_video_cards_except_first": {
+                "source": "inferred",
+                "description": "All video article cards except the first one, which should be hidden to prevent scrolling past it.",
+                "selectors": [
+                  "main#contents > article.video-card:not(:first-child)"
+                ],
+                "fallbackSelectors": [
+                  "article.video-card ~ article.video-card"
+                ]
+              }
+            },
+            "rules": [
+              {
+                "id": "hide-extra-videos",
+                "type": "visibility",
+                "targetRef": "all_video_cards_except_first",
+                "visible": false
+              }
+            ]
+          },
+          "validation": {
+            "ok": true,
+            "errors": []
+          },
+          "applyResult": {
+            "totalMatched": 4,
+            "cssRuleCount": 0,
+            "targetCssRuleCount": 0
+          },
+          "selectionCount": 0,
+          "pageNodeCount": 14,
+          "executionMode": "injected-perso-scripts",
+          "consoleMessages": []
+        },
+        {
+          "taskId": "hard-one-piece-theme",
+          "tier": "hard",
+          "score": 0.818,
+          "passed": true,
+          "durationMs": 12970,
+          "grade": {
+            "score": 0.818,
+            "passed": true,
+            "planGrade": {
+              "score": 0.84,
+              "passed": true,
+              "validation": {
+                "ok": true,
+                "errors": []
+              },
+              "expectation": {
+                "score": 0.8,
+                "notes": [
+                  "has multiple rules",
+                  "uses visual style changes",
+                  "theme keywords: one piece"
+                ],
+                "targetHit": true,
+                "forbiddenHit": false
+              },
+              "targetMatches": {
+                "page_background": {
+                  "selectors": [
+                    "body"
+                  ],
+                  "usedFallback": false,
+                  "uids": [
+                    "youtube-root"
+                  ],
+                  "sampleText": [
+                    "FixtureTube"
+                  ]
+                },
+                "video_titles": {
+                  "selectors": [
+                    "#video-title",
+                    "#video-title-link",
+                    "a.yt-simple-endpoint"
+                  ],
+                  "usedFallback": false,
+                  "uids": [
+                    "video-first-link",
+                    "video-mark-rober-link"
+                  ],
+                  "sampleText": [
+                    "Backyard Squirrel Maze",
+                    "World's Smallest Nerf Gun"
+                  ]
+                },
+                "channel_names": {
+                  "selectors": [
+                    ".channel-name"
+                  ],
+                  "usedFallback": false,
+                  "uids": [
+                    "video-first-channel",
+                    "video-mark-rober-channel",
+                    "video-cooking-channel",
+                    "video-rocket-channel",
+                    "video-mkbhd-channel"
+                  ],
+                  "sampleText": [
+                    "Nature Lab",
+                    "Mark Rober",
+                    "Kitchen Daily",
+                    "Everyday Astronaut",
+                    "Marques Brownlee"
+                  ]
+                },
+                "video_cards": {
+                  "selectors": [
+                    "article.video-card"
+                  ],
+                  "usedFallback": false,
+                  "uids": [
+                    "video-first-card",
+                    "video-mark-rober-card",
+                    "video-cooking-card",
+                    "video-rocket-card",
+                    "video-mkbhd-card"
+                  ],
+                  "sampleText": [
+                    "Backyard Squirrel Maze Nature Lab",
+                    "World's Smallest Nerf Gun Mark Rober",
+                    "Perfect pasta Kitchen Daily",
+                    "Engineering a rocket Everyday Astronaut",
+                    "Phone awards Marques Brownlee"
+                  ]
+                }
+              }
+            },
+            "actual": {
+              "score": 0.8,
+              "notes": [
+                "browser has visual CSS changes",
+                "13 nodes marked as changed",
+                "theme keywords: one piece"
+              ],
+              "targetHit": true,
+              "forbiddenHit": false,
+              "details": {
+                "styledCount": 13,
+                "styleTextSample": "\n      :root {\n        color-scheme: light;\n        --bg: #f7f4ee;\n        --ink: #211f1b;\n        --muted: #676157;\n        --panel: #ffffff;\n        --line: #d8d0c0;\n        --accent: #0f766e;\n      }\n      * { box-sizing: border-box; }\n      body {\n        margin: 0;\n        min-height: 180vh;\n        font-family: inter, ui-sans-serif, system-ui, -apple-system, blinkmacsystemfont, \"segoe ui\", sans-serif;\n        color: var(--ink);\n        background: var(--bg);\n      }\n      main, section, article, header {\n        display: block;\n      }\n      .fixture-shell {\n        width: min(1120px, calc(100vw - 32px));\n        margin: 0 auto;\n        padding: 32px 0 80px;\n      }\n      .dashboard-shell, .docs-homescreen, .fixturetube {\n        width: min(1120px, calc(100vw - 32px));\n        margin: 0 auto;\n        padding: 32px 0 80px;\n      }\n      .promo {\n        border: 1px solid var(--line);\n        border-radius: 8px;\n        background: #e8f4f1;\n        padding: 20px;\n        margin-bot",
+                "hasVisualCss": true
+              }
+            }
+          },
+          "plan": {
+            "version": "2.0",
+            "site": {
+              "hostname": "127.0.0.1",
+              "pathname": "/youtube",
+              "urlPattern": "127.0.0.1/youtube"
+            },
+            "sourcePrompt": "Give a One Piece theme to my YouTube page.",
+            "selections": [],
+            "targetMap": {
+              "page_background": {
+                "source": "inferred",
+                "selectors": [
+                  "body"
+                ],
+                "fallbackSelectors": [
+                  "#contents"
+                ]
+              },
+              "video_titles": {
+                "source": "inferred",
+                "selectors": [
+                  "#video-title",
+                  "#video-title-link",
+                  "a.yt-simple-endpoint"
+                ],
+                "fallbackSelectors": [
+                  "article.video-card a[href]"
+                ]
+              },
+              "channel_names": {
+                "source": "inferred",
+                "selectors": [
+                  ".channel-name"
+                ],
+                "fallbackSelectors": [
+                  "a.channel-name"
+                ]
+              },
+              "video_cards": {
+                "source": "inferred",
+                "selectors": [
+                  "article.video-card"
+                ],
+                "fallbackSelectors": [
+                  ".ytd-rich-item-renderer"
+                ]
+              }
+            },
+            "rules": [
+              {
+                "id": "one-piece-bg",
+                "type": "style",
+                "targetRef": "page_background",
+                "styles": {
+                  "backgroundColor": "#001f3d",
+                  "color": "#ffffff"
+                }
+              },
+              {
+                "id": "video-title-style",
+                "type": "style",
+                "targetRef": "video_titles",
+                "styles": {
+                  "color": "#FFD700",
+                  "fontFamily": "Georgia, serif",
+                  "fontWeight": "bold"
+                }
+              },
+              {
+                "id": "channel-name-style",
+                "type": "style",
+                "targetRef": "channel_names",
+                "styles": {
+                  "color": "#FF6347",
+                  "fontFamily": "Georgia, serif"
+                }
+              },
+              {
+                "id": "video-card-border",
+                "type": "style",
+                "targetRef": "video_cards",
+                "styles": {
+                  "border": "2px solid #FFD700",
+                  "borderRadius": "8px"
+                }
+              }
+            ]
+          },
+          "validation": {
+            "ok": true,
+            "errors": []
+          },
+          "applyResult": {
+            "totalMatched": 13,
+            "cssRuleCount": 0,
+            "targetCssRuleCount": 4
+          },
+          "selectionCount": 0,
+          "pageNodeCount": 14,
+          "executionMode": "injected-perso-scripts",
+          "consoleMessages": []
+        }
+      ]
+    }
+  ]
+}

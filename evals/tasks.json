@@ -1,0 +1,75 @@
+[
+  {
+    "id": "easy-selected-color",
+    "tier": "easy",
+    "pageId": "dashboard",
+    "prompt": "Change this element text color to green.",
+    "selectionUid": "revenue-title-text",
+    "expect": {
+      "kind": "style",
+      "property": "color",
+      "valueIncludes": ["green", "#008000", "rgb(0, 128, 0)", "#16a34a"],
+      "targetUids": ["revenue-title-text", "revenue-title", "revenue-card"],
+      "forbiddenUids": ["churn-title-text", "latency-title-text"]
+    }
+  },
+  {
+    "id": "easy-selected-hide",
+    "tier": "easy",
+    "pageId": "dashboard",
+    "prompt": "Delete this element.",
+    "selectionUid": "promo-banner-copy",
+    "expect": {
+      "kind": "visibility",
+      "action": "hide",
+      "targetUids": ["promo-banner", "promo-banner-copy"],
+      "forbiddenUids": ["revenue-card", "churn-card"]
+    }
+  },
+  {
+    "id": "medium-docs-remove-gallery",
+    "tier": "medium",
+    "pageId": "docs-home",
+    "prompt": "Remove the model gallery, I never use it, I am always starting from a new document.",
+    "expect": {
+      "kind": "visibility",
+      "action": "hide",
+      "targetUids": ["template-gallery", "template-gallery-list"],
+      "forbiddenUids": ["blank-document-button", "recent-docs-list"]
+    }
+  },
+  {
+    "id": "medium-youtube-hide-creator-typo",
+    "tier": "medium",
+    "pageId": "youtube-feed",
+    "prompt": "I don't want to see the video of Mark Ruber in my feed.",
+    "expect": {
+      "kind": "visibility",
+      "action": "hide",
+      "targetUids": ["video-mark-rober-card", "video-mark-rober-link", "video-mark-rober-channel"],
+      "forbiddenUids": ["video-cooking-card", "video-rocket-card", "video-mkbhd-card"]
+    }
+  },
+  {
+    "id": "hard-youtube-stop-scroll",
+    "tier": "hard",
+    "pageId": "youtube-feed",
+    "prompt": "I am spending too much time on YouTube. I don't want to be able to scroll anymore; I just want to see the first video that appears when I load the page.",
+    "expect": {
+      "kind": "scrollLock",
+      "targetUids": ["feed-root", "video-first-card"],
+      "forbiddenUids": ["video-first-card"]
+    }
+  },
+  {
+    "id": "hard-one-piece-theme",
+    "tier": "hard",
+    "pageId": "youtube-feed",
+    "prompt": "Give a One Piece theme to my YouTube page.",
+    "expect": {
+      "kind": "theme",
+      "minRuleCount": 3,
+      "keywords": ["one piece", "pirate", "straw", "ship", "ocean", "treasure", "wanted", "luffy"]
+    }
+  }
+]

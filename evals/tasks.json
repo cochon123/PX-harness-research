@@ -3,6 +3,8 @@
     "id": "easy-selected-color",
     "tier": "easy",
     "pageId": "dashboard",
+    "what": "Selected-element style edit with blast-radius protection on repeated KPI title classes.",
+    "tags": ["selection", "style", "blast-radius"],
     "prompt": "Change this element text color to green.",
     "selectionUid": "revenue-title-text",
     "expect": {
@@ -17,6 +19,8 @@
     "id": "easy-selected-hide",
     "tier": "easy",
     "pageId": "dashboard",
+    "what": "Selected-element removal where the target is nested text inside a larger banner.",
+    "tags": ["selection", "visibility"],
     "prompt": "Delete this element.",
     "selectionUid": "promo-banner-copy",
     "expect": {
@@ -27,9 +31,102 @@
     }
   },
   {
+    "id": "easy-selected-card-background",
+    "tier": "easy",
+    "pageId": "dashboard",
+    "what": "Selected card background change without changing sibling cards sharing the same class.",
+    "tags": ["selection", "style", "blast-radius"],
+    "prompt": "Make this selected card background blue.",
+    "selectionUid": "churn-card",
+    "expect": {
+      "kind": "style",
+      "property": "backgroundColor",
+      "valueIncludes": ["blue", "rgb(0, 0, 255)", "rgb(59, 130, 246)", "#3b82f6", "#0000ff"],
+      "targetUids": ["churn-card"],
+      "forbiddenUids": ["revenue-card", "latency-card", "warning-card"]
+    }
+  },
+  {
+    "id": "easy-docs-selected-button-color",
+    "tier": "easy",
+    "pageId": "docs-home",
+    "what": "Selected button style edit on a docs-like home screen.",
+    "tags": ["selection", "style"],
+    "prompt": "Make this button background purple.",
+    "selectionUid": "blank-document-button",
+    "expect": {
+      "kind": "style",
+      "property": "backgroundColor",
+      "valueIncludes": ["purple", "rgb(128, 0, 128)", "rgb(147, 51, 234)", "#9333ea", "#800080"],
+      "targetUids": ["blank-document-button"],
+      "forbiddenUids": ["template-gallery", "recent-docs-list"]
+    }
+  },
+  {
+    "id": "easy-youtube-selected-channel-color",
+    "tier": "easy",
+    "pageId": "youtube-feed",
+    "what": "Selected channel-name style edit where several links share the same channel-name class.",
+    "tags": ["selection", "style", "blast-radius"],
+    "prompt": "Change this channel name to green.",
+    "selectionUid": "video-mark-rober-channel",
+    "expect": {
+      "kind": "style",
+      "property": "color",
+      "valueIncludes": ["green", "#008000", "rgb(0, 128, 0)", "#16a34a"],
+      "targetUids": ["video-mark-rober-channel"],
+      "forbiddenUids": ["video-first-channel", "video-cooking-channel", "video-rocket-channel", "video-mkbhd-channel", "video-sponsored-channel"]
+    }
+  },
+  {
+    "id": "easy-youtube-selected-card-hide",
+    "tier": "easy",
+    "pageId": "youtube-feed",
+    "what": "Selected video-card hide without hiding all cards that share YouTube-like classes.",
+    "tags": ["selection", "visibility", "blast-radius"],
+    "prompt": "Hide this video.",
+    "selectionUid": "video-cooking-card",
+    "expect": {
+      "kind": "visibility",
+      "action": "hide",
+      "targetUids": ["video-cooking-card"],
+      "forbiddenUids": ["video-first-card", "video-mark-rober-card", "video-rocket-card", "video-mkbhd-card", "video-sponsored-card"]
+    }
+  },
+  {
+    "id": "medium-dashboard-hide-warning",
+    "tier": "medium",
+    "pageId": "dashboard",
+    "what": "Semantic request to hide a warning card without a pasted element.",
+    "tags": ["semantic", "visibility"],
+    "prompt": "Hide the warning about sync failures.",
+    "expect": {
+      "kind": "visibility",
+      "action": "hide",
+      "targetUids": ["warning-card", "warning-copy"],
+      "forbiddenUids": ["promo-banner", "revenue-card", "churn-card", "latency-card"]
+    }
+  },
+  {
+    "id": "medium-docs-remove-recent",
+    "tier": "medium",
+    "pageId": "docs-home",
+    "what": "Semantic request to remove a docs section identified by visible meaning.",
+    "tags": ["semantic", "visibility"],
+    "prompt": "Remove the recent documents section. I only want the new document controls.",
+    "expect": {
+      "kind": "visibility",
+      "action": "hide",
+      "targetUids": ["recent-docs-list"],
+      "forbiddenUids": ["blank-document-button", "template-gallery"]
+    }
+  },
+  {
     "id": "medium-docs-remove-gallery",
     "tier": "medium",
     "pageId": "docs-home",
+    "what": "Semantic request on a Google-Docs-like DOM where the useful label is text/ARIA, not a clean class.",
+    "tags": ["semantic", "visibility"],
     "prompt": "Remove the model gallery, I never use it, I am always starting from a new document.",
     "expect": {
       "kind": "visibility",
@@ -42,6 +139,8 @@
     "id": "medium-youtube-hide-creator-typo",
     "tier": "medium",
     "pageId": "youtube-feed",
+    "what": "Creator filtering with a typo in the requested channel name.",
+    "tags": ["semantic", "typo", "visibility"],
     "prompt": "I don't want to see the video of Mark Ruber in my feed.",
     "expect": {
       "kind": "visibility",
@@ -51,9 +150,54 @@
     }
   },
   {
+    "id": "medium-youtube-hide-rocket-title",
+    "tier": "medium",
+    "pageId": "youtube-feed",
+    "what": "Hide a video by title keyword while keeping unrelated videos visible.",
+    "tags": ["semantic", "text-match", "visibility"],
+    "prompt": "Hide videos about rockets from my feed.",
+    "expect": {
+      "kind": "visibility",
+      "action": "hide",
+      "targetUids": ["video-rocket-card", "video-rocket-link"],
+      "forbiddenUids": ["video-first-card", "video-mark-rober-card", "video-cooking-card", "video-mkbhd-card", "video-sponsored-card"]
+    }
+  },
+  {
+    "id": "medium-youtube-hide-sponsored",
+    "tier": "medium",
+    "pageId": "youtube-feed",
+    "what": "Hide sponsored content by semantic label/data attribute without hiding organic videos.",
+    "tags": ["semantic", "ads", "visibility"],
+    "prompt": "I don't want to see sponsored content anymore.",
+    "expect": {
+      "kind": "visibility",
+      "action": "hide",
+      "targetUids": ["video-sponsored-card", "video-sponsored-badge"],
+      "forbiddenUids": ["video-first-card", "video-mark-rober-card", "video-cooking-card", "video-rocket-card", "video-mkbhd-card"]
+    }
+  },
+  {
+    "id": "medium-selected-warning-remove-vague",
+    "tier": "medium",
+    "pageId": "dashboard",
+    "what": "Vague selected-element removal phrasing.",
+    "tags": ["selection", "vague", "visibility"],
+    "prompt": "Get rid of this card.",
+    "selectionUid": "warning-card",
+    "expect": {
+      "kind": "visibility",
+      "action": "hide",
+      "targetUids": ["warning-card"],
+      "forbiddenUids": ["promo-banner", "revenue-card", "churn-card", "latency-card"]
+    }
+  },
+  {
     "id": "hard-youtube-stop-scroll",
     "tier": "hard",
     "pageId": "youtube-feed",
+    "what": "Behavioral page modification: prevent feed scrolling while preserving the first item.",
+    "tags": ["behavior", "scroll"],
     "prompt": "I am spending too much time on YouTube. I don't want to be able to scroll anymore; I just want to see the first video that appears when I load the page.",
     "expect": {
       "kind": "scrollLock",
@@ -65,6 +209,8 @@
     "id": "hard-one-piece-theme",
     "tier": "hard",
     "pageId": "youtube-feed",
+    "what": "Large visual/theme edit with loose but inspectable criteria.",
+    "tags": ["theme", "visual"],
     "prompt": "Give a One Piece theme to my YouTube page.",
     "expect": {
       "kind": "theme",

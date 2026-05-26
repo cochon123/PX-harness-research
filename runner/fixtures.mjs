@@ -65,6 +65,21 @@ export const pages = {
             el("latency-title-text", "span", { classes: ["metric-title-text"], text: "Latency" })
           ])
         ])
+      ]),
+      el("warning-card", "article", {
+        classes: ["metric-card", "warning-card"],
+        role: "status",
+        attrs: { "data-testid": "sync-warning", "aria-label": "Sync warning" },
+        text: "Warning Sync failures detected in the billing pipeline",
+        bounds: { width: 760, height: 120 }
+      }, [
+        el("warning-title", "h2", { classes: ["metric-title"], text: "Warning" }, [
+          el("warning-title-text", "span", { classes: ["metric-title-text"], text: "Warning" })
+        ]),
+        el("warning-copy", "p", {
+          classes: ["warning-copy"],
+          text: "Sync failures detected in the billing pipeline"
+        })
       ])
     ])
   },
@@ -153,6 +168,7 @@ export const pages = {
           attrs: { "data-channel": "Everyday Astronaut" },
           text: "Engineering a rocket Everyday Astronaut"
         }, [
+          el("video-rocket-link", "a", { id: "rocket-video-title", classes: ["yt-simple-endpoint"], text: "Engineering a rocket" }),
           el("video-rocket-channel", "a", { classes: ["channel-name"], text: "Everyday Astronaut" })
         ]),
         el("video-mkbhd-card", "article", {
@@ -161,6 +177,15 @@ export const pages = {
           text: "Phone awards Marques Brownlee"
         }, [
           el("video-mkbhd-channel", "a", { classes: ["channel-name"], text: "Marques Brownlee" })
+        ]),
+        el("video-sponsored-card", "article", {
+          classes: ["ytd-rich-item-renderer", "video-card", "sponsored-card"],
+          attrs: { "data-channel": "CloudDesk", "data-sponsored": "true", "aria-label": "Sponsored video from CloudDesk" },
+          text: "Sponsored CloudDesk AI tool CloudDesk"
+        }, [
+          el("video-sponsored-badge", "span", { classes: ["sponsor-badge"], text: "Sponsored" }),
+          el("video-sponsored-link", "a", { id: "sponsored-video-title", classes: ["yt-simple-endpoint"], text: "CloudDesk AI tool" }),
+          el("video-sponsored-channel", "a", { classes: ["channel-name"], text: "CloudDesk" })
         ])
       ])
     ])
@@ -182,4 +207,3 @@ export function getPage(pageId) {
   const nodes = flatten(page.root);
   return { ...page, nodes };
 }
-

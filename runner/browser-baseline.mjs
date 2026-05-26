@@ -1,4 +1,4 @@
-import { existsSync, mkdirSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { chromium } from "playwright";
@@ -22,6 +22,8 @@ const BROWSER_PATH = findBrowserPath();
 const args = parseArgs(process.argv.slice(2));
 const RUN_COUNT = Number(args.runs || 1);
 const SCREENSHOT_DIR = "reports/browser-screenshots";
+const SKIP_PASS_RATE = args["skip-pass-rate"] ? Number(args["skip-pass-rate"]) : null;
+const SKIP_SOURCE = args["skip-source"] || "reports/browser-baseline.json";
 
 const routesByPageId = {
   dashboard: "/dashboard",
@@ -31,8 +33,14 @@ const routesByPageId = {
 
 const server = await startWebZooServer();
 const userDataDir = join(tmpdir(), `px-harness-chrome-${Date.now()}`);
+const skipPlan = buildSkipPlan(tasks, { threshold: SKIP_PASS_RATE, sourcePath: SKIP_SOURCE });
+const runnableTasks = tasks.filter((task) => !skipPlan.ids.has(task.id));
 mkdirSync(userDataDir, { recursive: true });
+if (!args["keep-screenshots"]) rmSync(SCREENSHOT_DIR, { recursive: true, force: true });
 mkdirSync(SCREENSHOT_DIR, { recursive: true });
+if (skipPlan.skipped.length) {
+  console.log(`[browser-baseline] skipping ${skipPlan.skipped.length} task(s) at pass-rate >= ${formatScore(SKIP_PASS_RATE)} from ${SKIP_SOURCE}`);
+}
 
 let context;
 try {
@@ -50,14 +58,14 @@ try {
   const extensionAvailable = await detectExtensionSupport(context);
   const runs = [];
   for (let runIndex = 0; runIndex < RUN_COUNT; runIndex += 1) {
-    const run = await runBrowserSuite(context, server.origin, { extensionAvailable, runIndex });
+    const run = await runBrowserSuite(context, server.origin, { extensionAvailable, runIndex, runnableTasks });
     runs.push(run);
-    const partial = finalize(runs);
+    const partial = finalize(runs, skipPlan);
     writeFileSync("reports/browser-baseline.json", JSON.stringify(partial, null, 2));
     writeReports(partial, "reports/browser-baseline");
     console.log(`[browser-baseline] ${run.label}: ${formatScore(run.averageScore)}`);
   }
-  const result = finalize(runs);
+  const result = finalize(runs, skipPlan);
   writeFileSync("reports/browser-baseline.json", JSON.stringify(result, null, 2));
   writeReports(result, "reports/browser-baseline");
   console.log(`[browser-baseline] low reasoning average: ${formatScore(result.summary.lowThinkingScore)}`);
@@ -68,7 +76,7 @@ try {
   rmSync(userDataDir, { recursive: true, force: true });
 }
 
-async function runBrowserSuite(browserContext, origin, { extensionAvailable, runIndex }) {
+async function runBrowserSuite(browserContext, origin, { extensionAvailable, runIndex, runnableTasks }) {
   const page = await browserContext.newPage();
   const cdp = await browserContext.newCDPSession(page);
   const contextIds = new Set();
@@ -78,17 +86,20 @@ async function runBrowserSuite(browserContext, origin, { extensionAvailable, run
   await cdp.send("Runtime.enable");
 
   const taskResults = [];
-  for (const task of tasks) {
+  for (const task of runnableTasks) {
     const fixturePage = getPage(task.pageId);
     const url = `${origin}${routesByPageId[task.pageId]}`;
     const startedAt = Date.now();
     const consoleMessages = [];
+    let beforeScreenshotPath = null;
     page.on("console", (message) => {
       consoleMessages.push({ type: message.type(), text: message.text() });
     });
 
     try {
       await page.goto(url, { waitUntil: "networkidle" });
+      beforeScreenshotPath = `${SCREENSHOT_DIR}/run-${runIndex + 1}-${task.id}-before.png`;
+      await page.screenshot({ path: beforeScreenshotPath, fullPage: true });
       const generation = extensionAvailable
         ? await runWithExtensionContext(cdp, contextIds, task)
         : await runWithInjectedPersoScripts(page, task);
@@ -103,7 +114,7 @@ async function runBrowserSuite(browserContext, origin, { extensionAvailable, run
       await page.waitForTimeout(350);
       const persistence = await gradeBrowserActual({ page, task, plan: generation.plan });
       const combinedScore = roundScore((grade.score * 0.75) + (persistence.score * 0.25));
-      const screenshotPath = `${SCREENSHOT_DIR}/run-${runIndex + 1}-${task.id}.png`;
+      const screenshotPath = `${SCREENSHOT_DIR}/run-${runIndex + 1}-${task.id}-after.png`;
       await page.screenshot({ path: screenshotPath, fullPage: true });
       const diagnostics = buildTaskDiagnostics({ task, generation, grade, persistence });
       taskResults.push({
@@ -121,6 +132,7 @@ async function runBrowserSuite(browserContext, origin, { extensionAvailable, run
         selectionCount: generation.selectionCount,
         pageNodeCount: generation.pageNodeCount,
         executionMode: generation.executionMode,
+        beforeScreenshotPath,
         screenshotPath,
         consoleMessages: filterConsoleMessages(consoleMessages).slice(-20)
       });
@@ -133,6 +145,7 @@ async function runBrowserSuite(browserContext, origin, { extensionAvailable, run
         passed: false,
         durationMs: Date.now() - startedAt,
         error: error.message,
+        beforeScreenshotPath,
         consoleMessages: filterConsoleMessages(consoleMessages).slice(-20)
       });
       console.log(`  browser-low ${task.id}: ERROR ${error.message}`);
@@ -346,8 +359,29 @@ async function contentTaskRunner({ prompt, selectionUid, model }) {
   };
 }
 
-function finalize(runs) {
+function finalize(runs, skipPlan = { skipped: [] }) {
   const taskAverages = tasks.map((task) => {
+    const skipped = skipPlan.skipped.find((item) => item.id === task.id);
+    if (skipped) {
+      return {
+        id: task.id,
+        tier: task.tier,
+        what: task.what || "",
+        tags: task.tags || [],
+        skipped: true,
+        skipReason: skipped.reason,
+        previousPassRate: skipped.previousPassRate,
+        noThinkingAverage: null,
+        lowThinkingScore: null,
+        minScore: null,
+        maxScore: null,
+        variance: 0,
+        passRate: skipped.previousPassRate,
+        runCount: 0,
+        commonFailureReasons: [],
+        observation: skipped.reason
+      };
+    }
     const taskRuns = runs
       .map((run) => run.tasks.find((item) => item.taskId === task.id))
       .filter(Boolean);
@@ -356,10 +390,13 @@ function finalize(runs) {
     return {
       id: task.id,
       tier: task.tier,
+      what: task.what || "",
+      tags: task.tags || [],
+      skipped: false,
       noThinkingAverage: null,
       lowThinkingScore: average(scores),
-      minScore: Math.min(...scores),
-      maxScore: Math.max(...scores),
+      minScore: scores.length ? Math.min(...scores) : 0,
+      maxScore: scores.length ? Math.max(...scores) : 0,
       variance: variance(scores),
       passRate: taskRuns.length ? failed.length === 0 ? 1 : (taskRuns.length - failed.length) / taskRuns.length : 0,
       runCount: taskRuns.length,
@@ -379,6 +416,11 @@ function finalize(runs) {
       executionMode: runs[0]?.executionMode || "unknown",
       runCount: runs.length,
       taskCount: tasks.length,
+      executedTaskCount: tasks.length - skipPlan.skipped.length,
+      skippedTaskCount: skipPlan.skipped.length,
+      skippedTasks: skipPlan.skipped,
+      skipPassRate: SKIP_PASS_RATE,
+      skipSource: SKIP_SOURCE,
       extensionPath: resolve(EXTENSION_PATH)
     },
     summary: {
@@ -400,6 +442,36 @@ function finalize(runs) {
     taskAverages,
     observations: buildObservations(runs, taskAverages),
     raw: runs
+  };
+}
+
+function buildSkipPlan(allTasks, { threshold, sourcePath }) {
+  if (!Number.isFinite(threshold)) return { ids: new Set(), skipped: [] };
+  if (!existsSync(sourcePath)) {
+    console.log(`[browser-baseline] skip source not found: ${sourcePath}; running all tasks`);
+    return { ids: new Set(), skipped: [] };
+  }
+
+  const previous = JSON.parse(readFileSync(sourcePath, "utf8"));
+  const previousById = new Map((previous.taskAverages || []).map((task) => [task.id, task]));
+  const skipped = allTasks
+    .map((task) => {
+      const previousTask = previousById.get(task.id);
+      const previousPassRate = Number(previousTask?.passRate);
+      if (!Number.isFinite(previousPassRate) || previousPassRate < threshold) return null;
+      return {
+        id: task.id,
+        tier: task.tier,
+        what: task.what || "",
+        previousPassRate,
+        threshold,
+        reason: `Previous pass rate ${formatScore(previousPassRate)} is at or above skip threshold ${formatScore(threshold)}.`
+      };
+    })
+    .filter(Boolean);
+  return {
+    ids: new Set(skipped.map((task) => task.id)),
+    skipped
   };
 }
 
@@ -459,7 +531,10 @@ function buildObservations(runs, taskAverages) {
       ? "This run exercises Perso XXL content scripts, DOM context extraction, validation, and executor in a real browser on fixture pages."
       : "Chrome did not load unpacked extensions in this environment, so this run injects Perso DOM/executor scripts into Chrome pages and uses the Node planner. It tests real browser DOM execution, but not extension loading."
   ];
-  const weakest = [...taskAverages].sort((left, right) => left.lowThinkingScore - right.lowThinkingScore).slice(0, 3);
+  const weakest = taskAverages
+    .filter((task) => !task.skipped)
+    .sort((left, right) => left.lowThinkingScore - right.lowThinkingScore)
+    .slice(0, 3);
   for (const task of weakest) {
     observations.push(`${task.id} averaged ${formatScore(task.lowThinkingScore)} with ${formatScore(task.passRate)} pass rate. ${task.commonFailureReasons.join(" ") || task.observation}`);
   }
@@ -494,7 +569,7 @@ function commonFailureReasons(taskRuns) {
       ? [taskRun.error]
       : taskRun.diagnostics?.failureReasons || [];
     for (const reason of reasons) {
-      if (!reason || /browser target has expected|remain visible|scroll appears locked|first video remains visible|has visual CSS/.test(reason)) continue;
+      if (!reason || /browser target has expected|browser target is hidden|browser forbidden nodes avoided|remain visible|scroll appears locked|first video remains visible|has visual CSS/.test(reason)) continue;
       counts.set(reason, (counts.get(reason) || 0) + 1);
     }
   }

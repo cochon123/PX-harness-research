@@ -67,6 +67,11 @@ export function renderPage(pageId) {
       .metric-card.primary {
         border-color: #9ac8c1;
       }
+      .warning-card {
+        grid-column: 1 / -1;
+        border-color: #f59e0b;
+        background: #fff7ed;
+      }
       .metric-title {
         margin: 0 0 18px;
         font-size: 1.05rem;
@@ -142,6 +147,19 @@ export function renderPage(pageId) {
         color: var(--muted) !important;
         font-size: 0.92rem;
       }
+      .sponsored-card {
+        border-style: dashed;
+      }
+      .sponsor-badge {
+        display: inline-block;
+        margin-bottom: 8px;
+        border-radius: 999px;
+        background: #fef3c7;
+        color: #92400e;
+        padding: 2px 8px;
+        font-size: 0.78rem;
+        font-weight: 700;
+      }
       @media (max-width: 760px) {
         .kpi-grid, #contents, .docs-homescreen-item-grid {
           grid-template-columns: 1fr;
@@ -191,4 +209,3 @@ function escapeHtml(value) {
     .replaceAll(">", "&gt;")
     .replaceAll("\"", "&quot;");
 }
-

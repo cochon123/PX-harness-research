@@ -28,15 +28,17 @@ function renderBrowserHtml(result, outputBase) {
     <tr>
       <td>${escaped(task.id)}</td>
       <td>${escaped(task.tier)}</td>
-      <td>${percent(task.lowThinkingScore)}</td>
-      <td>${percent(task.minScore)} / ${percent(task.maxScore)}</td>
+      <td>${task.skipped ? "skipped" : percent(task.lowThinkingScore)}</td>
+      <td>${task.skipped ? "n/a" : `${percent(task.minScore)} / ${percent(task.maxScore)}`}</td>
       <td>${task.variance.toFixed(4)}</td>
       <td>${percent(task.passRate)}</td>
-      <td>${escaped(task.commonFailureReasons.join(" | ") || "none")}</td>
+      <td>${escaped(task.skipReason || task.commonFailureReasons.join(" | ") || "none")}</td>
     </tr>
   `).join("");
 
+  const reviewRows = result.taskAverages.map((task) => renderReviewRow({ task, result, outputDir })).join("");
   const detailCards = result.taskAverages.map((task) => {
+    if (task.skipped) return "";
     const runs = result.raw.map((run) => run.tasks.find((item) => item.taskId === task.id)).filter(Boolean);
     const selected = runs.find((item) => !item.passed || item.diagnostics?.forbiddenChanged?.length || item.diagnostics?.broadSelectors?.length) || runs[runs.length - 1];
     return renderTaskDetail({ task, runTask: selected, outputDir });
@@ -58,7 +60,7 @@ function renderBrowserHtml(result, outputBase) {
           <article class="card">
             <h2>Average</h2>
             <div class="metric">${percent(result.summary.lowThinkingScore)}</div>
-            <p class="muted">${escaped(result.config?.runCount || result.runs.length)} low-reasoning browser run(s).</p>
+            <p class="muted">${escaped(result.config?.runCount || result.runs.length)} low-reasoning browser run(s), ${escaped(result.config?.executedTaskCount ?? result.config?.taskCount)} executed task(s), ${escaped(result.config?.skippedTaskCount || 0)} skipped.</p>
           </article>
           <article class="card">
             <h2>Range</h2>
@@ -68,6 +70,13 @@ function renderBrowserHtml(result, outputBase) {
           <article class="card full">
             <h2>Observations</h2>
             <ul>${observations}</ul>
+          </article>
+          <article class="card full">
+            <h2>Human Review Table</h2>
+            <table class="review-table">
+              <thead><tr><th>Task</th><th>What we test</th><th>Initial screenshot</th><th>After modification</th><th>Status</th><th>If failed, why?</th><th>Log</th></tr></thead>
+              <tbody>${reviewRows}</tbody>
+            </table>
           </article>
           <article class="card full">
             <h2>Run Summary</h2>
@@ -91,6 +100,70 @@ function renderBrowserHtml(result, outputBase) {
       </main>
     `
   });
+}
+
+function renderReviewRow({ task, result, outputDir }) {
+  const escaped = (value) => escapeHtml(String(value ?? ""));
+  const runs = result.raw.flatMap((run) => run.tasks.filter((item) => item.taskId === task.id));
+  const selected = runs.find((item) => !item.passed || item.error) || runs.find((item) => item.diagnostics?.forbiddenChanged?.length || item.diagnostics?.broadSelectors?.length) || runs[runs.length - 1];
+  const status = task.skipped
+    ? `<span class="pill neutral">skipped</span>`
+    : selected?.passed
+      ? `<span class="pill pass">pass</span>`
+      : `<span class="pill fail">fail</span>`;
+  const reason = task.skipped ? task.skipReason : summarizeFailure(selected);
+  const before = imageThumb(selected?.beforeScreenshotPath, outputDir, `Initial screenshot for ${task.id}`);
+  const after = imageThumb(selected?.screenshotPath, outputDir, `After screenshot for ${task.id}`);
+  const details = selected ? renderReviewDetails(selected) : escaped(task.skipReason || "No run details.");
+
+  return `
+    <tr>
+      <td><strong>${escaped(task.id)}</strong><br><span class="muted">${escaped(task.tier)}${task.tags?.length ? ` | ${escaped(task.tags.join(", "))}` : ""}</span></td>
+      <td>${escaped(task.what || "")}</td>
+      <td>${before}</td>
+      <td>${after}</td>
+      <td>${status}</td>
+      <td>${escaped(reason || "n/a")}</td>
+      <td><details><summary>Open log</summary>${details}</details></td>
+    </tr>
+  `;
+}
+
+function imageThumb(path, outputDir, alt) {
+  if (!path) return `<span class="muted">n/a</span>`;
+  return `<img class="thumb" src="${escapeHtml(relative(outputDir, path))}" alt="${escapeHtml(alt)}">`;
+}
+
+function summarizeFailure(runTask) {
+  if (!runTask) return "No run was executed.";
+  if (runTask.error) return runTask.error;
+  if (runTask.passed && !runTask.diagnostics?.forbiddenChanged?.length && !runTask.diagnostics?.broadSelectors?.length) return "";
+  const reasons = [
+    ...(runTask.diagnostics?.failureReasons || []),
+    ...(runTask.grade?.actual?.notes || []),
+    ...(runTask.persistence?.notes || []).map((note) => `persistence: ${note}`)
+  ].filter((item) => item && !/browser target has expected|remain visible|scroll appears locked|first video remains visible|has visual CSS/.test(item));
+  return Array.from(new Set(reasons)).slice(0, 4).join(" | ") || "Score below pass threshold.";
+}
+
+function renderReviewDetails(runTask) {
+  const escaped = (value) => escapeHtml(String(value ?? ""));
+  const consoleMessages = (runTask.consoleMessages || [])
+    .map((message) => `${message.type}: ${message.text}`)
+    .join("\n");
+  const payload = {
+    score: runTask.score,
+    executionMode: runTask.executionMode,
+    immediate: runTask.grade?.actual?.notes || [],
+    persistence: runTask.persistence?.notes || [],
+    diagnostics: runTask.diagnostics || {},
+    applyResult: runTask.applyResult || null,
+    validation: runTask.validation || null,
+    rules: runTask.plan?.rules || [],
+    targetMap: runTask.plan?.targetMap || {},
+    consoleMessages: consoleMessages || "none"
+  };
+  return `<pre><code>${escaped(JSON.stringify(payload, null, 2))}</code></pre>`;
 }
 
 function renderTaskDetail({ task, runTask, outputDir }) {
@@ -257,6 +330,14 @@ function baseHtml({ title, body }) {
       .mini-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
       .mini-grid > div { border: 1px solid var(--line); border-radius: 8px; background: white; padding: 10px; }
       .shot { display: block; width: 100%; max-height: 220px; object-fit: cover; object-position: top; border: 1px solid var(--line); border-radius: 8px; margin: 8px 0 12px; }
+      .thumb { display: block; width: 180px; max-width: 22vw; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; border: 1px solid var(--line); border-radius: 6px; background: #fff; }
+      .review-table td { min-width: 120px; }
+      .review-table td:nth-child(2) { min-width: 220px; }
+      details summary { cursor: pointer; color: var(--accent); font-weight: 700; }
+      .pill { display: inline-block; border-radius: 999px; padding: 2px 9px; font-size: 0.78rem; font-weight: 800; text-transform: uppercase; }
+      .pill.pass { background: #dcfce7; color: #166534; }
+      .pill.fail { background: #fee2e2; color: #991b1b; }
+      .pill.neutral { background: #e5e7eb; color: #374151; }
       @media (max-width: 900px) { .grid, .details-grid, .mini-grid { display: block; } .card, .detail, .mini-grid > div { margin: 14px 0; } }
     </style>
   </head>
@@ -277,4 +358,3 @@ function escapeHtml(value) {
     .replaceAll("\"", "&quot;")
     .replaceAll("'", "&#039;");
 }
-

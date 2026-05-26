@@ -140,8 +140,13 @@
     "tier": "medium",
     "pageId": "youtube-feed",
     "what": "Creator filtering with a typo in the requested channel name.",
-    "tags": ["semantic", "typo", "visibility"],
+    "tags": ["semantic", "typo", "youtube-focused", "visibility"],
     "prompt": "I don't want to see the video of Mark Ruber in my feed.",
+    "semanticProbe": {
+      "query": "Mark Ruber",
+      "expected": "Mark Rober",
+      "candidateKind": "youtube-channel"
+    },
     "expect": {
       "kind": "visibility",
       "action": "hide",
@@ -154,8 +159,13 @@
     "tier": "medium",
     "pageId": "youtube-feed",
     "what": "Hide a video by title keyword while keeping unrelated videos visible.",
-    "tags": ["semantic", "text-match", "visibility"],
+    "tags": ["semantic", "text-match", "youtube-focused", "visibility"],
     "prompt": "Hide videos about rockets from my feed.",
+    "semanticProbe": {
+      "query": "rockets",
+      "expected": "Engineering a rocket",
+      "candidateKind": "youtube-title"
+    },
     "expect": {
       "kind": "visibility",
       "action": "hide",
@@ -168,8 +178,89 @@
     "tier": "medium",
     "pageId": "youtube-feed",
     "what": "Hide sponsored content by semantic label/data attribute without hiding organic videos.",
-    "tags": ["semantic", "ads", "visibility"],
+    "tags": ["semantic", "ads", "youtube-focused", "visibility"],
     "prompt": "I don't want to see sponsored content anymore.",
+    "semanticProbe": {
+      "query": "sponsored",
+      "expected": "Sponsored",
+      "candidateKind": "youtube-badge"
+    },
+    "expect": {
+      "kind": "visibility",
+      "action": "hide",
+      "targetUids": ["video-sponsored-card", "video-sponsored-badge"],
+      "forbiddenUids": ["video-first-card", "video-mark-rober-card", "video-cooking-card", "video-rocket-card", "video-mkbhd-card"]
+    }
+  },
+  {
+    "id": "medium-youtube-hide-creator-exact",
+    "tier": "medium",
+    "pageId": "youtube-feed",
+    "what": "Control task for creator filtering with the exact channel name.",
+    "tags": ["semantic", "youtube-focused", "visibility"],
+    "prompt": "I don't want to see videos from Mark Rober in my feed.",
+    "semanticProbe": {
+      "query": "Mark Rober",
+      "expected": "Mark Rober",
+      "candidateKind": "youtube-channel"
+    },
+    "expect": {
+      "kind": "visibility",
+      "action": "hide",
+      "targetUids": ["video-mark-rober-card", "video-mark-rober-link", "video-mark-rober-channel"],
+      "forbiddenUids": ["video-cooking-card", "video-rocket-card", "video-mkbhd-card", "video-sponsored-card"]
+    }
+  },
+  {
+    "id": "medium-youtube-hide-creator-partial",
+    "tier": "medium",
+    "pageId": "youtube-feed",
+    "what": "Creator filtering from a partial channel name.",
+    "tags": ["semantic", "youtube-focused", "visibility"],
+    "prompt": "Hide the Rober video from my feed.",
+    "semanticProbe": {
+      "query": "Rober",
+      "expected": "Mark Rober",
+      "candidateKind": "youtube-channel"
+    },
+    "expect": {
+      "kind": "visibility",
+      "action": "hide",
+      "targetUids": ["video-mark-rober-card", "video-mark-rober-link", "video-mark-rober-channel"],
+      "forbiddenUids": ["video-cooking-card", "video-rocket-card", "video-mkbhd-card", "video-sponsored-card"]
+    }
+  },
+  {
+    "id": "medium-youtube-hide-title-typo",
+    "tier": "medium",
+    "pageId": "youtube-feed",
+    "what": "Hide a video by a misspelled title keyword.",
+    "tags": ["semantic", "typo", "youtube-focused", "visibility"],
+    "prompt": "Hide the rokcet engineering video.",
+    "semanticProbe": {
+      "query": "rokcet engineering",
+      "expected": "Engineering a rocket",
+      "candidateKind": "youtube-title"
+    },
+    "expect": {
+      "kind": "visibility",
+      "action": "hide",
+      "targetUids": ["video-rocket-card", "video-rocket-link"],
+      "forbiddenUids": ["video-first-card", "video-mark-rober-card", "video-cooking-card", "video-mkbhd-card", "video-sponsored-card"]
+    }
+  },
+  {
+    "id": "medium-youtube-hide-ad-synonym",
+    "tier": "medium",
+    "pageId": "youtube-feed",
+    "what": "Hide sponsored content using an ad synonym instead of the visible badge text.",
+    "tags": ["semantic", "ads", "youtube-focused", "visibility"],
+    "prompt": "Remove ads from my feed.",
+    "semanticProbe": {
+      "query": "ads",
+      "expected": "Sponsored",
+      "candidateKind": "youtube-badge"
+    },
     "expect": {
       "kind": "visibility",
       "action": "hide",

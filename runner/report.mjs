@@ -41,7 +41,8 @@ function renderBrowserHtml(result, outputBase) {
     if (task.skipped) return "";
     const runs = result.raw.map((run) => run.tasks.find((item) => item.taskId === task.id)).filter(Boolean);
     const selected = runs.find((item) => !item.passed || item.diagnostics?.forbiddenChanged?.length || item.diagnostics?.broadSelectors?.length) || runs[runs.length - 1];
-    return renderTaskDetail({ task, runTask: selected, outputDir });
+    const semanticFallback = runs.find((item) => item.diagnostics?.semanticCandidates)?.diagnostics?.semanticCandidates;
+    return renderTaskDetail({ task, runTask: selected, outputDir, semanticFallback });
   }).join("");
 
   const observations = result.observations.map((item) => `<li>${escaped(item)}</li>`).join("");
@@ -166,7 +167,7 @@ function renderReviewDetails(runTask) {
   return `<pre><code>${escaped(JSON.stringify(payload, null, 2))}</code></pre>`;
 }
 
-function renderTaskDetail({ task, runTask, outputDir }) {
+function renderTaskDetail({ task, runTask, outputDir, semanticFallback = null }) {
   const escaped = (value) => escapeHtml(String(value ?? ""));
   if (!runTask) return "";
 
@@ -182,6 +183,7 @@ function renderTaskDetail({ task, runTask, outputDir }) {
   `).join("");
   const broad = runTask.diagnostics?.broadSelectors || [];
   const forbidden = runTask.diagnostics?.forbiddenChanged || [];
+  const semantic = renderSemanticCandidates(runTask.diagnostics?.semanticCandidates || semanticFallback);
   const screenshot = runTask.screenshotPath
     ? `<img class="shot" src="${escapeHtml(relative(outputDir, runTask.screenshotPath))}" alt="Screenshot for ${escaped(task.id)}">`
     : "";
@@ -208,8 +210,10 @@ function renderTaskDetail({ task, runTask, outputDir }) {
           <p>${forbidden.length ? `Forbidden changed: ${escaped(forbidden.join(", "))}` : "No forbidden nodes changed in selected run."}</p>
           <p>${broad.length ? `Broad selectors: ${escaped(broad.map((item) => `${item.selector} -> ${item.matchCount}`).join("; "))}` : "No broad selector diagnostic in selected run."}</p>
           <p>${runTask.diagnostics?.usedSelectionHints ? "Used selection hints." : "Did not clearly use selection hints."}</p>
+          <p>Phase: ${escaped(runTask.diagnostics?.phase || "n/a")}</p>
         </div>
       </div>
+      ${semantic}
       <h4>Selector Matches</h4>
       <table>
         <thead><tr><th>Target</th><th>Selectors</th><th>Count</th><th>Matched UIDs</th></tr></thead>
@@ -221,6 +225,28 @@ function renderTaskDetail({ task, runTask, outputDir }) {
       <pre><code>${escaped(JSON.stringify(targetMap, null, 2))}</code></pre>
       ${consoleErrors ? `<h4>Console Errors</h4><ul>${consoleErrors}</ul>` : ""}
     </section>
+  `;
+}
+
+function renderSemanticCandidates(semantic) {
+  const escaped = (value) => escapeHtml(String(value ?? ""));
+  if (!semantic) return "";
+  const rows = (semantic.candidates || []).map((candidate) => `
+    <tr>
+      <td>${escaped(candidate.uid)}</td>
+      <td>${escaped(candidate.text || candidate.ariaLabel || candidate.dataChannel)}</td>
+      <td>${percent(candidate.scoreToQuery)}</td>
+      <td>${candidate.isExpected ? "yes" : "no"}</td>
+      <td>${candidate.selectedByPlan ? "yes" : "no"}</td>
+    </tr>
+  `).join("");
+  return `
+    <h4>Semantic Target Candidates</h4>
+    <p>Query: <code>${escaped(semantic.query)}</code>; expected: <code>${escaped(semantic.expected)}</code>; expected visible in context: ${semantic.expectedCandidateVisibleInContext ? "yes" : "no"}; expected selected by plan: ${semantic.expectedCandidateSelectedByPlan ? "yes" : "no"}.</p>
+    <table>
+      <thead><tr><th>UID</th><th>Text / label</th><th>Fuzzy score</th><th>Expected</th><th>Selected by plan</th></tr></thead>
+      <tbody>${rows || "<tr><td colspan=\"5\">No semantic candidates recorded.</td></tr>"}</tbody>
+    </table>
   `;
 }
 

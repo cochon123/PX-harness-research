@@ -34,11 +34,19 @@ npm run baseline:browser -- --runs=10 --skip-pass-rate=0.9
 By default the skip decision reads `reports/browser-baseline.json`. Use
 `--skip-source=path/to/report.json` to compare against a different baseline.
 
+Run only a focused slice of tasks:
+
+```sh
+npm run baseline:browser -- --runs=10 --tags=youtube-focused
+npm run baseline:browser -- --tasks=medium-youtube-hide-creator-typo,medium-youtube-hide-creator-exact
+```
+
 Browser mode starts the local web-zoo app, launches Chromium or Chrome, runs low-reasoning
 tasks, applies plans to actual DOM pages, captures before/after screenshots, and
 writes `reports/browser-baseline.html` plus `reports/browser-baseline.json`. The
 HTML report includes a human review table with task intent, screenshots,
-pass/fail state, failure reason, and expandable per-task logs.
+pass/fail state, failure reason, semantic target candidates, selector diagnostics,
+and expandable per-task logs.
 
 The runner prefers `/snap/bin/chromium`, then other Chromium paths, then
 Google Chrome. If the selected browser cannot load unpacked extensions, it

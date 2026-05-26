@@ -49,24 +49,24 @@
       <header>
         <div class="wrap">
           <h1>Perso XXL browser baseline</h1>
-          <p>Generated 2026-05-26T16:52:24.716Z using deepseek/deepseek-v4-flash. Execution mode: <code>extension-content-script</code>.</p>
+          <p>Generated 2026-05-26T17:11:20.238Z using deepseek/deepseek-v4-flash. Execution mode: <code>extension-content-script</code>.</p>
         </div>
       </header>
       <main class="wrap">
         <section class="grid">
           <article class="card">
             <h2>Average</h2>
-            <div class="metric">93%</div>
-            <p class="muted">1 low-reasoning browser run(s), 11 executed task(s), 4 skipped.</p>
+            <div class="metric">86%</div>
+            <p class="muted">3 low-reasoning browser run(s), 7 executed task(s), 0 skipped.</p>
           </article>
           <article class="card">
             <h2>Range</h2>
-            <div class="metric">93% - 93%</div>
-            <p class="muted">Run-score variance: 0.0000</p>
+            <div class="metric">70% - 98%</div>
+            <p class="muted">Run-score variance: 0.0134</p>
           </article>
           <article class="card full">
             <h2>Observations</h2>
-            <ul><li>Browser low-reasoning baseline averaged 93% across 1 run(s).</li><li>Run score range: 93% to 93%; variance 0.0000.</li><li>This run exercises Perso XXL content scripts, DOM context extraction, validation, and executor in a real browser on fixture pages.</li><li>4 task(s) were skipped because their previous pass rate was at or above 90%.</li><li>medium-youtube-hide-creator-typo averaged 30% with 0% pass rate. browser target is still visible (1x) persistence: browser target is still visible (1x)</li><li>easy-youtube-selected-channel-color averaged 91% with 100% pass rate. browser forbidden node was also changed (1x) persistence: browser forbidden node was also changed (1x) selector a.channel-name matched 6 nodes (1x) forbidden node changed: video-first-channel (1x)</li><li>easy-selected-hide averaged 100% with 100% pass rate. generic selectors: section.promo (1x)</li></ul>
+            <ul><li>Browser low-reasoning baseline averaged 86% across 3 run(s).</li><li>Run score range: 70% to 98%; variance 0.0134.</li><li>This run exercises Perso XXL content scripts, DOM context extraction, validation, and executor in a real browser on fixture pages.</li><li>medium-youtube-hide-creator-typo averaged 43% with 33% pass rate. Uncaught (in promise) Error: Generated plan failed validation: Target mark_rober_video_card has invalid selector article.video-card:has(a[class=&#039;channel-name&#039;]:has-text(&#039;Mark Rober&#039;)). (1x) browser target is still visible (1x) persistence: browser target is still visible (1x)</li><li>medium-youtube-hide-creator-partial averaged 61% with 67% pass rate. Uncaught (in promise) Error: Generated plan failed validation: Rule 0 uses unsupported style key visibility. (1x)</li><li>medium-youtube-hide-creator-exact averaged 97% with 100% pass rate. browser forbidden node was hidden (1x) persistence: browser forbidden node was hidden (1x) selector article.video-card matched 6 nodes (1x) forbidden node changed: video-cooking-card (1x)</li></ul>
           </article>
           <article class="card full">
             <h2>Human Review Table</h2>
@@ -74,714 +74,30 @@
               <thead><tr><th>Task</th><th>What we test</th><th>Initial screenshot</th><th>After modification</th><th>Status</th><th>If failed, why?</th><th>Log</th></tr></thead>
               <tbody>
     <tr>
-      <td><strong>easy-selected-color</strong><br><span class="muted">easy | selection, style, blast-radius</span></td>
-      <td>Selected-element style edit with blast-radius protection on repeated KPI title classes.</td>
-      <td><span class="muted">n/a</span></td>
-      <td><span class="muted">n/a</span></td>
-      <td><span class="pill neutral">skipped</span></td>
-      <td>Previous pass rate 100% is at or above skip threshold 90%.</td>
-      <td><details><summary>Open log</summary>Previous pass rate 100% is at or above skip threshold 90%.</details></td>
-    </tr>
-  
-    <tr>
-      <td><strong>easy-selected-hide</strong><br><span class="muted">easy | selection, visibility</span></td>
-      <td>Selected-element removal where the target is nested text inside a larger banner.</td>
-      <td><img class="thumb" src="browser-screenshots/run-1-easy-selected-hide-before.png" alt="Initial screenshot for easy-selected-hide"></td>
-      <td><img class="thumb" src="browser-screenshots/run-1-easy-selected-hide-after.png" alt="After screenshot for easy-selected-hide"></td>
-      <td><span class="pill pass">pass</span></td>
-      <td>n/a</td>
-      <td><details><summary>Open log</summary><pre><code>{
-  &quot;score&quot;: 1,
-  &quot;immediate&quot;: [
-    &quot;browser target is hidden&quot;,
-    &quot;browser forbidden nodes remain visible&quot;
-  ],
-  &quot;persistence&quot;: [
-    &quot;browser target is hidden&quot;,
-    &quot;browser forbidden nodes remain visible&quot;
-  ],
-  &quot;diagnostics&quot;: {
-    &quot;targetMatches&quot;: {
-      &quot;promo_banner&quot;: {
-        &quot;selectors&quot;: [
-          &quot;section[aria-label=\&quot;Upgrade promotion\&quot;]&quot;,
-          &quot;section.promo&quot;
-        ],
-        &quot;usedFallback&quot;: false,
-        &quot;uids&quot;: [
-          &quot;promo-banner&quot;
-        ],
-        &quot;sampleText&quot;: [
-          &quot;Upgrade today to unlock forecasts&quot;
-        ]
-      }
-    },
-    &quot;broadSelectors&quot;: [],
-    &quot;forbiddenChanged&quot;: [],
-    &quot;usedSelectionHints&quot;: true,
-    &quot;genericSelectors&quot;: [
-      &quot;section.promo&quot;
-    ],
-    &quot;failureReasons&quot;: [
-      &quot;browser target is hidden&quot;,
-      &quot;browser forbidden nodes remain visible&quot;,
-      &quot;persistence: browser target is hidden&quot;,
-      &quot;persistence: browser forbidden nodes remain visible&quot;,
-      &quot;generic selectors: section.promo&quot;
-    ],
-    &quot;taskKind&quot;: &quot;visibility&quot;
-  },
-  &quot;applyResult&quot;: {
-    &quot;totalMatched&quot;: 1,
-    &quot;cssRuleCount&quot;: 0,
-    &quot;targetCssRuleCount&quot;: 1
-  },
-  &quot;validation&quot;: {
-    &quot;ok&quot;: true,
-    &quot;errors&quot;: []
-  },
-  &quot;rules&quot;: [
-    {
-      &quot;id&quot;: &quot;delete-promo-banner&quot;,
-      &quot;type&quot;: &quot;style&quot;,
-      &quot;targetRef&quot;: &quot;promo_banner&quot;,
-      &quot;styles&quot;: {
-        &quot;display&quot;: &quot;none&quot;
-      }
-    }
-  ],
-  &quot;targetMap&quot;: {
-    &quot;promo_banner&quot;: {
-      &quot;source&quot;: &quot;selection&quot;,
-      &quot;selectionRef&quot;: &quot;sel_1&quot;,
-      &quot;selectors&quot;: [
-        &quot;section[aria-label=\&quot;Upgrade promotion\&quot;]&quot;,
-        &quot;section.promo&quot;
-      ],
-      &quot;fallbackSelectors&quot;: [
-        &quot;[data-testid=\&quot;promo-banner\&quot;]&quot;
-      ]
-    }
-  },
-  &quot;consoleMessages&quot;: &quot;log: [Perso XXL] executor.revert.started {}\nlog: [Perso XXL] executor.revert.finished {restoredCount: 0}\nlog: [Perso XXL] openrouter.request.started {taskName: plan-generation, model: deepseek/deepseek-v4-flash, messageCount: 2, reasoning: Object}\nlog: [Perso XXL] openrouter.response.received {ok: true, status: 200, durationMs: 18103, hasChoices: true, hasReasoning: false}\nlog: [Perso XXL] openrouter.content.received {contentLength: 1329, preview: {\n  \&quot;version\&quot;: \&quot;2.0\&quot;,\n  \&quot;site\&quot;: {\n    \&quot;hostname\&quot;: …el\&quot;: \&quot;Upgrade promotion\&quot;,\n        \&quot;text\&quot;: \&quot;Upgrad}\nlog: [Perso XXL] plan.validation.started {site: Object, ruleCount: 1}\nlog: [Perso XXL] plan.validation.finished {ok: false, errors: Array(1)}\nlog: [Perso XXL] openrouter.request.started {taskName: plan-repair, model: deepseek/deepseek-v4-flash, messageCount: 2, reasoning: Object}\nlog: [Perso XXL] openrouter.response.received {ok: true, status: 200, durationMs: 59370, hasChoices: true, hasReasoning: false}\nlog: [Perso XXL] openrouter.content.received {contentLength: 1324, preview: {\n  \&quot;version\&quot;: \&quot;2.0\&quot;,\n  \&quot;site\&quot;: {\n    \&quot;hostname\&quot;: …el\&quot;: \&quot;Upgrade promotion\&quot;,\n        \&quot;text\&quot;: \&quot;Upgrad}\nlog: [Perso XXL] plan.validation.started {site: Object, ruleCount: 1}\nlog: [Perso XXL] plan.validation.finished {ok: true, errors: Array(0)}\nlog: [Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}\nlog: [Perso XXL] executor.target_ref.css.generated {ruleId: delete-promo-banner, targetRef: promo_banner, selectorCount: 2}\nlog: [Perso XXL] executor.rule.style {ruleId: delete-promo-banner, targetRef: promo_banner, matchCount: 1, matched: Array(1)}\nlog: [Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 1, totalMatched: 1}\nlog: [Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}\nlog: [Perso XXL] executor.target_ref.css.generated {ruleId: delete-promo-banner, targetRef: promo_banner, selectorCount: 2}\nlog: [Perso XXL] executor.rule.style {ruleId: delete-promo-banner, targetRef: promo_banner, matchCount: 1, matched: Array(1)}\nlog: [Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 1, totalMatched: 1}&quot;
-}</code></pre></details></td>
-    </tr>
-  
-    <tr>
-      <td><strong>easy-selected-card-background</strong><br><span class="muted">easy | selection, style, blast-radius</span></td>
-      <td>Selected card background change without changing sibling cards sharing the same class.</td>
-      <td><img class="thumb" src="browser-screenshots/run-1-easy-selected-card-background-before.png" alt="Initial screenshot for easy-selected-card-background"></td>
-      <td><img class="thumb" src="browser-screenshots/run-1-easy-selected-card-background-after.png" alt="After screenshot for easy-selected-card-background"></td>
-      <td><span class="pill pass">pass</span></td>
-      <td>n/a</td>
-      <td><details><summary>Open log</summary><pre><code>{
-  &quot;score&quot;: 1,
-  &quot;immediate&quot;: [
-    &quot;browser target has expected style&quot;,
-    &quot;browser forbidden nodes avoided&quot;
-  ],
-  &quot;persistence&quot;: [
-    &quot;browser target has expected style&quot;,
-    &quot;browser forbidden nodes avoided&quot;
-  ],
-  &quot;diagnostics&quot;: {
-    &quot;targetMatches&quot;: {
-      &quot;selected_card&quot;: {
-        &quot;selectors&quot;: [
-          &quot;[data-testid=\&quot;churn-card\&quot;]&quot;
-        ],
-        &quot;usedFallback&quot;: false,
-        &quot;uids&quot;: [
-          &quot;churn-card&quot;
-        ],
-        &quot;sampleText&quot;: [
-          &quot;Churn 4.2%&quot;
-        ]
-      }
-    },
-    &quot;broadSelectors&quot;: [],
-    &quot;forbiddenChanged&quot;: [],
-    &quot;usedSelectionHints&quot;: true,
-    &quot;genericSelectors&quot;: [
-      &quot;article.metric-card&quot;
-    ],
-    &quot;failureReasons&quot;: [
-      &quot;browser target has expected style&quot;,
-      &quot;browser forbidden nodes avoided&quot;,
-      &quot;persistence: browser target has expected style&quot;,
-      &quot;persistence: browser forbidden nodes avoided&quot;,
-      &quot;generic selectors: article.metric-card&quot;
-    ],
-    &quot;taskKind&quot;: &quot;style&quot;
-  },
-  &quot;applyResult&quot;: {
-    &quot;totalMatched&quot;: 1,
-    &quot;cssRuleCount&quot;: 0,
-    &quot;targetCssRuleCount&quot;: 1
-  },
-  &quot;validation&quot;: {
-    &quot;ok&quot;: true,
-    &quot;errors&quot;: []
-  },
-  &quot;rules&quot;: [
-    {
-      &quot;id&quot;: &quot;blue-card-background&quot;,
-      &quot;type&quot;: &quot;style&quot;,
-      &quot;targetRef&quot;: &quot;selected_card&quot;,
-      &quot;styles&quot;: {
-        &quot;backgroundColor&quot;: &quot;blue&quot;
-      }
-    }
-  ],
-  &quot;targetMap&quot;: {
-    &quot;selected_card&quot;: {
-      &quot;source&quot;: &quot;selection&quot;,
-      &quot;selectionRef&quot;: &quot;sel_1&quot;,
-      &quot;selectors&quot;: [
-        &quot;[data-testid=\&quot;churn-card\&quot;]&quot;
-      ],
-      &quot;fallbackSelectors&quot;: [
-        &quot;article.metric-card&quot;
-      ]
-    }
-  },
-  &quot;consoleMessages&quot;: &quot;log: [Perso XXL] content.loaded {version: 0.6.0-landing-ai-input, hasSavedPlan: false}\nlog: [Perso XXL] panel.created {}\nlog: [Perso XXL] storage.loaded {key: sitePlan:127.0.0.1:/dashboard, hasSavedPlan: false}\nlog: [Perso XXL] panel.state.loaded {hasProfileNotes: false, hasSavedPlan: false, key: sitePlan:127.0.0.1:/dashboard}\nlog: [Perso XXL] executor.revert.started {}\nlog: [Perso XXL] executor.revert.finished {restoredCount: 0}\nlog: [Perso XXL] openrouter.request.started {taskName: plan-generation, model: deepseek/deepseek-v4-flash, messageCount: 2, reasoning: Object}\nlog: [Perso XXL] openrouter.response.received {ok: true, status: 200, durationMs: 68779, hasChoices: true, hasReasoning: false}\nlog: [Perso XXL] openrouter.content.received {contentLength: 4387, preview: {\n  \&quot;version\&quot;: \&quot;2.0\&quot;,\n  \&quot;site\&quot;: {\n    \&quot;hostname\&quot;: …d\&quot;: \&quot;text\&quot;,\n      \&quot;bounds\&quot;: { \&quot;x\&quot;: 459, \&quot;y\&quot;: 114,}\nlog: [Perso XXL] plan.validation.started {site: Object, ruleCount: 1}\nlog: [Perso XXL] plan.validation.finished {ok: true, errors: Array(0)}\nlog: [Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}\nlog: [Perso XXL] executor.target_ref.css.generated {ruleId: blue-card-background, targetRef: selected_card, selectorCount: 1}\nlog: [Perso XXL] executor.rule.style {ruleId: blue-card-background, targetRef: selected_card, matchCount: 1, matched: Array(1)}\nlog: [Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 1, totalMatched: 1}\nlog: [Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}\nlog: [Perso XXL] executor.target_ref.css.generated {ruleId: blue-card-background, targetRef: selected_card, selectorCount: 1}\nlog: [Perso XXL] executor.rule.style {ruleId: blue-card-background, targetRef: selected_card, matchCount: 1, matched: Array(1)}\nlog: [Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 1, totalMatched: 1}&quot;
-}</code></pre></details></td>
-    </tr>
-  
-    <tr>
-      <td><strong>easy-docs-selected-button-color</strong><br><span class="muted">easy | selection, style</span></td>
-      <td>Selected button style edit on a docs-like home screen.</td>
-      <td><img class="thumb" src="browser-screenshots/run-1-easy-docs-selected-button-color-before.png" alt="Initial screenshot for easy-docs-selected-button-color"></td>
-      <td><img class="thumb" src="browser-screenshots/run-1-easy-docs-selected-button-color-after.png" alt="After screenshot for easy-docs-selected-button-color"></td>
-      <td><span class="pill pass">pass</span></td>
-      <td>n/a</td>
-      <td><details><summary>Open log</summary><pre><code>{
-  &quot;score&quot;: 1,
-  &quot;immediate&quot;: [
-    &quot;browser target has expected style&quot;,
-    &quot;browser forbidden nodes avoided&quot;
-  ],
-  &quot;persistence&quot;: [
-    &quot;browser target has expected style&quot;,
-    &quot;browser forbidden nodes avoided&quot;
-  ],
-  &quot;diagnostics&quot;: {
-    &quot;targetMatches&quot;: {
-      &quot;blank_document_button&quot;: {
-        &quot;selectors&quot;: [
-          &quot;button[aria-label=\&quot;Blank document\&quot;]&quot;
-        ],
-        &quot;usedFallback&quot;: false,
-        &quot;uids&quot;: [
-          &quot;blank-document-button&quot;
-        ],
-        &quot;sampleText&quot;: [
-          &quot;Blank document&quot;
-        ]
-      }
-    },
-    &quot;broadSelectors&quot;: [],
-    &quot;forbiddenChanged&quot;: [],
-    &quot;usedSelectionHints&quot;: true,
-    &quot;genericSelectors&quot;: [
-      &quot;button.docs-new-document&quot;
-    ],
-    &quot;failureReasons&quot;: [
-      &quot;browser target has expected style&quot;,
-      &quot;browser forbidden nodes avoided&quot;,
-      &quot;persistence: browser target has expected style&quot;,
-      &quot;persistence: browser forbidden nodes avoided&quot;,
-      &quot;generic selectors: button.docs-new-document&quot;
-    ],
-    &quot;taskKind&quot;: &quot;style&quot;
-  },
-  &quot;applyResult&quot;: {
-    &quot;totalMatched&quot;: 1,
-    &quot;cssRuleCount&quot;: 0,
-    &quot;targetCssRuleCount&quot;: 1
-  },
-  &quot;validation&quot;: {
-    &quot;ok&quot;: true,
-    &quot;errors&quot;: []
-  },
-  &quot;rules&quot;: [
-    {
-      &quot;id&quot;: &quot;purple-background&quot;,
-      &quot;type&quot;: &quot;style&quot;,
-      &quot;targetRef&quot;: &quot;blank_document_button&quot;,
-      &quot;styles&quot;: {
-        &quot;backgroundColor&quot;: &quot;purple&quot;
-      }
-    }
-  ],
-  &quot;targetMap&quot;: {
-    &quot;blank_document_button&quot;: {
-      &quot;source&quot;: &quot;selection&quot;,
-      &quot;selectionRef&quot;: &quot;sel_1&quot;,
-      &quot;selectors&quot;: [
-        &quot;button[aria-label=\&quot;Blank document\&quot;]&quot;
-      ],
-      &quot;fallbackSelectors&quot;: [
-        &quot;[data-testid=\&quot;blank-document-button\&quot;]&quot;,
-        &quot;button.docs-new-document&quot;
-      ]
-    }
-  },
-  &quot;consoleMessages&quot;: &quot;log: [Perso XXL] content.loaded {version: 0.6.0-landing-ai-input, hasSavedPlan: false}\nlog: [Perso XXL] panel.created {}\nlog: [Perso XXL] storage.loaded {key: sitePlan:127.0.0.1:/docs, hasSavedPlan: false}\nlog: [Perso XXL] panel.state.loaded {hasProfileNotes: false, hasSavedPlan: false, key: sitePlan:127.0.0.1:/docs}\nlog: [Perso XXL] executor.revert.started {}\nlog: [Perso XXL] executor.revert.finished {restoredCount: 0}\nlog: [Perso XXL] openrouter.request.started {taskName: plan-generation, model: deepseek/deepseek-v4-flash, messageCount: 2, reasoning: Object}\nlog: [Perso XXL] openrouter.response.received {ok: true, status: 200, durationMs: 34268, hasChoices: true, hasReasoning: false}\nlog: [Perso XXL] openrouter.content.received {contentLength: 1443, preview: {\n  \&quot;version\&quot;: \&quot;2.0\&quot;,\n  \&quot;site\&quot;: {\n    \&quot;hostname\&quot;: …role\&quot;: \&quot;button\&quot;,\n        \&quot;ariaLabel\&quot;: \&quot;Blank docu}\nlog: [Perso XXL] plan.validation.started {site: Object, ruleCount: 1}\nlog: [Perso XXL] plan.validation.finished {ok: true, errors: Array(0)}\nlog: [Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}\nlog: [Perso XXL] executor.target_ref.css.generated {ruleId: purple-background, targetRef: blank_document_button, selectorCount: 1}\nlog: [Perso XXL] executor.rule.style {ruleId: purple-background, targetRef: blank_document_button, matchCount: 1, matched: Array(1)}\nlog: [Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 1, totalMatched: 1}\nlog: [Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}\nlog: [Perso XXL] executor.target_ref.css.generated {ruleId: purple-background, targetRef: blank_document_button, selectorCount: 1}\nlog: [Perso XXL] executor.rule.style {ruleId: purple-background, targetRef: blank_document_button, matchCount: 1, matched: Array(1)}\nlog: [Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 1, totalMatched: 1}&quot;
-}</code></pre></details></td>
-    </tr>
-  
-    <tr>
-      <td><strong>easy-youtube-selected-channel-color</strong><br><span class="muted">easy | selection, style, blast-radius</span></td>
-      <td>Selected channel-name style edit where several links share the same channel-name class.</td>
-      <td><img class="thumb" src="browser-screenshots/run-1-easy-youtube-selected-channel-color-before.png" alt="Initial screenshot for easy-youtube-selected-channel-color"></td>
-      <td><img class="thumb" src="browser-screenshots/run-1-easy-youtube-selected-channel-color-after.png" alt="After screenshot for easy-youtube-selected-channel-color"></td>
-      <td><span class="pill pass">pass</span></td>
-      <td>browser forbidden node was also changed | persistence: browser forbidden node was also changed | selector a.channel-name matched 6 nodes | forbidden node changed: video-first-channel</td>
-      <td><details><summary>Open log</summary><pre><code>{
-  &quot;score&quot;: 0.907,
-  &quot;immediate&quot;: [
-    &quot;browser target has expected style&quot;,
-    &quot;browser forbidden node was also changed&quot;
-  ],
-  &quot;persistence&quot;: [
-    &quot;browser target has expected style&quot;,
-    &quot;browser forbidden node was also changed&quot;
-  ],
-  &quot;diagnostics&quot;: {
-    &quot;targetMatches&quot;: {
-      &quot;channel_name&quot;: {
-        &quot;selectors&quot;: [
-          &quot;a.channel-name&quot;
-        ],
-        &quot;usedFallback&quot;: false,
-        &quot;uids&quot;: [
-          &quot;video-first-channel&quot;,
-          &quot;video-mark-rober-channel&quot;,
-          &quot;video-cooking-channel&quot;,
-          &quot;video-rocket-channel&quot;,
-          &quot;video-mkbhd-channel&quot;,
-          &quot;video-sponsored-channel&quot;
-        ],
-        &quot;sampleText&quot;: [
-          &quot;Nature Lab&quot;,
-          &quot;Mark Rober&quot;,
-          &quot;Kitchen Daily&quot;,
-          &quot;Everyday Astronaut&quot;,
-          &quot;Marques Brownlee&quot;
-        ]
-      }
-    },
-    &quot;broadSelectors&quot;: [
-      {
-        &quot;targetRef&quot;: &quot;channel_name&quot;,
-        &quot;selector&quot;: &quot;a.channel-name&quot;,
-        &quot;matchCount&quot;: 6,
-        &quot;matchedUids&quot;: [
-          &quot;video-first-channel&quot;,
-          &quot;video-mark-rober-channel&quot;,
-          &quot;video-cooking-channel&quot;,
-          &quot;video-rocket-channel&quot;,
-          &quot;video-mkbhd-channel&quot;,
-          &quot;video-sponsored-channel&quot;
-        ],
-        &quot;sampleText&quot;: [
-          &quot;Nature Lab&quot;,
-          &quot;Mark Rober&quot;,
-          &quot;Kitchen Daily&quot;,
-          &quot;Everyday Astronaut&quot;,
-          &quot;Marques Brownlee&quot;
-        ]
-      }
-    ],
-    &quot;forbiddenChanged&quot;: [
-      &quot;video-first-channel&quot;,
-      &quot;video-cooking-channel&quot;,
-      &quot;video-rocket-channel&quot;,
-      &quot;video-mkbhd-channel&quot;,
-      &quot;video-sponsored-channel&quot;
-    ],
-    &quot;usedSelectionHints&quot;: false,
-    &quot;genericSelectors&quot;: [
-      &quot;a.channel-name&quot;
-    ],
-    &quot;failureReasons&quot;: [
-      &quot;browser target has expected style&quot;,
-      &quot;browser forbidden node was also changed&quot;,
-      &quot;persistence: browser target has expected style&quot;,
-      &quot;persistence: browser forbidden node was also changed&quot;,
-      &quot;selector a.channel-name matched 6 nodes&quot;,
-      &quot;forbidden node changed: video-first-channel&quot;,
-      &quot;forbidden node changed: video-cooking-channel&quot;,
-      &quot;forbidden node changed: video-rocket-channel&quot;,
-      &quot;forbidden node changed: video-mkbhd-channel&quot;,
-      &quot;forbidden node changed: video-sponsored-channel&quot;,
-      &quot;generic selectors: a.channel-name&quot;
-    ],
-    &quot;taskKind&quot;: &quot;style&quot;
-  },
-  &quot;applyResult&quot;: {
-    &quot;totalMatched&quot;: 6,
-    &quot;cssRuleCount&quot;: 0,
-    &quot;targetCssRuleCount&quot;: 1
-  },
-  &quot;validation&quot;: {
-    &quot;ok&quot;: true,
-    &quot;errors&quot;: []
-  },
-  &quot;rules&quot;: [
-    {
-      &quot;id&quot;: &quot;green-channel-name&quot;,
-      &quot;type&quot;: &quot;style&quot;,
-      &quot;targetRef&quot;: &quot;channel_name&quot;,
-      &quot;styles&quot;: {
-        &quot;color&quot;: &quot;green&quot;
-      }
-    }
-  ],
-  &quot;targetMap&quot;: {
-    &quot;channel_name&quot;: {
-      &quot;source&quot;: &quot;selection&quot;,
-      &quot;selectionRef&quot;: &quot;sel_1&quot;,
-      &quot;selectors&quot;: [
-        &quot;a.channel-name&quot;
-      ],
-      &quot;fallbackSelectors&quot;: [
-        &quot;a[aria-label=\&quot;Mark Rober channel\&quot;]&quot;
-      ]
-    }
-  },
-  &quot;consoleMessages&quot;: &quot;log: [Perso XXL] content.loaded {version: 0.6.0-landing-ai-input, hasSavedPlan: false}\nlog: [Perso XXL] panel.created {}\nlog: [Perso XXL] storage.loaded {key: sitePlan:127.0.0.1:/youtube, hasSavedPlan: false}\nlog: [Perso XXL] panel.state.loaded {hasProfileNotes: false, hasSavedPlan: false, key: sitePlan:127.0.0.1:/youtube}\nlog: [Perso XXL] executor.revert.started {}\nlog: [Perso XXL] executor.revert.finished {restoredCount: 0}\nlog: [Perso XXL] openrouter.request.started {taskName: plan-generation, model: deepseek/deepseek-v4-flash, messageCount: 2, reasoning: Object}\nlog: [Perso XXL] openrouter.response.received {ok: true, status: 200, durationMs: 13273, hasChoices: true, hasReasoning: false}\nlog: [Perso XXL] openrouter.content.received {contentLength: 1023, preview: {\n  \&quot;version\&quot;: \&quot;2.0\&quot;,\n  \&quot;site\&quot;: {\n    \&quot;hostname\&quot;: …\&quot;Mark Rober channel\&quot;,\n        \&quot;text\&quot;: \&quot;Mark Rober}\nlog: [Perso XXL] plan.validation.started {site: Object, ruleCount: 1}\nlog: [Perso XXL] plan.validation.finished {ok: true, errors: Array(0)}\nlog: [Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}\nlog: [Perso XXL] executor.target_ref.css.generated {ruleId: green-channel-name, targetRef: channel_name, selectorCount: 1}\nlog: [Perso XXL] executor.rule.style {ruleId: green-channel-name, targetRef: channel_name, matchCount: 6, matched: Array(6)}\nlog: [Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 1, totalMatched: 6}\nlog: [Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}\nlog: [Perso XXL] executor.target_ref.css.generated {ruleId: green-channel-name, targetRef: channel_name, selectorCount: 1}\nlog: [Perso XXL] executor.rule.style {ruleId: green-channel-name, targetRef: channel_name, matchCount: 6, matched: Array(6)}\nlog: [Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 1, totalMatched: 6}&quot;
-}</code></pre></details></td>
-    </tr>
-  
-    <tr>
-      <td><strong>easy-youtube-selected-card-hide</strong><br><span class="muted">easy | selection, visibility, blast-radius</span></td>
-      <td>Selected video-card hide without hiding all cards that share YouTube-like classes.</td>
-      <td><img class="thumb" src="browser-screenshots/run-1-easy-youtube-selected-card-hide-before.png" alt="Initial screenshot for easy-youtube-selected-card-hide"></td>
-      <td><img class="thumb" src="browser-screenshots/run-1-easy-youtube-selected-card-hide-after.png" alt="After screenshot for easy-youtube-selected-card-hide"></td>
-      <td><span class="pill pass">pass</span></td>
-      <td>n/a</td>
-      <td><details><summary>Open log</summary><pre><code>{
-  &quot;score&quot;: 1,
-  &quot;immediate&quot;: [
-    &quot;browser target is hidden&quot;,
-    &quot;browser forbidden nodes remain visible&quot;
-  ],
-  &quot;persistence&quot;: [
-    &quot;browser target is hidden&quot;,
-    &quot;browser forbidden nodes remain visible&quot;
-  ],
-  &quot;diagnostics&quot;: {
-    &quot;targetMatches&quot;: {
-      &quot;video_card&quot;: {
-        &quot;selectors&quot;: [
-          &quot;main#contents &gt; article:nth-of-type(3)&quot;
-        ],
-        &quot;usedFallback&quot;: false,
-        &quot;uids&quot;: [
-          &quot;video-cooking-card&quot;
-        ],
-        &quot;sampleText&quot;: [
-          &quot;Perfect pasta Kitchen Daily&quot;
-        ]
-      }
-    },
-    &quot;broadSelectors&quot;: [],
-    &quot;forbiddenChanged&quot;: [],
-    &quot;usedSelectionHints&quot;: false,
-    &quot;genericSelectors&quot;: [],
-    &quot;failureReasons&quot;: [
-      &quot;browser target is hidden&quot;,
-      &quot;browser forbidden nodes remain visible&quot;,
-      &quot;persistence: browser target is hidden&quot;,
-      &quot;persistence: browser forbidden nodes remain visible&quot;
-    ],
-    &quot;taskKind&quot;: &quot;visibility&quot;
-  },
-  &quot;applyResult&quot;: {
-    &quot;totalMatched&quot;: 1,
-    &quot;cssRuleCount&quot;: 0,
-    &quot;targetCssRuleCount&quot;: 1
-  },
-  &quot;validation&quot;: {
-    &quot;ok&quot;: true,
-    &quot;errors&quot;: []
-  },
-  &quot;rules&quot;: [
-    {
-      &quot;id&quot;: &quot;hide-video-card&quot;,
-      &quot;type&quot;: &quot;style&quot;,
-      &quot;targetRef&quot;: &quot;video_card&quot;,
-      &quot;styles&quot;: {
-        &quot;display&quot;: &quot;none&quot;
-      }
-    }
-  ],
-  &quot;targetMap&quot;: {
-    &quot;video_card&quot;: {
-      &quot;source&quot;: &quot;selection&quot;,
-      &quot;selectionRef&quot;: &quot;sel_1&quot;,
-      &quot;selectors&quot;: [
-        &quot;main#contents &gt; article:nth-of-type(3)&quot;
-      ],
-      &quot;fallbackSelectors&quot;: [
-        &quot;article.video-card[data-channel=\&quot;Kitchen Daily\&quot;]&quot;,
-        &quot;article.ytd-rich-item-renderer.video-card&quot;
-      ]
-    }
-  },
-  &quot;consoleMessages&quot;: &quot;log: [Perso XXL] content.loaded {version: 0.6.0-landing-ai-input, hasSavedPlan: false}\nlog: [Perso XXL] panel.created {}\nlog: [Perso XXL] storage.loaded {key: sitePlan:127.0.0.1:/youtube, hasSavedPlan: false}\nlog: [Perso XXL] panel.state.loaded {hasProfileNotes: false, hasSavedPlan: false, key: sitePlan:127.0.0.1:/youtube}\nlog: [Perso XXL] executor.revert.started {}\nlog: [Perso XXL] executor.revert.finished {restoredCount: 0}\nlog: [Perso XXL] openrouter.request.started {taskName: plan-generation, model: deepseek/deepseek-v4-flash, messageCount: 2, reasoning: Object}\nlog: [Perso XXL] openrouter.response.received {ok: true, status: 200, durationMs: 13521, hasChoices: true, hasReasoning: false}\nlog: [Perso XXL] openrouter.content.received {contentLength: 970, preview: {\n  \&quot;version\&quot;: \&quot;2.0\&quot;,\n  \&quot;site\&quot;: {\n    \&quot;hostname\&quot;: …is the intended target to hide.\&quot;\n      }\n    }\n  }\nlog: [Perso XXL] plan.validation.started {site: Object, ruleCount: 1}\nlog: [Perso XXL] plan.validation.finished {ok: true, errors: Array(0)}\nlog: [Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}\nlog: [Perso XXL] executor.target_ref.css.generated {ruleId: hide-video-card, targetRef: video_card, selectorCount: 1}\nlog: [Perso XXL] executor.rule.style {ruleId: hide-video-card, targetRef: video_card, matchCount: 1, matched: Array(1)}\nlog: [Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 1, totalMatched: 1}\nlog: [Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}\nlog: [Perso XXL] executor.target_ref.css.generated {ruleId: hide-video-card, targetRef: video_card, selectorCount: 1}\nlog: [Perso XXL] executor.rule.style {ruleId: hide-video-card, targetRef: video_card, matchCount: 1, matched: Array(1)}\nlog: [Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 1, totalMatched: 1}&quot;
-}</code></pre></details></td>
-    </tr>
-  
-    <tr>
-      <td><strong>medium-dashboard-hide-warning</strong><br><span class="muted">medium | semantic, visibility</span></td>
-      <td>Semantic request to hide a warning card without a pasted element.</td>
-      <td><img class="thumb" src="browser-screenshots/run-1-medium-dashboard-hide-warning-before.png" alt="Initial screenshot for medium-dashboard-hide-warning"></td>
-      <td><img class="thumb" src="browser-screenshots/run-1-medium-dashboard-hide-warning-after.png" alt="After screenshot for medium-dashboard-hide-warning"></td>
-      <td><span class="pill pass">pass</span></td>
-      <td>n/a</td>
-      <td><details><summary>Open log</summary><pre><code>{
-  &quot;score&quot;: 1,
-  &quot;immediate&quot;: [
-    &quot;browser target is hidden&quot;,
-    &quot;browser forbidden nodes remain visible&quot;
-  ],
-  &quot;persistence&quot;: [
-    &quot;browser target is hidden&quot;,
-    &quot;browser forbidden nodes remain visible&quot;
-  ],
-  &quot;diagnostics&quot;: {
-    &quot;targetMatches&quot;: {
-      &quot;sync_warning_card&quot;: {
-        &quot;selectors&quot;: [
-          &quot;article.metric-card.warning-card&quot;
-        ],
-        &quot;usedFallback&quot;: false,
-        &quot;uids&quot;: [
-          &quot;warning-card&quot;
-        ],
-        &quot;sampleText&quot;: [
-          &quot;Warning Sync failures detected in the billing pipeline&quot;
-        ]
-      }
-    },
-    &quot;broadSelectors&quot;: [],
-    &quot;forbiddenChanged&quot;: [],
-    &quot;usedSelectionHints&quot;: false,
-    &quot;genericSelectors&quot;: [],
-    &quot;failureReasons&quot;: [
-      &quot;browser target is hidden&quot;,
-      &quot;browser forbidden nodes remain visible&quot;,
-      &quot;persistence: browser target is hidden&quot;,
-      &quot;persistence: browser forbidden nodes remain visible&quot;
-    ],
-    &quot;taskKind&quot;: &quot;visibility&quot;
-  },
-  &quot;applyResult&quot;: {
-    &quot;totalMatched&quot;: 1,
-    &quot;cssRuleCount&quot;: 0,
-    &quot;targetCssRuleCount&quot;: 1
-  },
-  &quot;validation&quot;: {
-    &quot;ok&quot;: true,
-    &quot;errors&quot;: []
-  },
-  &quot;rules&quot;: [
-    {
-      &quot;id&quot;: &quot;hide-sync-warning&quot;,
-      &quot;type&quot;: &quot;style&quot;,
-      &quot;targetRef&quot;: &quot;sync_warning_card&quot;,
-      &quot;styles&quot;: {
-        &quot;display&quot;: &quot;none&quot;
-      }
-    }
-  ],
-  &quot;targetMap&quot;: {
-    &quot;sync_warning_card&quot;: {
-      &quot;source&quot;: &quot;inferred&quot;,
-      &quot;selectors&quot;: [
-        &quot;article.metric-card.warning-card&quot;
-      ],
-      &quot;fallbackSelectors&quot;: [
-        &quot;[role=&#039;status&#039;][aria-label=&#039;Sync warning&#039;]&quot;
-      ]
-    }
-  },
-  &quot;consoleMessages&quot;: &quot;log: [Perso XXL] content.loaded {version: 0.6.0-landing-ai-input, hasSavedPlan: false}\nlog: [Perso XXL] panel.created {}\nlog: [Perso XXL] storage.loaded {key: sitePlan:127.0.0.1:/dashboard, hasSavedPlan: false}\nlog: [Perso XXL] panel.state.loaded {hasProfileNotes: false, hasSavedPlan: false, key: sitePlan:127.0.0.1:/dashboard}\nlog: [Perso XXL] executor.revert.started {}\nlog: [Perso XXL] executor.revert.finished {restoredCount: 0}\nlog: [Perso XXL] openrouter.request.started {taskName: plan-generation, model: deepseek/deepseek-v4-flash, messageCount: 2, reasoning: Object}\nlog: [Perso XXL] openrouter.response.received {ok: true, status: 200, durationMs: 14573, hasChoices: true, hasReasoning: false}\nlog: [Perso XXL] openrouter.content.received {contentLength: 609, preview: {\n  \&quot;version\&quot;: \&quot;2.0\&quot;,\n  \&quot;site\&quot;: {\n    \&quot;hostname\&quot;: …     \&quot;id\&quot;: \&quot;hide-sync-warning\&quot;,\n      \&quot;type\&quot;: \&quot;st}\nlog: [Perso XXL] plan.validation.started {site: Object, ruleCount: 1}\nlog: [Perso XXL] plan.validation.finished {ok: true, errors: Array(0)}\nlog: [Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}\nlog: [Perso XXL] executor.target_ref.css.generated {ruleId: hide-sync-warning, targetRef: sync_warning_card, selectorCount: 1}\nlog: [Perso XXL] executor.rule.style {ruleId: hide-sync-warning, targetRef: sync_warning_card, matchCount: 1, matched: Array(1)}\nlog: [Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 1, totalMatched: 1}\nlog: [Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}\nlog: [Perso XXL] executor.target_ref.css.generated {ruleId: hide-sync-warning, targetRef: sync_warning_card, selectorCount: 1}\nlog: [Perso XXL] executor.rule.style {ruleId: hide-sync-warning, targetRef: sync_warning_card, matchCount: 1, matched: Array(1)}\nlog: [Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 1, totalMatched: 1}&quot;
-}</code></pre></details></td>
-    </tr>
-  
-    <tr>
-      <td><strong>medium-docs-remove-recent</strong><br><span class="muted">medium | semantic, visibility</span></td>
-      <td>Semantic request to remove a docs section identified by visible meaning.</td>
-      <td><img class="thumb" src="browser-screenshots/run-1-medium-docs-remove-recent-before.png" alt="Initial screenshot for medium-docs-remove-recent"></td>
-      <td><img class="thumb" src="browser-screenshots/run-1-medium-docs-remove-recent-after.png" alt="After screenshot for medium-docs-remove-recent"></td>
-      <td><span class="pill pass">pass</span></td>
-      <td>n/a</td>
-      <td><details><summary>Open log</summary><pre><code>{
-  &quot;score&quot;: 1,
-  &quot;immediate&quot;: [
-    &quot;browser target is hidden&quot;,
-    &quot;browser forbidden nodes remain visible&quot;
-  ],
-  &quot;persistence&quot;: [
-    &quot;browser target is hidden&quot;,
-    &quot;browser forbidden nodes remain visible&quot;
-  ],
-  &quot;diagnostics&quot;: {
-    &quot;targetMatches&quot;: {
-      &quot;recent_docs&quot;: {
-        &quot;selectors&quot;: [
-          &quot;.docs-recent-list&quot;
-        ],
-        &quot;usedFallback&quot;: false,
-        &quot;uids&quot;: [
-          &quot;recent-docs-list&quot;
-        ],
-        &quot;sampleText&quot;: [
-          &quot;Recent documents Quarterly plan Team notes&quot;
-        ]
-      }
-    },
-    &quot;broadSelectors&quot;: [],
-    &quot;forbiddenChanged&quot;: [],
-    &quot;usedSelectionHints&quot;: false,
-    &quot;genericSelectors&quot;: [
-      &quot;.docs-recent-list&quot;
-    ],
-    &quot;failureReasons&quot;: [
-      &quot;browser target is hidden&quot;,
-      &quot;browser forbidden nodes remain visible&quot;,
-      &quot;persistence: browser target is hidden&quot;,
-      &quot;persistence: browser forbidden nodes remain visible&quot;,
-      &quot;generic selectors: .docs-recent-list&quot;
-    ],
-    &quot;taskKind&quot;: &quot;visibility&quot;
-  },
-  &quot;applyResult&quot;: {
-    &quot;totalMatched&quot;: 1,
-    &quot;cssRuleCount&quot;: 0,
-    &quot;targetCssRuleCount&quot;: 1
-  },
-  &quot;validation&quot;: {
-    &quot;ok&quot;: true,
-    &quot;errors&quot;: []
-  },
-  &quot;rules&quot;: [
-    {
-      &quot;id&quot;: &quot;hide-recent-docs&quot;,
-      &quot;type&quot;: &quot;style&quot;,
-      &quot;targetRef&quot;: &quot;recent_docs&quot;,
-      &quot;styles&quot;: {
-        &quot;display&quot;: &quot;none&quot;
-      }
-    }
-  ],
-  &quot;targetMap&quot;: {
-    &quot;recent_docs&quot;: {
-      &quot;source&quot;: &quot;inferred&quot;,
-      &quot;selectors&quot;: [
-        &quot;.docs-recent-list&quot;
-      ],
-      &quot;fallbackSelectors&quot;: []
-    }
-  },
-  &quot;consoleMessages&quot;: &quot;log: [Perso XXL] content.loaded {version: 0.6.0-landing-ai-input, hasSavedPlan: false}\nlog: [Perso XXL] panel.created {}\nlog: [Perso XXL] storage.loaded {key: sitePlan:127.0.0.1:/docs, hasSavedPlan: false}\nlog: [Perso XXL] panel.state.loaded {hasProfileNotes: false, hasSavedPlan: false, key: sitePlan:127.0.0.1:/docs}\nlog: [Perso XXL] executor.revert.started {}\nlog: [Perso XXL] executor.revert.finished {restoredCount: 0}\nlog: [Perso XXL] openrouter.request.started {taskName: plan-generation, model: deepseek/deepseek-v4-flash, messageCount: 2, reasoning: Object}\nlog: [Perso XXL] openrouter.response.received {ok: true, status: 200, durationMs: 5049, hasChoices: true, hasReasoning: false}\nlog: [Perso XXL] openrouter.content.received {contentLength: 565, preview: {\n  \&quot;version\&quot;: \&quot;2.0\&quot;,\n  \&quot;site\&quot;: {\n    \&quot;hostname\&quot;: …\&quot;type\&quot;: \&quot;style\&quot;,\n      \&quot;targetRef\&quot;: \&quot;recent_docs\&quot;}\nlog: [Perso XXL] plan.validation.started {site: Object, ruleCount: 1}\nlog: [Perso XXL] plan.validation.finished {ok: true, errors: Array(0)}\nlog: [Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}\nlog: [Perso XXL] executor.target_ref.css.generated {ruleId: hide-recent-docs, targetRef: recent_docs, selectorCount: 1}\nlog: [Perso XXL] executor.rule.style {ruleId: hide-recent-docs, targetRef: recent_docs, matchCount: 1, matched: Array(1)}\nlog: [Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 1, totalMatched: 1}\nlog: [Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}\nlog: [Perso XXL] executor.target_ref.css.generated {ruleId: hide-recent-docs, targetRef: recent_docs, selectorCount: 1}\nlog: [Perso XXL] executor.rule.style {ruleId: hide-recent-docs, targetRef: recent_docs, matchCount: 1, matched: Array(1)}\nlog: [Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 1, totalMatched: 1}&quot;
-}</code></pre></details></td>
-    </tr>
-  
-    <tr>
-      <td><strong>medium-docs-remove-gallery</strong><br><span class="muted">medium | semantic, visibility</span></td>
-      <td>Semantic request on a Google-Docs-like DOM where the useful label is text/ARIA, not a clean class.</td>
-      <td><span class="muted">n/a</span></td>
-      <td><span class="muted">n/a</span></td>
-      <td><span class="pill neutral">skipped</span></td>
-      <td>Previous pass rate 90% is at or above skip threshold 90%.</td>
-      <td><details><summary>Open log</summary>Previous pass rate 90% is at or above skip threshold 90%.</details></td>
-    </tr>
-  
-    <tr>
-      <td><strong>medium-youtube-hide-creator-typo</strong><br><span class="muted">medium | semantic, typo, visibility</span></td>
+      <td><strong>medium-youtube-hide-creator-typo</strong><br><span class="muted">medium | semantic, typo, youtube-focused, visibility</span></td>
       <td>Creator filtering with a typo in the requested channel name.</td>
-      <td><img class="thumb" src="browser-screenshots/run-1-medium-youtube-hide-creator-typo-before.png" alt="Initial screenshot for medium-youtube-hide-creator-typo"></td>
-      <td><img class="thumb" src="browser-screenshots/run-1-medium-youtube-hide-creator-typo-after.png" alt="After screenshot for medium-youtube-hide-creator-typo"></td>
+      <td><img class="thumb" src="browser-screenshots/run-2-medium-youtube-hide-creator-typo-before.png" alt="Initial screenshot for medium-youtube-hide-creator-typo"></td>
+      <td><span class="muted">n/a</span></td>
       <td><span class="pill fail">fail</span></td>
-      <td>browser target is still visible | persistence: browser target is still visible</td>
+      <td>Uncaught (in promise) Error: Generated plan failed validation: Target mark_rober_video_card has invalid selector article.video-card:has(a[class=&#039;channel-name&#039;]:has-text(&#039;Mark Rober&#039;)).</td>
       <td><details><summary>Open log</summary><pre><code>{
-  &quot;score&quot;: 0.296,
-  &quot;immediate&quot;: [
-    &quot;browser target is still visible&quot;,
-    &quot;browser forbidden nodes remain visible&quot;
-  ],
-  &quot;persistence&quot;: [
-    &quot;browser target is still visible&quot;,
-    &quot;browser forbidden nodes remain visible&quot;
-  ],
-  &quot;diagnostics&quot;: {
-    &quot;targetMatches&quot;: {
-      &quot;mark_rober_video&quot;: {
-        &quot;selectors&quot;: [
-          &quot;article.video-card:has(a.channel-name[text=&#039;Mark Rober&#039;])&quot;
-        ],
-        &quot;usedFallback&quot;: false,
-        &quot;uids&quot;: [],
-        &quot;sampleText&quot;: []
-      }
-    },
-    &quot;broadSelectors&quot;: [],
-    &quot;forbiddenChanged&quot;: [],
-    &quot;usedSelectionHints&quot;: false,
-    &quot;genericSelectors&quot;: [],
-    &quot;failureReasons&quot;: [
-      &quot;browser target is still visible&quot;,
-      &quot;browser forbidden nodes remain visible&quot;,
-      &quot;persistence: browser target is still visible&quot;,
-      &quot;persistence: browser forbidden nodes remain visible&quot;
-    ],
-    &quot;taskKind&quot;: &quot;visibility&quot;
-  },
-  &quot;applyResult&quot;: {
-    &quot;totalMatched&quot;: 0,
-    &quot;cssRuleCount&quot;: 0,
-    &quot;targetCssRuleCount&quot;: 1
-  },
-  &quot;validation&quot;: {
-    &quot;ok&quot;: true,
-    &quot;errors&quot;: []
-  },
-  &quot;rules&quot;: [
-    {
-      &quot;id&quot;: &quot;hide-mark-rober-video&quot;,
-      &quot;type&quot;: &quot;style&quot;,
-      &quot;targetRef&quot;: &quot;mark_rober_video&quot;,
-      &quot;styles&quot;: {
-        &quot;display&quot;: &quot;none&quot;
-      }
-    }
-  ],
-  &quot;targetMap&quot;: {
-    &quot;mark_rober_video&quot;: {
-      &quot;source&quot;: &quot;inferred&quot;,
-      &quot;selectors&quot;: [
-        &quot;article.ytd-rich-item-renderer:has(a.channel-name[ariaLabel=&#039;Mark Rober channel&#039;])&quot;
-      ],
-      &quot;fallbackSelectors&quot;: [
-        &quot;article.video-card:has(a.channel-name[text=&#039;Mark Rober&#039;])&quot;
-      ]
-    }
-  },
-  &quot;consoleMessages&quot;: &quot;log: [Perso XXL] content.loaded {version: 0.6.0-landing-ai-input, hasSavedPlan: false}\nlog: [Perso XXL] panel.created {}\nlog: [Perso XXL] storage.loaded {key: sitePlan:127.0.0.1:/youtube, hasSavedPlan: false}\nlog: [Perso XXL] panel.state.loaded {hasProfileNotes: false, hasSavedPlan: false, key: sitePlan:127.0.0.1:/youtube}\nlog: [Perso XXL] executor.revert.started {}\nlog: [Perso XXL] executor.revert.finished {restoredCount: 0}\nlog: [Perso XXL] openrouter.request.started {taskName: plan-generation, model: deepseek/deepseek-v4-flash, messageCount: 2, reasoning: Object}\nlog: [Perso XXL] openrouter.response.received {ok: true, status: 200, durationMs: 20429, hasChoices: true, hasReasoning: false}\nlog: [Perso XXL] openrouter.content.received {contentLength: 690, preview: {\n  \&quot;version\&quot;: \&quot;2.0\&quot;,\n  \&quot;site\&quot;: {\n    \&quot;hostname\&quot;: …-card:has(a.channel-name[text=&#039;Mark Rober&#039;])\&quot;]\n  }\nlog: [Perso XXL] plan.validation.started {site: Object, ruleCount: 1}\nlog: [Perso XXL] plan.validation.finished {ok: true, errors: Array(0)}\nlog: [Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}\nlog: [Perso XXL] executor.target_ref.css.generated {ruleId: hide-mark-rober-video, targetRef: mark_rober_video, selectorCount: 1}\nlog: [Perso XXL] executor.rule.style {ruleId: hide-mark-rober-video, targetRef: mark_rober_video, matchCount: 0, matched: Array(0)}\nlog: [Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 1, totalMatched: 0}\nlog: [Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}\nlog: [Perso XXL] executor.target_ref.css.generated {ruleId: hide-mark-rober-video, targetRef: mark_rober_video, selectorCount: 1}\nlog: [Perso XXL] executor.rule.style {ruleId: hide-mark-rober-video, targetRef: mark_rober_video, matchCount: 0, matched: Array(0)}\nlog: [Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 1, totalMatched: 0}&quot;
+  &quot;score&quot;: 0,
+  &quot;immediate&quot;: [],
+  &quot;persistence&quot;: [],
+  &quot;diagnostics&quot;: {},
+  &quot;applyResult&quot;: null,
+  &quot;validation&quot;: null,
+  &quot;rules&quot;: [],
+  &quot;targetMap&quot;: {},
+  &quot;consoleMessages&quot;: &quot;log: [Perso XXL] content.loaded {version: 0.6.0-landing-ai-input, hasSavedPlan: false}\nlog: [Perso XXL] panel.created {}\nlog: [Perso XXL] storage.loaded {key: sitePlan:127.0.0.1:/youtube, hasSavedPlan: false}\nlog: [Perso XXL] panel.state.loaded {hasProfileNotes: false, hasSavedPlan: false, key: sitePlan:127.0.0.1:/youtube}\nlog: [Perso XXL] executor.revert.started {}\nlog: [Perso XXL] executor.revert.finished {restoredCount: 0}\nlog: [Perso XXL] openrouter.request.started {taskName: plan-generation, model: deepseek/deepseek-v4-flash, messageCount: 2, reasoning: Object}\nlog: [Perso XXL] openrouter.response.received {ok: true, status: 200, durationMs: 16148, hasChoices: true, hasReasoning: false}\nlog: [Perso XXL] openrouter.content.received {contentLength: 725, preview: {\n  \&quot;version\&quot;: \&quot;2.0\&quot;,\n  \&quot;site\&quot;: {\n    \&quot;hostname\&quot;: …     \&quot;article.video-card:has(a.channel-name:has-t}\nlog: [Perso XXL] plan.validation.started {site: Object, ruleCount: 1}\nlog: [Perso XXL] plan.validation.finished {ok: false, errors: Array(1)}\nlog: [Perso XXL] openrouter.request.started {taskName: plan-repair, model: deepseek/deepseek-v4-flash, messageCount: 2, reasoning: Object}\nlog: [Perso XXL] openrouter.response.received {ok: true, status: 200, durationMs: 21389, hasChoices: true, hasReasoning: false}\nlog: [Perso XXL] openrouter.content.received {contentLength: 712, preview: {\n  \&quot;version\&quot;: \&quot;2.0\&quot;,\n  \&quot;site\&quot;: {\n    \&quot;hostname\&quot;: …ideo-card:has(a[class=&#039;channel-name&#039;]:has-text(&#039;M}\nlog: [Perso XXL] plan.validation.started {site: Object, ruleCount: 1}\nlog: [Perso XXL] plan.validation.finished {ok: false, errors: Array(1)}&quot;
 }</code></pre></details></td>
     </tr>
   
     <tr>
-      <td><strong>medium-youtube-hide-rocket-title</strong><br><span class="muted">medium | semantic, text-match, visibility</span></td>
+      <td><strong>medium-youtube-hide-rocket-title</strong><br><span class="muted">medium | semantic, text-match, youtube-focused, visibility</span></td>
       <td>Hide a video by title keyword while keeping unrelated videos visible.</td>
-      <td><img class="thumb" src="browser-screenshots/run-1-medium-youtube-hide-rocket-title-before.png" alt="Initial screenshot for medium-youtube-hide-rocket-title"></td>
-      <td><img class="thumb" src="browser-screenshots/run-1-medium-youtube-hide-rocket-title-after.png" alt="After screenshot for medium-youtube-hide-rocket-title"></td>
+      <td><img class="thumb" src="browser-screenshots/run-3-medium-youtube-hide-rocket-title-before.png" alt="Initial screenshot for medium-youtube-hide-rocket-title"></td>
+      <td><img class="thumb" src="browser-screenshots/run-3-medium-youtube-hide-rocket-title-after.png" alt="After screenshot for medium-youtube-hide-rocket-title"></td>
       <td><span class="pill pass">pass</span></td>
       <td>n/a</td>
       <td><details><summary>Open log</summary><pre><code>{
@@ -796,21 +112,86 @@
   ],
   &quot;diagnostics&quot;: {
     &quot;targetMatches&quot;: {
-      &quot;rocket_videos&quot;: {
+      &quot;rocket_video_card&quot;: {
         &quot;selectors&quot;: [
-          &quot;article.video-card:has(a#rocket-video-title)&quot;
+          &quot;article.ytd-rich-item-renderer.video-card a#rocket-video-title&quot;
         ],
         &quot;usedFallback&quot;: false,
         &quot;uids&quot;: [
-          &quot;video-rocket-card&quot;
+          &quot;video-rocket-link&quot;
         ],
         &quot;sampleText&quot;: [
-          &quot;Engineering a rocket Everyday Astronaut&quot;
+          &quot;Engineering a rocket&quot;
         ]
       }
     },
     &quot;broadSelectors&quot;: [],
     &quot;forbiddenChanged&quot;: [],
+    &quot;semanticCandidates&quot;: {
+      &quot;query&quot;: &quot;rockets&quot;,
+      &quot;expected&quot;: &quot;Engineering a rocket&quot;,
+      &quot;candidateKind&quot;: &quot;youtube-title&quot;,
+      &quot;expectedCandidateVisibleInContext&quot;: true,
+      &quot;expectedCandidateSelectedByPlan&quot;: true,
+      &quot;bestCandidate&quot;: {
+        &quot;uid&quot;: &quot;video-rocket-link&quot;,
+        &quot;tag&quot;: &quot;a&quot;,
+        &quot;text&quot;: &quot;Engineering a rocket&quot;,
+        &quot;ariaLabel&quot;: &quot;&quot;,
+        &quot;dataChannel&quot;: &quot;&quot;,
+        &quot;scoreToQuery&quot;: 0.121,
+        &quot;scoreToExpected&quot;: 1,
+        &quot;isExpected&quot;: true,
+        &quot;selectedByPlan&quot;: true
+      },
+      &quot;candidates&quot;: [
+        {
+          &quot;uid&quot;: &quot;video-rocket-link&quot;,
+          &quot;tag&quot;: &quot;a&quot;,
+          &quot;text&quot;: &quot;Engineering a rocket&quot;,
+          &quot;ariaLabel&quot;: &quot;&quot;,
+          &quot;dataChannel&quot;: &quot;&quot;,
+          &quot;scoreToQuery&quot;: 0.121,
+          &quot;scoreToExpected&quot;: 1,
+          &quot;isExpected&quot;: true,
+          &quot;selectedByPlan&quot;: true
+        },
+        {
+          &quot;uid&quot;: &quot;video-first-link&quot;,
+          &quot;tag&quot;: &quot;a&quot;,
+          &quot;text&quot;: &quot;Backyard Squirrel Maze&quot;,
+          &quot;ariaLabel&quot;: &quot;&quot;,
+          &quot;dataChannel&quot;: &quot;&quot;,
+          &quot;scoreToQuery&quot;: 0.094,
+          &quot;scoreToExpected&quot;: 0.151,
+          &quot;isExpected&quot;: false,
+          &quot;selectedByPlan&quot;: false
+        },
+        {
+          &quot;uid&quot;: &quot;video-sponsored-link&quot;,
+          &quot;tag&quot;: &quot;a&quot;,
+          &quot;text&quot;: &quot;CloudDesk AI tool&quot;,
+          &quot;ariaLabel&quot;: &quot;&quot;,
+          &quot;dataChannel&quot;: &quot;&quot;,
+          &quot;scoreToQuery&quot;: 0.086,
+          &quot;scoreToExpected&quot;: 0.172,
+          &quot;isExpected&quot;: false,
+          &quot;selectedByPlan&quot;: false
+        },
+        {
+          &quot;uid&quot;: &quot;video-mark-rober-link&quot;,
+          &quot;tag&quot;: &quot;a&quot;,
+          &quot;text&quot;: &quot;World&#039;s Smallest Nerf Gun&quot;,
+          &quot;ariaLabel&quot;: &quot;&quot;,
+          &quot;dataChannel&quot;: &quot;&quot;,
+          &quot;scoreToQuery&quot;: 0.082,
+          &quot;scoreToExpected&quot;: 0.197,
+          &quot;isExpected&quot;: false,
+          &quot;selectedByPlan&quot;: false
+        }
+      ]
+    },
+    &quot;phase&quot;: &quot;ok-or-low-risk&quot;,
     &quot;usedSelectionHints&quot;: false,
     &quot;genericSelectors&quot;: [],
     &quot;failureReasons&quot;: [
@@ -834,29 +215,33 @@
     {
       &quot;id&quot;: &quot;hide-rocket-videos&quot;,
       &quot;type&quot;: &quot;style&quot;,
-      &quot;targetRef&quot;: &quot;rocket_videos&quot;,
+      &quot;targetRef&quot;: &quot;rocket_video_card&quot;,
       &quot;styles&quot;: {
         &quot;display&quot;: &quot;none&quot;
       }
     }
   ],
   &quot;targetMap&quot;: {
-    &quot;rocket_videos&quot;: {
+    &quot;rocket_video_card&quot;: {
       &quot;source&quot;: &quot;inferred&quot;,
       &quot;selectors&quot;: [
-        &quot;article.video-card:has(a#rocket-video-title)&quot;
+        &quot;article.ytd-rich-item-renderer.video-card a#rocket-video-title&quot;
+      ],
+      &quot;fallbackSelectors&quot;: [
+        &quot;article.ytd-rich-item-renderer.video-card:has(a#rocket-video-title)&quot;,
+        &quot;article.ytd-rich-item-renderer.video-card:has(a[id*=\&quot;rocket\&quot;])&quot;
       ]
     }
   },
-  &quot;consoleMessages&quot;: &quot;log: [Perso XXL] content.loaded {version: 0.6.0-landing-ai-input, hasSavedPlan: false}\nlog: [Perso XXL] panel.created {}\nlog: [Perso XXL] storage.loaded {key: sitePlan:127.0.0.1:/youtube, hasSavedPlan: false}\nlog: [Perso XXL] panel.state.loaded {hasProfileNotes: false, hasSavedPlan: false, key: sitePlan:127.0.0.1:/youtube}\nlog: [Perso XXL] executor.revert.started {}\nlog: [Perso XXL] executor.revert.finished {restoredCount: 0}\nlog: [Perso XXL] openrouter.request.started {taskName: plan-generation, model: deepseek/deepseek-v4-flash, messageCount: 2, reasoning: Object}\nlog: [Perso XXL] openrouter.response.received {ok: true, status: 200, durationMs: 9318, hasChoices: true, hasReasoning: false}\nlog: [Perso XXL] openrouter.content.received {contentLength: 538, preview: {\n  \&quot;version\&quot;: \&quot;2.0\&quot;,\n  \&quot;site\&quot;: {\n    \&quot;hostname\&quot;: …tRef\&quot;: \&quot;rocket_videos\&quot;,\n      \&quot;styles\&quot;: {\n       }\nlog: [Perso XXL] plan.validation.started {site: Object, ruleCount: 1}\nlog: [Perso XXL] plan.validation.finished {ok: true, errors: Array(0)}\nlog: [Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}\nlog: [Perso XXL] executor.target_ref.css.generated {ruleId: hide-rocket-videos, targetRef: rocket_videos, selectorCount: 1}\nlog: [Perso XXL] executor.rule.style {ruleId: hide-rocket-videos, targetRef: rocket_videos, matchCount: 1, matched: Array(1)}\nlog: [Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 1, totalMatched: 1}\nlog: [Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}\nlog: [Perso XXL] executor.target_ref.css.generated {ruleId: hide-rocket-videos, targetRef: rocket_videos, selectorCount: 1}\nlog: [Perso XXL] executor.rule.style {ruleId: hide-rocket-videos, targetRef: rocket_videos, matchCount: 1, matched: Array(1)}\nlog: [Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 1, totalMatched: 1}&quot;
+  &quot;consoleMessages&quot;: &quot;log: [Perso XXL] content.loaded {version: 0.6.0-landing-ai-input, hasSavedPlan: false}\nlog: [Perso XXL] panel.created {}\nlog: [Perso XXL] storage.loaded {key: sitePlan:127.0.0.1:/youtube, hasSavedPlan: false}\nlog: [Perso XXL] panel.state.loaded {hasProfileNotes: false, hasSavedPlan: false, key: sitePlan:127.0.0.1:/youtube}\nlog: [Perso XXL] executor.revert.started {}\nlog: [Perso XXL] executor.revert.finished {restoredCount: 0}\nlog: [Perso XXL] openrouter.request.started {taskName: plan-generation, model: deepseek/deepseek-v4-flash, messageCount: 2, reasoning: Object}\nlog: [Perso XXL] openrouter.response.received {ok: true, status: 200, durationMs: 11888, hasChoices: true, hasReasoning: false}\nlog: [Perso XXL] openrouter.content.received {contentLength: 755, preview: {\n  \&quot;version\&quot;: \&quot;2.0\&quot;,\n  \&quot;site\&quot;: {\n    \&quot;hostname\&quot;: …rd:has(a#rocket-video-title)\&quot;,\n        \&quot;article.y}\nlog: [Perso XXL] plan.validation.started {site: Object, ruleCount: 1}\nlog: [Perso XXL] plan.validation.finished {ok: true, errors: Array(0)}\nlog: [Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}\nlog: [Perso XXL] executor.target_ref.css.generated {ruleId: hide-rocket-videos, targetRef: rocket_video_card, selectorCount: 1}\nlog: [Perso XXL] executor.rule.style {ruleId: hide-rocket-videos, targetRef: rocket_video_card, matchCount: 1, matched: Array(1)}\nlog: [Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 1, totalMatched: 1}\nlog: [Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}\nlog: [Perso XXL] executor.target_ref.css.generated {ruleId: hide-rocket-videos, targetRef: rocket_video_card, selectorCount: 1}\nlog: [Perso XXL] executor.rule.style {ruleId: hide-rocket-videos, targetRef: rocket_video_card, matchCount: 1, matched: Array(1)}\nlog: [Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 1, totalMatched: 1}&quot;
 }</code></pre></details></td>
     </tr>
   
     <tr>
-      <td><strong>medium-youtube-hide-sponsored</strong><br><span class="muted">medium | semantic, ads, visibility</span></td>
+      <td><strong>medium-youtube-hide-sponsored</strong><br><span class="muted">medium | semantic, ads, youtube-focused, visibility</span></td>
       <td>Hide sponsored content by semantic label/data attribute without hiding organic videos.</td>
-      <td><img class="thumb" src="browser-screenshots/run-1-medium-youtube-hide-sponsored-before.png" alt="Initial screenshot for medium-youtube-hide-sponsored"></td>
-      <td><img class="thumb" src="browser-screenshots/run-1-medium-youtube-hide-sponsored-after.png" alt="After screenshot for medium-youtube-hide-sponsored"></td>
+      <td><img class="thumb" src="browser-screenshots/run-3-medium-youtube-hide-sponsored-before.png" alt="Initial screenshot for medium-youtube-hide-sponsored"></td>
+      <td><img class="thumb" src="browser-screenshots/run-3-medium-youtube-hide-sponsored-after.png" alt="After screenshot for medium-youtube-hide-sponsored"></td>
       <td><span class="pill pass">pass</span></td>
       <td>n/a</td>
       <td><details><summary>Open log</summary><pre><code>{
@@ -871,7 +256,7 @@
   ],
   &quot;diagnostics&quot;: {
     &quot;targetMatches&quot;: {
-      &quot;sponsored_videos&quot;: {
+      &quot;sponsored_content&quot;: {
         &quot;selectors&quot;: [
           &quot;article.ytd-rich-item-renderer.sponsored-card&quot;
         ],
@@ -886,6 +271,49 @@
     },
     &quot;broadSelectors&quot;: [],
     &quot;forbiddenChanged&quot;: [],
+    &quot;semanticCandidates&quot;: {
+      &quot;query&quot;: &quot;sponsored&quot;,
+      &quot;expected&quot;: &quot;Sponsored&quot;,
+      &quot;candidateKind&quot;: &quot;youtube-badge&quot;,
+      &quot;expectedCandidateVisibleInContext&quot;: true,
+      &quot;expectedCandidateSelectedByPlan&quot;: true,
+      &quot;bestCandidate&quot;: {
+        &quot;uid&quot;: &quot;video-sponsored-card&quot;,
+        &quot;tag&quot;: &quot;article&quot;,
+        &quot;text&quot;: &quot;Sponsored CloudDesk AI tool CloudDesk&quot;,
+        &quot;ariaLabel&quot;: &quot;Sponsored video from CloudDesk&quot;,
+        &quot;dataChannel&quot;: &quot;CloudDesk&quot;,
+        &quot;scoreToQuery&quot;: 1,
+        &quot;scoreToExpected&quot;: 1,
+        &quot;isExpected&quot;: true,
+        &quot;selectedByPlan&quot;: true
+      },
+      &quot;candidates&quot;: [
+        {
+          &quot;uid&quot;: &quot;video-sponsored-card&quot;,
+          &quot;tag&quot;: &quot;article&quot;,
+          &quot;text&quot;: &quot;Sponsored CloudDesk AI tool CloudDesk&quot;,
+          &quot;ariaLabel&quot;: &quot;Sponsored video from CloudDesk&quot;,
+          &quot;dataChannel&quot;: &quot;CloudDesk&quot;,
+          &quot;scoreToQuery&quot;: 1,
+          &quot;scoreToExpected&quot;: 1,
+          &quot;isExpected&quot;: true,
+          &quot;selectedByPlan&quot;: true
+        },
+        {
+          &quot;uid&quot;: &quot;video-sponsored-badge&quot;,
+          &quot;tag&quot;: &quot;span&quot;,
+          &quot;text&quot;: &quot;Sponsored&quot;,
+          &quot;ariaLabel&quot;: &quot;&quot;,
+          &quot;dataChannel&quot;: &quot;&quot;,
+          &quot;scoreToQuery&quot;: 1,
+          &quot;scoreToExpected&quot;: 1,
+          &quot;isExpected&quot;: true,
+          &quot;selectedByPlan&quot;: false
+        }
+      ]
+    },
+    &quot;phase&quot;: &quot;ok-or-low-risk&quot;,
     &quot;usedSelectionHints&quot;: false,
     &quot;genericSelectors&quot;: [
       &quot;article.sponsored-card&quot;
@@ -912,14 +340,14 @@
     {
       &quot;id&quot;: &quot;hide-sponsored-content&quot;,
       &quot;type&quot;: &quot;style&quot;,
-      &quot;targetRef&quot;: &quot;sponsored_videos&quot;,
+      &quot;targetRef&quot;: &quot;sponsored_content&quot;,
       &quot;styles&quot;: {
         &quot;display&quot;: &quot;none&quot;
       }
     }
   ],
   &quot;targetMap&quot;: {
-    &quot;sponsored_videos&quot;: {
+    &quot;sponsored_content&quot;: {
       &quot;source&quot;: &quot;inferred&quot;,
       &quot;selectors&quot;: [
         &quot;article.ytd-rich-item-renderer.sponsored-card&quot;
@@ -929,15 +357,263 @@
       ]
     }
   },
-  &quot;consoleMessages&quot;: &quot;log: [Perso XXL] content.loaded {version: 0.6.0-landing-ai-input, hasSavedPlan: false}\nlog: [Perso XXL] panel.created {}\nlog: [Perso XXL] storage.loaded {key: sitePlan:127.0.0.1:/youtube, hasSavedPlan: false}\nlog: [Perso XXL] panel.state.loaded {hasProfileNotes: false, hasSavedPlan: false, key: sitePlan:127.0.0.1:/youtube}\nlog: [Perso XXL] executor.revert.started {}\nlog: [Perso XXL] executor.revert.finished {restoredCount: 0}\nlog: [Perso XXL] openrouter.request.started {taskName: plan-generation, model: deepseek/deepseek-v4-flash, messageCount: 2, reasoning: Object}\nlog: [Perso XXL] openrouter.response.received {ok: true, status: 200, durationMs: 21749, hasChoices: true, hasReasoning: false}\nlog: [Perso XXL] openrouter.content.received {contentLength: 590, preview: {\n  \&quot;version\&quot;: \&quot;2.0\&quot;,\n  \&quot;site\&quot;: {\n    \&quot;hostname\&quot;: …red-content\&quot;,\n      \&quot;type\&quot;: \&quot;style\&quot;,\n      \&quot;targe}\nlog: [Perso XXL] plan.validation.started {site: Object, ruleCount: 1}\nlog: [Perso XXL] plan.validation.finished {ok: true, errors: Array(0)}\nlog: [Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}\nlog: [Perso XXL] executor.target_ref.css.generated {ruleId: hide-sponsored-content, targetRef: sponsored_videos, selectorCount: 1}\nlog: [Perso XXL] executor.rule.style {ruleId: hide-sponsored-content, targetRef: sponsored_videos, matchCount: 1, matched: Array(1)}\nlog: [Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 1, totalMatched: 1}\nlog: [Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}\nlog: [Perso XXL] executor.target_ref.css.generated {ruleId: hide-sponsored-content, targetRef: sponsored_videos, selectorCount: 1}\nlog: [Perso XXL] executor.rule.style {ruleId: hide-sponsored-content, targetRef: sponsored_videos, matchCount: 1, matched: Array(1)}\nlog: [Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 1, totalMatched: 1}&quot;
+  &quot;consoleMessages&quot;: &quot;log: [Perso XXL] content.loaded {version: 0.6.0-landing-ai-input, hasSavedPlan: false}\nlog: [Perso XXL] panel.created {}\nlog: [Perso XXL] storage.loaded {key: sitePlan:127.0.0.1:/youtube, hasSavedPlan: false}\nlog: [Perso XXL] panel.state.loaded {hasProfileNotes: false, hasSavedPlan: false, key: sitePlan:127.0.0.1:/youtube}\nlog: [Perso XXL] executor.revert.started {}\nlog: [Perso XXL] executor.revert.finished {restoredCount: 0}\nlog: [Perso XXL] openrouter.request.started {taskName: plan-generation, model: deepseek/deepseek-v4-flash, messageCount: 2, reasoning: Object}\nlog: [Perso XXL] openrouter.response.received {ok: true, status: 200, durationMs: 15375, hasChoices: true, hasReasoning: false}\nlog: [Perso XXL] openrouter.content.received {contentLength: 593, preview: {\n  \&quot;version\&quot;: \&quot;2.0\&quot;,\n  \&quot;site\&quot;: {\n    \&quot;hostname\&quot;: …sored-content\&quot;,\n      \&quot;type\&quot;: \&quot;style\&quot;,\n      \&quot;tar}\nlog: [Perso XXL] plan.validation.started {site: Object, ruleCount: 1}\nlog: [Perso XXL] plan.validation.finished {ok: true, errors: Array(0)}\nlog: [Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}\nlog: [Perso XXL] executor.target_ref.css.generated {ruleId: hide-sponsored-content, targetRef: sponsored_content, selectorCount: 1}\nlog: [Perso XXL] executor.rule.style {ruleId: hide-sponsored-content, targetRef: sponsored_content, matchCount: 1, matched: Array(1)}\nlog: [Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 1, totalMatched: 1}\nlog: [Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}\nlog: [Perso XXL] executor.target_ref.css.generated {ruleId: hide-sponsored-content, targetRef: sponsored_content, selectorCount: 1}\nlog: [Perso XXL] executor.rule.style {ruleId: hide-sponsored-content, targetRef: sponsored_content, matchCount: 1, matched: Array(1)}\nlog: [Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 1, totalMatched: 1}&quot;
 }</code></pre></details></td>
     </tr>
   
     <tr>
-      <td><strong>medium-selected-warning-remove-vague</strong><br><span class="muted">medium | selection, vague, visibility</span></td>
-      <td>Vague selected-element removal phrasing.</td>
-      <td><img class="thumb" src="browser-screenshots/run-1-medium-selected-warning-remove-vague-before.png" alt="Initial screenshot for medium-selected-warning-remove-vague"></td>
-      <td><img class="thumb" src="browser-screenshots/run-1-medium-selected-warning-remove-vague-after.png" alt="After screenshot for medium-selected-warning-remove-vague"></td>
+      <td><strong>medium-youtube-hide-creator-exact</strong><br><span class="muted">medium | semantic, youtube-focused, visibility</span></td>
+      <td>Control task for creator filtering with the exact channel name.</td>
+      <td><img class="thumb" src="browser-screenshots/run-2-medium-youtube-hide-creator-exact-before.png" alt="Initial screenshot for medium-youtube-hide-creator-exact"></td>
+      <td><img class="thumb" src="browser-screenshots/run-2-medium-youtube-hide-creator-exact-after.png" alt="After screenshot for medium-youtube-hide-creator-exact"></td>
+      <td><span class="pill pass">pass</span></td>
+      <td>browser target is hidden | browser forbidden node was hidden | persistence: browser target is hidden | persistence: browser forbidden node was hidden</td>
+      <td><details><summary>Open log</summary><pre><code>{
+  &quot;score&quot;: 0.907,
+  &quot;immediate&quot;: [
+    &quot;browser target is hidden&quot;,
+    &quot;browser forbidden node was hidden&quot;
+  ],
+  &quot;persistence&quot;: [
+    &quot;browser target is hidden&quot;,
+    &quot;browser forbidden node was hidden&quot;
+  ],
+  &quot;diagnostics&quot;: {
+    &quot;targetMatches&quot;: {
+      &quot;mark_rober_videos&quot;: {
+        &quot;selectors&quot;: [
+          &quot;article.video-card&quot;
+        ],
+        &quot;usedFallback&quot;: false,
+        &quot;uids&quot;: [
+          &quot;video-first-card&quot;,
+          &quot;video-mark-rober-card&quot;,
+          &quot;video-cooking-card&quot;,
+          &quot;video-rocket-card&quot;,
+          &quot;video-mkbhd-card&quot;,
+          &quot;video-sponsored-card&quot;
+        ],
+        &quot;sampleText&quot;: [
+          &quot;Backyard Squirrel Maze Nature Lab&quot;,
+          &quot;World&#039;s Smallest Nerf Gun Mark Rober&quot;,
+          &quot;Perfect pasta Kitchen Daily&quot;,
+          &quot;Engineering a rocket Everyday Astronaut&quot;,
+          &quot;Phone awards Marques Brownlee&quot;
+        ]
+      }
+    },
+    &quot;broadSelectors&quot;: [
+      {
+        &quot;targetRef&quot;: &quot;mark_rober_videos&quot;,
+        &quot;selector&quot;: &quot;article.video-card&quot;,
+        &quot;matchCount&quot;: 6,
+        &quot;matchedUids&quot;: [
+          &quot;video-first-card&quot;,
+          &quot;video-mark-rober-card&quot;,
+          &quot;video-cooking-card&quot;,
+          &quot;video-rocket-card&quot;,
+          &quot;video-mkbhd-card&quot;,
+          &quot;video-sponsored-card&quot;
+        ],
+        &quot;sampleText&quot;: [
+          &quot;Backyard Squirrel Maze Nature Lab&quot;,
+          &quot;World&#039;s Smallest Nerf Gun Mark Rober&quot;,
+          &quot;Perfect pasta Kitchen Daily&quot;,
+          &quot;Engineering a rocket Everyday Astronaut&quot;,
+          &quot;Phone awards Marques Brownlee&quot;
+        ]
+      }
+    ],
+    &quot;forbiddenChanged&quot;: [
+      &quot;video-cooking-card&quot;,
+      &quot;video-rocket-card&quot;,
+      &quot;video-mkbhd-card&quot;,
+      &quot;video-sponsored-card&quot;
+    ],
+    &quot;semanticCandidates&quot;: {
+      &quot;query&quot;: &quot;Mark Rober&quot;,
+      &quot;expected&quot;: &quot;Mark Rober&quot;,
+      &quot;candidateKind&quot;: &quot;youtube-channel&quot;,
+      &quot;expectedCandidateVisibleInContext&quot;: true,
+      &quot;expectedCandidateSelectedByPlan&quot;: true,
+      &quot;bestCandidate&quot;: {
+        &quot;uid&quot;: &quot;video-mark-rober-card&quot;,
+        &quot;tag&quot;: &quot;article&quot;,
+        &quot;text&quot;: &quot;World&#039;s Smallest Nerf Gun Mark Rober&quot;,
+        &quot;ariaLabel&quot;: &quot;&quot;,
+        &quot;dataChannel&quot;: &quot;Mark Rober&quot;,
+        &quot;scoreToQuery&quot;: 1,
+        &quot;scoreToExpected&quot;: 1,
+        &quot;isExpected&quot;: true,
+        &quot;selectedByPlan&quot;: true
+      },
+      &quot;candidates&quot;: [
+        {
+          &quot;uid&quot;: &quot;video-mark-rober-card&quot;,
+          &quot;tag&quot;: &quot;article&quot;,
+          &quot;text&quot;: &quot;World&#039;s Smallest Nerf Gun Mark Rober&quot;,
+          &quot;ariaLabel&quot;: &quot;&quot;,
+          &quot;dataChannel&quot;: &quot;Mark Rober&quot;,
+          &quot;scoreToQuery&quot;: 1,
+          &quot;scoreToExpected&quot;: 1,
+          &quot;isExpected&quot;: true,
+          &quot;selectedByPlan&quot;: true
+        },
+        {
+          &quot;uid&quot;: &quot;video-mark-rober-channel&quot;,
+          &quot;tag&quot;: &quot;a&quot;,
+          &quot;text&quot;: &quot;Mark Rober&quot;,
+          &quot;ariaLabel&quot;: &quot;Mark Rober channel&quot;,
+          &quot;dataChannel&quot;: &quot;&quot;,
+          &quot;scoreToQuery&quot;: 1,
+          &quot;scoreToExpected&quot;: 1,
+          &quot;isExpected&quot;: true,
+          &quot;selectedByPlan&quot;: false
+        },
+        {
+          &quot;uid&quot;: &quot;video-mkbhd-channel&quot;,
+          &quot;tag&quot;: &quot;a&quot;,
+          &quot;text&quot;: &quot;Marques Brownlee&quot;,
+          &quot;ariaLabel&quot;: &quot;&quot;,
+          &quot;dataChannel&quot;: &quot;&quot;,
+          &quot;scoreToQuery&quot;: 0.241,
+          &quot;scoreToExpected&quot;: 0.241,
+          &quot;isExpected&quot;: false,
+          &quot;selectedByPlan&quot;: false
+        },
+        {
+          &quot;uid&quot;: &quot;video-first-channel&quot;,
+          &quot;tag&quot;: &quot;a&quot;,
+          &quot;text&quot;: &quot;Nature Lab&quot;,
+          &quot;ariaLabel&quot;: &quot;&quot;,
+          &quot;dataChannel&quot;: &quot;&quot;,
+          &quot;scoreToQuery&quot;: 0.217,
+          &quot;scoreToExpected&quot;: 0.217,
+          &quot;isExpected&quot;: false,
+          &quot;selectedByPlan&quot;: false
+        },
+        {
+          &quot;uid&quot;: &quot;video-rocket-channel&quot;,
+          &quot;tag&quot;: &quot;a&quot;,
+          &quot;text&quot;: &quot;Everyday Astronaut&quot;,
+          &quot;ariaLabel&quot;: &quot;&quot;,
+          &quot;dataChannel&quot;: &quot;&quot;,
+          &quot;scoreToQuery&quot;: 0.161,
+          &quot;scoreToExpected&quot;: 0.161,
+          &quot;isExpected&quot;: false,
+          &quot;selectedByPlan&quot;: false
+        },
+        {
+          &quot;uid&quot;: &quot;video-sponsored-channel&quot;,
+          &quot;tag&quot;: &quot;a&quot;,
+          &quot;text&quot;: &quot;CloudDesk&quot;,
+          &quot;ariaLabel&quot;: &quot;&quot;,
+          &quot;dataChannel&quot;: &quot;&quot;,
+          &quot;scoreToQuery&quot;: 0.136,
+          &quot;scoreToExpected&quot;: 0.136,
+          &quot;isExpected&quot;: false,
+          &quot;selectedByPlan&quot;: false
+        },
+        {
+          &quot;uid&quot;: &quot;video-cooking-channel&quot;,
+          &quot;tag&quot;: &quot;a&quot;,
+          &quot;text&quot;: &quot;Kitchen Daily&quot;,
+          &quot;ariaLabel&quot;: &quot;&quot;,
+          &quot;dataChannel&quot;: &quot;&quot;,
+          &quot;scoreToQuery&quot;: 0.115,
+          &quot;scoreToExpected&quot;: 0.115,
+          &quot;isExpected&quot;: false,
+          &quot;selectedByPlan&quot;: false
+        },
+        {
+          &quot;uid&quot;: &quot;video-mkbhd-card&quot;,
+          &quot;tag&quot;: &quot;article&quot;,
+          &quot;text&quot;: &quot;Phone awards Marques Brownlee&quot;,
+          &quot;ariaLabel&quot;: &quot;&quot;,
+          &quot;dataChannel&quot;: &quot;Marques Brownlee&quot;,
+          &quot;scoreToQuery&quot;: 0.113,
+          &quot;scoreToExpected&quot;: 0.113,
+          &quot;isExpected&quot;: false,
+          &quot;selectedByPlan&quot;: true
+        }
+      ]
+    },
+    &quot;phase&quot;: &quot;selector-blast-radius&quot;,
+    &quot;usedSelectionHints&quot;: false,
+    &quot;genericSelectors&quot;: [
+      &quot;article.video-card&quot;
+    ],
+    &quot;failureReasons&quot;: [
+      &quot;browser target is hidden&quot;,
+      &quot;browser forbidden node was hidden&quot;,
+      &quot;persistence: browser target is hidden&quot;,
+      &quot;persistence: browser forbidden node was hidden&quot;,
+      &quot;selector article.video-card matched 6 nodes&quot;,
+      &quot;forbidden node changed: video-cooking-card&quot;,
+      &quot;forbidden node changed: video-rocket-card&quot;,
+      &quot;forbidden node changed: video-mkbhd-card&quot;,
+      &quot;forbidden node changed: video-sponsored-card&quot;,
+      &quot;generic selectors: article.video-card&quot;
+    ],
+    &quot;taskKind&quot;: &quot;visibility&quot;
+  },
+  &quot;applyResult&quot;: {
+    &quot;totalMatched&quot;: 6,
+    &quot;cssRuleCount&quot;: 0,
+    &quot;targetCssRuleCount&quot;: 1
+  },
+  &quot;validation&quot;: {
+    &quot;ok&quot;: true,
+    &quot;errors&quot;: []
+  },
+  &quot;rules&quot;: [
+    {
+      &quot;id&quot;: &quot;hide-mark-rober-videos&quot;,
+      &quot;type&quot;: &quot;style&quot;,
+      &quot;targetRef&quot;: &quot;mark_rober_videos&quot;,
+      &quot;styles&quot;: {
+        &quot;display&quot;: &quot;none&quot;
+      }
+    }
+  ],
+  &quot;targetMap&quot;: {
+    &quot;mark_rober_videos&quot;: {
+      &quot;source&quot;: &quot;inferred&quot;,
+      &quot;selectors&quot;: [
+        &quot;article.video-card&quot;
+      ],
+      &quot;fallbackSelectors&quot;: []
+    }
+  },
+  &quot;consoleMessages&quot;: &quot;log: [Perso XXL] executor.revert.started {}\nlog: [Perso XXL] executor.revert.finished {restoredCount: 0}\nlog: [Perso XXL] openrouter.request.started {taskName: plan-generation, model: deepseek/deepseek-v4-flash, messageCount: 2, reasoning: Object}\nlog: [Perso XXL] openrouter.response.received {ok: true, status: 200, durationMs: 16220, hasChoices: true, hasReasoning: false}\nlog: [Perso XXL] openrouter.content.received {contentLength: 713, preview: {\n  \&quot;version\&quot;: \&quot;2.0\&quot;,\n  \&quot;site\&quot;: {\n    \&quot;hostname\&quot;: …d-rich-item-renderer:has(a.channel-name:contains(}\nlog: [Perso XXL] plan.validation.started {site: Object, ruleCount: 1}\nlog: [Perso XXL] plan.validation.finished {ok: false, errors: Array(1)}\nlog: [Perso XXL] openrouter.request.started {taskName: plan-repair, model: deepseek/deepseek-v4-flash, messageCount: 2, reasoning: Object}\nlog: [Perso XXL] openrouter.response.received {ok: true, status: 200, durationMs: 29996, hasChoices: true, hasReasoning: false}\nlog: [Perso XXL] openrouter.content.received {contentLength: 569, preview: {\n  \&quot;version\&quot;: \&quot;2.0\&quot;,\n  \&quot;site\&quot;: {\n    \&quot;hostname\&quot;: …ype\&quot;: \&quot;style\&quot;,\n      \&quot;targetRef\&quot;: \&quot;mark_rober_vid}\nlog: [Perso XXL] plan.validation.started {site: Object, ruleCount: 1}\nlog: [Perso XXL] plan.validation.finished {ok: true, errors: Array(0)}\nlog: [Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}\nlog: [Perso XXL] executor.target_ref.css.generated {ruleId: hide-mark-rober-videos, targetRef: mark_rober_videos, selectorCount: 1}\nlog: [Perso XXL] executor.rule.style {ruleId: hide-mark-rober-videos, targetRef: mark_rober_videos, matchCount: 6, matched: Array(6)}\nlog: [Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 1, totalMatched: 6}\nlog: [Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}\nlog: [Perso XXL] executor.target_ref.css.generated {ruleId: hide-mark-rober-videos, targetRef: mark_rober_videos, selectorCount: 1}\nlog: [Perso XXL] executor.rule.style {ruleId: hide-mark-rober-videos, targetRef: mark_rober_videos, matchCount: 6, matched: Array(6)}\nlog: [Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 1, totalMatched: 6}&quot;
+}</code></pre></details></td>
+    </tr>
+  
+    <tr>
+      <td><strong>medium-youtube-hide-creator-partial</strong><br><span class="muted">medium | semantic, youtube-focused, visibility</span></td>
+      <td>Creator filtering from a partial channel name.</td>
+      <td><img class="thumb" src="browser-screenshots/run-2-medium-youtube-hide-creator-partial-before.png" alt="Initial screenshot for medium-youtube-hide-creator-partial"></td>
+      <td><span class="muted">n/a</span></td>
+      <td><span class="pill fail">fail</span></td>
+      <td>Uncaught (in promise) Error: Generated plan failed validation: Rule 0 uses unsupported style key visibility.</td>
+      <td><details><summary>Open log</summary><pre><code>{
+  &quot;score&quot;: 0,
+  &quot;immediate&quot;: [],
+  &quot;persistence&quot;: [],
+  &quot;diagnostics&quot;: {},
+  &quot;applyResult&quot;: null,
+  &quot;validation&quot;: null,
+  &quot;rules&quot;: [],
+  &quot;targetMap&quot;: {},
+  &quot;consoleMessages&quot;: &quot;log: [Perso XXL] content.loaded {version: 0.6.0-landing-ai-input, hasSavedPlan: false}\nlog: [Perso XXL] panel.created {}\nlog: [Perso XXL] storage.loaded {key: sitePlan:127.0.0.1:/youtube, hasSavedPlan: false}\nlog: [Perso XXL] panel.state.loaded {hasProfileNotes: false, hasSavedPlan: false, key: sitePlan:127.0.0.1:/youtube}\nlog: [Perso XXL] executor.revert.started {}\nlog: [Perso XXL] executor.revert.finished {restoredCount: 0}\nlog: [Perso XXL] openrouter.request.started {taskName: plan-generation, model: deepseek/deepseek-v4-flash, messageCount: 2, reasoning: Object}\nlog: [Perso XXL] openrouter.response.received {ok: true, status: 200, durationMs: 10075, hasChoices: true, hasReasoning: false}\nlog: [Perso XXL] openrouter.content.received {contentLength: 738, preview: {\n  \&quot;version\&quot;: \&quot;2.0\&quot;,\n  \&quot;site\&quot;: {\n    \&quot;hostname\&quot;: …ticle:has(a#video-title-link[href*=\\\&quot;Mark%20Rober}\nlog: [Perso XXL] plan.validation.started {site: Object, ruleCount: 1}\nlog: [Perso XXL] plan.validation.finished {ok: false, errors: Array(1)}\nlog: [Perso XXL] openrouter.request.started {taskName: plan-repair, model: deepseek/deepseek-v4-flash, messageCount: 2, reasoning: Object}\nlog: [Perso XXL] openrouter.response.received {ok: true, status: 200, durationMs: 34604, hasChoices: true, hasReasoning: false}\nlog: [Perso XXL] openrouter.content.received {contentLength: 799, preview: {\n  \&quot;version\&quot;: \&quot;2.0\&quot;,\n  \&quot;site\&quot;: {\n    \&quot;hostname\&quot;: …rer.video-card:has(a[aria-label*=&#039;Mark Rober&#039;])\&quot;,}\nlog: [Perso XXL] plan.validation.started {site: Object, ruleCount: 1}\nlog: [Perso XXL] plan.validation.finished {ok: false, errors: Array(1)}&quot;
+}</code></pre></details></td>
+    </tr>
+  
+    <tr>
+      <td><strong>medium-youtube-hide-title-typo</strong><br><span class="muted">medium | semantic, typo, youtube-focused, visibility</span></td>
+      <td>Hide a video by a misspelled title keyword.</td>
+      <td><img class="thumb" src="browser-screenshots/run-3-medium-youtube-hide-title-typo-before.png" alt="Initial screenshot for medium-youtube-hide-title-typo"></td>
+      <td><img class="thumb" src="browser-screenshots/run-3-medium-youtube-hide-title-typo-after.png" alt="After screenshot for medium-youtube-hide-title-typo"></td>
       <td><span class="pill pass">pass</span></td>
       <td>n/a</td>
       <td><details><summary>Open log</summary><pre><code>{
@@ -952,22 +628,87 @@
   ],
   &quot;diagnostics&quot;: {
     &quot;targetMatches&quot;: {
-      &quot;card_to_remove&quot;: {
+      &quot;rocket_video_card&quot;: {
         &quot;selectors&quot;: [
-          &quot;article[aria-label=\&quot;Sync warning\&quot;]&quot;
+          &quot;article.ytd-rich-item-renderer.video-card:has(a#rocket-video-title)&quot;
         ],
         &quot;usedFallback&quot;: false,
         &quot;uids&quot;: [
-          &quot;warning-card&quot;
+          &quot;video-rocket-card&quot;
         ],
         &quot;sampleText&quot;: [
-          &quot;Warning Sync failures detected in the billing pipeline&quot;
+          &quot;Engineering a rocket Everyday Astronaut&quot;
         ]
       }
     },
     &quot;broadSelectors&quot;: [],
     &quot;forbiddenChanged&quot;: [],
-    &quot;usedSelectionHints&quot;: true,
+    &quot;semanticCandidates&quot;: {
+      &quot;query&quot;: &quot;rokcet engineering&quot;,
+      &quot;expected&quot;: &quot;Engineering a rocket&quot;,
+      &quot;candidateKind&quot;: &quot;youtube-title&quot;,
+      &quot;expectedCandidateVisibleInContext&quot;: true,
+      &quot;expectedCandidateSelectedByPlan&quot;: false,
+      &quot;bestCandidate&quot;: {
+        &quot;uid&quot;: &quot;video-rocket-link&quot;,
+        &quot;tag&quot;: &quot;a&quot;,
+        &quot;text&quot;: &quot;Engineering a rocket&quot;,
+        &quot;ariaLabel&quot;: &quot;&quot;,
+        &quot;dataChannel&quot;: &quot;&quot;,
+        &quot;scoreToQuery&quot;: 0.224,
+        &quot;scoreToExpected&quot;: 1,
+        &quot;isExpected&quot;: true,
+        &quot;selectedByPlan&quot;: false
+      },
+      &quot;candidates&quot;: [
+        {
+          &quot;uid&quot;: &quot;video-rocket-link&quot;,
+          &quot;tag&quot;: &quot;a&quot;,
+          &quot;text&quot;: &quot;Engineering a rocket&quot;,
+          &quot;ariaLabel&quot;: &quot;&quot;,
+          &quot;dataChannel&quot;: &quot;&quot;,
+          &quot;scoreToQuery&quot;: 0.224,
+          &quot;scoreToExpected&quot;: 1,
+          &quot;isExpected&quot;: true,
+          &quot;selectedByPlan&quot;: false
+        },
+        {
+          &quot;uid&quot;: &quot;video-mark-rober-link&quot;,
+          &quot;tag&quot;: &quot;a&quot;,
+          &quot;text&quot;: &quot;World&#039;s Smallest Nerf Gun&quot;,
+          &quot;ariaLabel&quot;: &quot;&quot;,
+          &quot;dataChannel&quot;: &quot;&quot;,
+          &quot;scoreToQuery&quot;: 0.197,
+          &quot;scoreToExpected&quot;: 0.197,
+          &quot;isExpected&quot;: false,
+          &quot;selectedByPlan&quot;: false
+        },
+        {
+          &quot;uid&quot;: &quot;video-sponsored-link&quot;,
+          &quot;tag&quot;: &quot;a&quot;,
+          &quot;text&quot;: &quot;CloudDesk AI tool&quot;,
+          &quot;ariaLabel&quot;: &quot;&quot;,
+          &quot;dataChannel&quot;: &quot;&quot;,
+          &quot;scoreToQuery&quot;: 0.172,
+          &quot;scoreToExpected&quot;: 0.172,
+          &quot;isExpected&quot;: false,
+          &quot;selectedByPlan&quot;: false
+        },
+        {
+          &quot;uid&quot;: &quot;video-first-link&quot;,
+          &quot;tag&quot;: &quot;a&quot;,
+          &quot;text&quot;: &quot;Backyard Squirrel Maze&quot;,
+          &quot;ariaLabel&quot;: &quot;&quot;,
+          &quot;dataChannel&quot;: &quot;&quot;,
+          &quot;scoreToQuery&quot;: 0.17,
+          &quot;scoreToExpected&quot;: 0.151,
+          &quot;isExpected&quot;: false,
+          &quot;selectedByPlan&quot;: false
+        }
+      ]
+    },
+    &quot;phase&quot;: &quot;ok-or-low-risk&quot;,
+    &quot;usedSelectionHints&quot;: false,
     &quot;genericSelectors&quot;: [],
     &quot;failureReasons&quot;: [
       &quot;browser target is hidden&quot;,
@@ -988,48 +729,152 @@
   },
   &quot;rules&quot;: [
     {
-      &quot;id&quot;: &quot;remove-card&quot;,
+      &quot;id&quot;: &quot;hide-rocket-video&quot;,
       &quot;type&quot;: &quot;style&quot;,
-      &quot;targetRef&quot;: &quot;card_to_remove&quot;,
+      &quot;targetRef&quot;: &quot;rocket_video_card&quot;,
       &quot;styles&quot;: {
         &quot;display&quot;: &quot;none&quot;
       }
     }
   ],
   &quot;targetMap&quot;: {
-    &quot;card_to_remove&quot;: {
-      &quot;source&quot;: &quot;selection&quot;,
-      &quot;selectionRef&quot;: &quot;sel_1&quot;,
+    &quot;rocket_video_card&quot;: {
+      &quot;source&quot;: &quot;inferred&quot;,
       &quot;selectors&quot;: [
-        &quot;article[aria-label=\&quot;Sync warning\&quot;]&quot;
+        &quot;article.ytd-rich-item-renderer.video-card:has(a#rocket-video-title)&quot;
       ],
       &quot;fallbackSelectors&quot;: [
-        &quot;[data-testid=\&quot;sync-warning\&quot;]&quot;
+        &quot;article.video-card:has(a#rocket-video-title)&quot;,
+        &quot;article:has(a#rocket-video-title)&quot;
       ]
     }
   },
-  &quot;consoleMessages&quot;: &quot;log: [Perso XXL] content.loaded {version: 0.6.0-landing-ai-input, hasSavedPlan: false}\nlog: [Perso XXL] panel.created {}\nlog: [Perso XXL] storage.loaded {key: sitePlan:127.0.0.1:/dashboard, hasSavedPlan: false}\nlog: [Perso XXL] panel.state.loaded {hasProfileNotes: false, hasSavedPlan: false, key: sitePlan:127.0.0.1:/dashboard}\nlog: [Perso XXL] executor.revert.started {}\nlog: [Perso XXL] executor.revert.finished {restoredCount: 0}\nlog: [Perso XXL] openrouter.request.started {taskName: plan-generation, model: deepseek/deepseek-v4-flash, messageCount: 2, reasoning: Object}\nlog: [Perso XXL] openrouter.response.received {ok: true, status: 200, durationMs: 5079, hasChoices: true, hasReasoning: false}\nlog: [Perso XXL] openrouter.content.received {contentLength: 1212, preview: {\n  \&quot;version\&quot;: \&quot;2.0\&quot;,\n  \&quot;site\&quot;: {\n    \&quot;hostname\&quot;: …d\&quot;],\n        \&quot;text\&quot;: \&quot;Warning Sync failures detec}\nlog: [Perso XXL] plan.validation.started {site: Object, ruleCount: 1}\nlog: [Perso XXL] plan.validation.finished {ok: true, errors: Array(0)}\nlog: [Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}\nlog: [Perso XXL] executor.target_ref.css.generated {ruleId: remove-card, targetRef: card_to_remove, selectorCount: 1}\nlog: [Perso XXL] executor.rule.style {ruleId: remove-card, targetRef: card_to_remove, matchCount: 1, matched: Array(1)}\nlog: [Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 1, totalMatched: 1}\nlog: [Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}\nlog: [Perso XXL] executor.target_ref.css.generated {ruleId: remove-card, targetRef: card_to_remove, selectorCount: 1}\nlog: [Perso XXL] executor.rule.style {ruleId: remove-card, targetRef: card_to_remove, matchCount: 1, matched: Array(1)}\nlog: [Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 1, totalMatched: 1}&quot;
+  &quot;consoleMessages&quot;: &quot;log: [Perso XXL] content.loaded {version: 0.6.0-landing-ai-input, hasSavedPlan: false}\nlog: [Perso XXL] panel.created {}\nlog: [Perso XXL] storage.loaded {key: sitePlan:127.0.0.1:/youtube, hasSavedPlan: false}\nlog: [Perso XXL] panel.state.loaded {hasProfileNotes: false, hasSavedPlan: false, key: sitePlan:127.0.0.1:/youtube}\nlog: [Perso XXL] executor.revert.started {}\nlog: [Perso XXL] executor.revert.finished {restoredCount: 0}\nlog: [Perso XXL] openrouter.request.started {taskName: plan-generation, model: deepseek/deepseek-v4-flash, messageCount: 2, reasoning: Object}\nlog: [Perso XXL] openrouter.response.received {ok: true, status: 200, durationMs: 33278, hasChoices: true, hasReasoning: false}\nlog: [Perso XXL] openrouter.content.received {contentLength: 697, preview: {\n  \&quot;version\&quot;: \&quot;2.0\&quot;,\n  \&quot;site\&quot;: {\n    \&quot;hostname\&quot;: …e)\&quot;,\n        \&quot;article:has(a#rocket-video-title)\&quot;\n}\nlog: [Perso XXL] plan.validation.started {site: Object, ruleCount: 1}\nlog: [Perso XXL] plan.validation.finished {ok: true, errors: Array(0)}\nlog: [Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}\nlog: [Perso XXL] executor.target_ref.css.generated {ruleId: hide-rocket-video, targetRef: rocket_video_card, selectorCount: 1}\nlog: [Perso XXL] executor.rule.style {ruleId: hide-rocket-video, targetRef: rocket_video_card, matchCount: 1, matched: Array(1)}\nlog: [Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 1, totalMatched: 1}\nlog: [Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}\nlog: [Perso XXL] executor.target_ref.css.generated {ruleId: hide-rocket-video, targetRef: rocket_video_card, selectorCount: 1}\nlog: [Perso XXL] executor.rule.style {ruleId: hide-rocket-video, targetRef: rocket_video_card, matchCount: 1, matched: Array(1)}\nlog: [Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 1, totalMatched: 1}&quot;
 }</code></pre></details></td>
     </tr>
   
     <tr>
-      <td><strong>hard-youtube-stop-scroll</strong><br><span class="muted">hard | behavior, scroll</span></td>
-      <td>Behavioral page modification: prevent feed scrolling while preserving the first item.</td>
-      <td><span class="muted">n/a</span></td>
-      <td><span class="muted">n/a</span></td>
-      <td><span class="pill neutral">skipped</span></td>
-      <td>Previous pass rate 100% is at or above skip threshold 90%.</td>
-      <td><details><summary>Open log</summary>Previous pass rate 100% is at or above skip threshold 90%.</details></td>
-    </tr>
-  
-    <tr>
-      <td><strong>hard-one-piece-theme</strong><br><span class="muted">hard | theme, visual</span></td>
-      <td>Large visual/theme edit with loose but inspectable criteria.</td>
-      <td><span class="muted">n/a</span></td>
-      <td><span class="muted">n/a</span></td>
-      <td><span class="pill neutral">skipped</span></td>
-      <td>Previous pass rate 90% is at or above skip threshold 90%.</td>
-      <td><details><summary>Open log</summary>Previous pass rate 90% is at or above skip threshold 90%.</details></td>
+      <td><strong>medium-youtube-hide-ad-synonym</strong><br><span class="muted">medium | semantic, ads, youtube-focused, visibility</span></td>
+      <td>Hide sponsored content using an ad synonym instead of the visible badge text.</td>
+      <td><img class="thumb" src="browser-screenshots/run-3-medium-youtube-hide-ad-synonym-before.png" alt="Initial screenshot for medium-youtube-hide-ad-synonym"></td>
+      <td><img class="thumb" src="browser-screenshots/run-3-medium-youtube-hide-ad-synonym-after.png" alt="After screenshot for medium-youtube-hide-ad-synonym"></td>
+      <td><span class="pill pass">pass</span></td>
+      <td>n/a</td>
+      <td><details><summary>Open log</summary><pre><code>{
+  &quot;score&quot;: 1,
+  &quot;immediate&quot;: [
+    &quot;browser target is hidden&quot;,
+    &quot;browser forbidden nodes remain visible&quot;
+  ],
+  &quot;persistence&quot;: [
+    &quot;browser target is hidden&quot;,
+    &quot;browser forbidden nodes remain visible&quot;
+  ],
+  &quot;diagnostics&quot;: {
+    &quot;targetMatches&quot;: {
+      &quot;sponsored_card&quot;: {
+        &quot;selectors&quot;: [
+          &quot;article.ytd-rich-item-renderer.sponsored-card&quot;
+        ],
+        &quot;usedFallback&quot;: false,
+        &quot;uids&quot;: [
+          &quot;video-sponsored-card&quot;
+        ],
+        &quot;sampleText&quot;: [
+          &quot;Sponsored CloudDesk AI tool CloudDesk&quot;
+        ]
+      }
+    },
+    &quot;broadSelectors&quot;: [],
+    &quot;forbiddenChanged&quot;: [],
+    &quot;semanticCandidates&quot;: {
+      &quot;query&quot;: &quot;ads&quot;,
+      &quot;expected&quot;: &quot;Sponsored&quot;,
+      &quot;candidateKind&quot;: &quot;youtube-badge&quot;,
+      &quot;expectedCandidateVisibleInContext&quot;: true,
+      &quot;expectedCandidateSelectedByPlan&quot;: true,
+      &quot;bestCandidate&quot;: {
+        &quot;uid&quot;: &quot;video-sponsored-badge&quot;,
+        &quot;tag&quot;: &quot;span&quot;,
+        &quot;text&quot;: &quot;Sponsored&quot;,
+        &quot;ariaLabel&quot;: &quot;&quot;,
+        &quot;dataChannel&quot;: &quot;&quot;,
+        &quot;scoreToQuery&quot;: 0.087,
+        &quot;scoreToExpected&quot;: 1,
+        &quot;isExpected&quot;: true,
+        &quot;selectedByPlan&quot;: false
+      },
+      &quot;candidates&quot;: [
+        {
+          &quot;uid&quot;: &quot;video-sponsored-badge&quot;,
+          &quot;tag&quot;: &quot;span&quot;,
+          &quot;text&quot;: &quot;Sponsored&quot;,
+          &quot;ariaLabel&quot;: &quot;&quot;,
+          &quot;dataChannel&quot;: &quot;&quot;,
+          &quot;scoreToQuery&quot;: 0.087,
+          &quot;scoreToExpected&quot;: 1,
+          &quot;isExpected&quot;: true,
+          &quot;selectedByPlan&quot;: false
+        },
+        {
+          &quot;uid&quot;: &quot;video-sponsored-card&quot;,
+          &quot;tag&quot;: &quot;article&quot;,
+          &quot;text&quot;: &quot;Sponsored CloudDesk AI tool CloudDesk&quot;,
+          &quot;ariaLabel&quot;: &quot;Sponsored video from CloudDesk&quot;,
+          &quot;dataChannel&quot;: &quot;CloudDesk&quot;,
+          &quot;scoreToQuery&quot;: 0.024,
+          &quot;scoreToExpected&quot;: 1,
+          &quot;isExpected&quot;: true,
+          &quot;selectedByPlan&quot;: true
+        }
+      ]
+    },
+    &quot;phase&quot;: &quot;ok-or-low-risk&quot;,
+    &quot;usedSelectionHints&quot;: false,
+    &quot;genericSelectors&quot;: [
+      &quot;.sponsored-card&quot;
+    ],
+    &quot;failureReasons&quot;: [
+      &quot;browser target is hidden&quot;,
+      &quot;browser forbidden nodes remain visible&quot;,
+      &quot;persistence: browser target is hidden&quot;,
+      &quot;persistence: browser forbidden nodes remain visible&quot;,
+      &quot;generic selectors: .sponsored-card&quot;
+    ],
+    &quot;taskKind&quot;: &quot;visibility&quot;
+  },
+  &quot;applyResult&quot;: {
+    &quot;totalMatched&quot;: 1,
+    &quot;cssRuleCount&quot;: 0,
+    &quot;targetCssRuleCount&quot;: 1
+  },
+  &quot;validation&quot;: {
+    &quot;ok&quot;: true,
+    &quot;errors&quot;: []
+  },
+  &quot;rules&quot;: [
+    {
+      &quot;id&quot;: &quot;hide-sponsored-card&quot;,
+      &quot;type&quot;: &quot;style&quot;,
+      &quot;targetRef&quot;: &quot;sponsored_card&quot;,
+      &quot;styles&quot;: {
+        &quot;display&quot;: &quot;none&quot;
+      }
+    }
+  ],
+  &quot;targetMap&quot;: {
+    &quot;sponsored_card&quot;: {
+      &quot;source&quot;: &quot;inferred&quot;,
+      &quot;selectors&quot;: [
+        &quot;article.ytd-rich-item-renderer.sponsored-card&quot;
+      ],
+      &quot;fallbackSelectors&quot;: [
+        &quot;.sponsored-card&quot;
+      ]
+    }
+  },
+  &quot;consoleMessages&quot;: &quot;log: [Perso XXL] content.loaded {version: 0.6.0-landing-ai-input, hasSavedPlan: false}\nlog: [Perso XXL] panel.created {}\nlog: [Perso XXL] storage.loaded {key: sitePlan:127.0.0.1:/youtube, hasSavedPlan: false}\nlog: [Perso XXL] panel.state.loaded {hasProfileNotes: false, hasSavedPlan: false, key: sitePlan:127.0.0.1:/youtube}\nlog: [Perso XXL] executor.revert.started {}\nlog: [Perso XXL] executor.revert.finished {restoredCount: 0}\nlog: [Perso XXL] openrouter.request.started {taskName: plan-generation, model: deepseek/deepseek-v4-flash, messageCount: 2, reasoning: Object}\nlog: [Perso XXL] openrouter.response.received {ok: true, status: 200, durationMs: 11290, hasChoices: true, hasReasoning: false}\nlog: [Perso XXL] openrouter.content.received {contentLength: 574, preview: {\n  \&quot;version\&quot;: \&quot;2.0\&quot;,\n  \&quot;site\&quot;: {\n    \&quot;hostname\&quot;: …      \&quot;type\&quot;: \&quot;style\&quot;,\n      \&quot;targetRef\&quot;: \&quot;sponso}\nlog: [Perso XXL] plan.validation.started {site: Object, ruleCount: 1}\nlog: [Perso XXL] plan.validation.finished {ok: true, errors: Array(0)}\nlog: [Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}\nlog: [Perso XXL] executor.target_ref.css.generated {ruleId: hide-sponsored-card, targetRef: sponsored_card, selectorCount: 1}\nlog: [Perso XXL] executor.rule.style {ruleId: hide-sponsored-card, targetRef: sponsored_card, matchCount: 1, matched: Array(1)}\nlog: [Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 1, totalMatched: 1}\nlog: [Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}\nlog: [Perso XXL] executor.target_ref.css.generated {ruleId: hide-sponsored-card, targetRef: sponsored_card, selectorCount: 1}\nlog: [Perso XXL] executor.rule.style {ruleId: hide-sponsored-card, targetRef: sponsored_card, matchCount: 1, matched: Array(1)}\nlog: [Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 1, totalMatched: 1}&quot;
+}</code></pre></details></td>
     </tr>
   </tbody>
             </table>
@@ -1041,9 +886,23 @@
               <tbody>
     <tr>
       <td>browser-low-thinking-1</td>
-      <td>93%</td>
-      <td>10/11</td>
-      <td>27725 ms</td>
+      <td>98%</td>
+      <td>7/7</td>
+      <td>20834 ms</td>
+    </tr>
+  
+    <tr>
+      <td>browser-low-thinking-2</td>
+      <td>70%</td>
+      <td>5/7</td>
+      <td>39002 ms</td>
+    </tr>
+  
+    <tr>
+      <td>browser-low-thinking-3</td>
+      <td>90%</td>
+      <td>6/7</td>
+      <td>20610 ms</td>
     </tr>
   </tbody>
             </table>
@@ -1054,103 +913,13 @@
               <thead><tr><th>Task</th><th>Tier</th><th>Avg</th><th>Min / Max</th><th>Variance</th><th>Pass rate</th><th>Common failure reasons</th></tr></thead>
               <tbody>
     <tr>
-      <td>easy-selected-color</td>
-      <td>easy</td>
-      <td>skipped</td>
-      <td>n/a</td>
-      <td>0.0000</td>
-      <td>100%</td>
-      <td>Previous pass rate 100% is at or above skip threshold 90%.</td>
-    </tr>
-  
-    <tr>
-      <td>easy-selected-hide</td>
-      <td>easy</td>
-      <td>100%</td>
-      <td>100% / 100%</td>
-      <td>0.0000</td>
-      <td>100%</td>
-      <td>generic selectors: section.promo (1x)</td>
-    </tr>
-  
-    <tr>
-      <td>easy-selected-card-background</td>
-      <td>easy</td>
-      <td>100%</td>
-      <td>100% / 100%</td>
-      <td>0.0000</td>
-      <td>100%</td>
-      <td>generic selectors: article.metric-card (1x)</td>
-    </tr>
-  
-    <tr>
-      <td>easy-docs-selected-button-color</td>
-      <td>easy</td>
-      <td>100%</td>
-      <td>100% / 100%</td>
-      <td>0.0000</td>
-      <td>100%</td>
-      <td>generic selectors: button.docs-new-document (1x)</td>
-    </tr>
-  
-    <tr>
-      <td>easy-youtube-selected-channel-color</td>
-      <td>easy</td>
-      <td>91%</td>
-      <td>91% / 91%</td>
-      <td>0.0000</td>
-      <td>100%</td>
-      <td>browser forbidden node was also changed (1x) | persistence: browser forbidden node was also changed (1x) | selector a.channel-name matched 6 nodes (1x) | forbidden node changed: video-first-channel (1x)</td>
-    </tr>
-  
-    <tr>
-      <td>easy-youtube-selected-card-hide</td>
-      <td>easy</td>
-      <td>100%</td>
-      <td>100% / 100%</td>
-      <td>0.0000</td>
-      <td>100%</td>
-      <td>none</td>
-    </tr>
-  
-    <tr>
-      <td>medium-dashboard-hide-warning</td>
-      <td>medium</td>
-      <td>100%</td>
-      <td>100% / 100%</td>
-      <td>0.0000</td>
-      <td>100%</td>
-      <td>none</td>
-    </tr>
-  
-    <tr>
-      <td>medium-docs-remove-recent</td>
-      <td>medium</td>
-      <td>100%</td>
-      <td>100% / 100%</td>
-      <td>0.0000</td>
-      <td>100%</td>
-      <td>generic selectors: .docs-recent-list (1x)</td>
-    </tr>
-  
-    <tr>
-      <td>medium-docs-remove-gallery</td>
-      <td>medium</td>
-      <td>skipped</td>
-      <td>n/a</td>
-      <td>0.0000</td>
-      <td>90%</td>
-      <td>Previous pass rate 90% is at or above skip threshold 90%.</td>
-    </tr>
-  
-    <tr>
       <td>medium-youtube-hide-creator-typo</td>
       <td>medium</td>
-      <td>30%</td>
-      <td>30% / 30%</td>
-      <td>0.0000</td>
-      <td>0%</td>
-      <td>browser target is still visible (1x) | persistence: browser target is still visible (1x)</td>
+      <td>43%</td>
+      <td>0% / 100%</td>
+      <td>0.1759</td>
+      <td>33%</td>
+      <td>Uncaught (in promise) Error: Generated plan failed validation: Target mark_rober_video_card has invalid selector article.video-card:has(a[class=&#039;channel-name&#039;]:has-text(&#039;Mark Rober&#039;)). (1x) | browser target is still visible (1x) | persistence: browser target is still visible (1x)</td>
     </tr>
   
     <tr>
@@ -1170,11 +939,31 @@
       <td>100% / 100%</td>
       <td>0.0000</td>
       <td>100%</td>
-      <td>generic selectors: article.sponsored-card (1x)</td>
+      <td>generic selectors: .sponsored-card (1x) | generic selectors: article.sponsored-card (1x)</td>
     </tr>
   
     <tr>
-      <td>medium-selected-warning-remove-vague</td>
+      <td>medium-youtube-hide-creator-exact</td>
+      <td>medium</td>
+      <td>97%</td>
+      <td>91% / 100%</td>
+      <td>0.0019</td>
+      <td>100%</td>
+      <td>browser forbidden node was hidden (1x) | persistence: browser forbidden node was hidden (1x) | selector article.video-card matched 6 nodes (1x) | forbidden node changed: video-cooking-card (1x)</td>
+    </tr>
+  
+    <tr>
+      <td>medium-youtube-hide-creator-partial</td>
+      <td>medium</td>
+      <td>61%</td>
+      <td>0% / 100%</td>
+      <td>0.1901</td>
+      <td>67%</td>
+      <td>Uncaught (in promise) Error: Generated plan failed validation: Rule 0 uses unsupported style key visibility. (1x)</td>
+    </tr>
+  
+    <tr>
+      <td>medium-youtube-hide-title-typo</td>
       <td>medium</td>
       <td>100%</td>
       <td>100% / 100%</td>
@@ -1184,23 +973,13 @@
     </tr>
   
     <tr>
-      <td>hard-youtube-stop-scroll</td>
-      <td>hard</td>
-      <td>skipped</td>
-      <td>n/a</td>
+      <td>medium-youtube-hide-ad-synonym</td>
+      <td>medium</td>
+      <td>100%</td>
+      <td>100% / 100%</td>
       <td>0.0000</td>
       <td>100%</td>
-      <td>Previous pass rate 100% is at or above skip threshold 90%.</td>
-    </tr>
-  
-    <tr>
-      <td>hard-one-piece-theme</td>
-      <td>hard</td>
-      <td>skipped</td>
-      <td>n/a</td>
-      <td>0.0000</td>
-      <td>90%</td>
-      <td>Previous pass rate 90% is at or above skip threshold 90%.</td>
+      <td>generic selectors: .sponsored-card (1x)</td>
     </tr>
   </tbody>
             </table>
@@ -1209,470 +988,112 @@
             <h2>Task Diagnostics</h2>
             <div class="details-grid">
     <section class="detail">
-      <h3>easy-selected-hide <span>100%</span></h3>
-      <img class="shot" src="browser-screenshots/run-1-easy-selected-hide-after.png" alt="Screenshot for easy-selected-hide">
-      <div class="mini-grid">
-        <div>
-          <h4>Immediate</h4>
-          <p>browser target is hidden browser forbidden nodes remain visible</p>
-        </div>
-        <div>
-          <h4>Persistence</h4>
-          <p>browser target is hidden browser forbidden nodes remain visible</p>
-        </div>
-        <div>
-          <h4>Blast Radius</h4>
-          <p>No forbidden nodes changed in selected run.</p>
-          <p>No broad selector diagnostic in selected run.</p>
-          <p>Used selection hints.</p>
-        </div>
-      </div>
-      <h4>Selector Matches</h4>
-      <table>
-        <thead><tr><th>Target</th><th>Selectors</th><th>Count</th><th>Matched UIDs</th></tr></thead>
-        <tbody>
-    <tr>
-      <td>promo_banner</td>
-      <td>section[aria-label=&quot;Upgrade promotion&quot;], section.promo</td>
-      <td>1</td>
-      <td>promo-banner</td>
-    </tr>
-  </tbody>
-      </table>
-      <h4>Generated Rules</h4>
-      <pre><code>[
-  {
-    &quot;id&quot;: &quot;delete-promo-banner&quot;,
-    &quot;type&quot;: &quot;style&quot;,
-    &quot;targetRef&quot;: &quot;promo_banner&quot;,
-    &quot;styles&quot;: {
-      &quot;display&quot;: &quot;none&quot;
-    }
-  }
-]</code></pre>
-      <h4>Target Map</h4>
-      <pre><code>{
-  &quot;promo_banner&quot;: {
-    &quot;source&quot;: &quot;selection&quot;,
-    &quot;selectionRef&quot;: &quot;sel_1&quot;,
-    &quot;selectors&quot;: [
-      &quot;section[aria-label=\&quot;Upgrade promotion\&quot;]&quot;,
-      &quot;section.promo&quot;
-    ],
-    &quot;fallbackSelectors&quot;: [
-      &quot;[data-testid=\&quot;promo-banner\&quot;]&quot;
-    ]
-  }
-}</code></pre>
+      <h3>medium-youtube-hide-creator-typo <span>0%</span></h3>
       
-    </section>
-  
-    <section class="detail">
-      <h3>easy-selected-card-background <span>100%</span></h3>
-      <img class="shot" src="browser-screenshots/run-1-easy-selected-card-background-after.png" alt="Screenshot for easy-selected-card-background">
       <div class="mini-grid">
         <div>
           <h4>Immediate</h4>
-          <p>browser target has expected style browser forbidden nodes avoided</p>
+          <p>Uncaught (in promise) Error: Generated plan failed validation: Target mark_rober_video_card has invalid selector article.video-card:has(a[class=&#039;channel-name&#039;]:has-text(&#039;Mark Rober&#039;)).</p>
         </div>
         <div>
           <h4>Persistence</h4>
-          <p>browser target has expected style browser forbidden nodes avoided</p>
-        </div>
-        <div>
-          <h4>Blast Radius</h4>
-          <p>No forbidden nodes changed in selected run.</p>
-          <p>No broad selector diagnostic in selected run.</p>
-          <p>Used selection hints.</p>
-        </div>
-      </div>
-      <h4>Selector Matches</h4>
-      <table>
-        <thead><tr><th>Target</th><th>Selectors</th><th>Count</th><th>Matched UIDs</th></tr></thead>
-        <tbody>
-    <tr>
-      <td>selected_card</td>
-      <td>[data-testid=&quot;churn-card&quot;]</td>
-      <td>1</td>
-      <td>churn-card</td>
-    </tr>
-  </tbody>
-      </table>
-      <h4>Generated Rules</h4>
-      <pre><code>[
-  {
-    &quot;id&quot;: &quot;blue-card-background&quot;,
-    &quot;type&quot;: &quot;style&quot;,
-    &quot;targetRef&quot;: &quot;selected_card&quot;,
-    &quot;styles&quot;: {
-      &quot;backgroundColor&quot;: &quot;blue&quot;
-    }
-  }
-]</code></pre>
-      <h4>Target Map</h4>
-      <pre><code>{
-  &quot;selected_card&quot;: {
-    &quot;source&quot;: &quot;selection&quot;,
-    &quot;selectionRef&quot;: &quot;sel_1&quot;,
-    &quot;selectors&quot;: [
-      &quot;[data-testid=\&quot;churn-card\&quot;]&quot;
-    ],
-    &quot;fallbackSelectors&quot;: [
-      &quot;article.metric-card&quot;
-    ]
-  }
-}</code></pre>
-      
-    </section>
-  
-    <section class="detail">
-      <h3>easy-docs-selected-button-color <span>100%</span></h3>
-      <img class="shot" src="browser-screenshots/run-1-easy-docs-selected-button-color-after.png" alt="Screenshot for easy-docs-selected-button-color">
-      <div class="mini-grid">
-        <div>
-          <h4>Immediate</h4>
-          <p>browser target has expected style browser forbidden nodes avoided</p>
-        </div>
-        <div>
-          <h4>Persistence</h4>
-          <p>browser target has expected style browser forbidden nodes avoided</p>
-        </div>
-        <div>
-          <h4>Blast Radius</h4>
-          <p>No forbidden nodes changed in selected run.</p>
-          <p>No broad selector diagnostic in selected run.</p>
-          <p>Used selection hints.</p>
-        </div>
-      </div>
-      <h4>Selector Matches</h4>
-      <table>
-        <thead><tr><th>Target</th><th>Selectors</th><th>Count</th><th>Matched UIDs</th></tr></thead>
-        <tbody>
-    <tr>
-      <td>blank_document_button</td>
-      <td>button[aria-label=&quot;Blank document&quot;]</td>
-      <td>1</td>
-      <td>blank-document-button</td>
-    </tr>
-  </tbody>
-      </table>
-      <h4>Generated Rules</h4>
-      <pre><code>[
-  {
-    &quot;id&quot;: &quot;purple-background&quot;,
-    &quot;type&quot;: &quot;style&quot;,
-    &quot;targetRef&quot;: &quot;blank_document_button&quot;,
-    &quot;styles&quot;: {
-      &quot;backgroundColor&quot;: &quot;purple&quot;
-    }
-  }
-]</code></pre>
-      <h4>Target Map</h4>
-      <pre><code>{
-  &quot;blank_document_button&quot;: {
-    &quot;source&quot;: &quot;selection&quot;,
-    &quot;selectionRef&quot;: &quot;sel_1&quot;,
-    &quot;selectors&quot;: [
-      &quot;button[aria-label=\&quot;Blank document\&quot;]&quot;
-    ],
-    &quot;fallbackSelectors&quot;: [
-      &quot;[data-testid=\&quot;blank-document-button\&quot;]&quot;,
-      &quot;button.docs-new-document&quot;
-    ]
-  }
-}</code></pre>
-      
-    </section>
-  
-    <section class="detail">
-      <h3>easy-youtube-selected-channel-color <span>91%</span></h3>
-      <img class="shot" src="browser-screenshots/run-1-easy-youtube-selected-channel-color-after.png" alt="Screenshot for easy-youtube-selected-channel-color">
-      <div class="mini-grid">
-        <div>
-          <h4>Immediate</h4>
-          <p>browser target has expected style browser forbidden node was also changed</p>
-        </div>
-        <div>
-          <h4>Persistence</h4>
-          <p>browser target has expected style browser forbidden node was also changed</p>
-        </div>
-        <div>
-          <h4>Blast Radius</h4>
-          <p>Forbidden changed: video-first-channel, video-cooking-channel, video-rocket-channel, video-mkbhd-channel, video-sponsored-channel</p>
-          <p>Broad selectors: a.channel-name -&gt; 6</p>
-          <p>Did not clearly use selection hints.</p>
-        </div>
-      </div>
-      <h4>Selector Matches</h4>
-      <table>
-        <thead><tr><th>Target</th><th>Selectors</th><th>Count</th><th>Matched UIDs</th></tr></thead>
-        <tbody>
-    <tr>
-      <td>channel_name</td>
-      <td>a.channel-name</td>
-      <td>6</td>
-      <td>video-first-channel, video-mark-rober-channel, video-cooking-channel, video-rocket-channel, video-mkbhd-channel, video-sponsored-channel</td>
-    </tr>
-  </tbody>
-      </table>
-      <h4>Generated Rules</h4>
-      <pre><code>[
-  {
-    &quot;id&quot;: &quot;green-channel-name&quot;,
-    &quot;type&quot;: &quot;style&quot;,
-    &quot;targetRef&quot;: &quot;channel_name&quot;,
-    &quot;styles&quot;: {
-      &quot;color&quot;: &quot;green&quot;
-    }
-  }
-]</code></pre>
-      <h4>Target Map</h4>
-      <pre><code>{
-  &quot;channel_name&quot;: {
-    &quot;source&quot;: &quot;selection&quot;,
-    &quot;selectionRef&quot;: &quot;sel_1&quot;,
-    &quot;selectors&quot;: [
-      &quot;a.channel-name&quot;
-    ],
-    &quot;fallbackSelectors&quot;: [
-      &quot;a[aria-label=\&quot;Mark Rober channel\&quot;]&quot;
-    ]
-  }
-}</code></pre>
-      
-    </section>
-  
-    <section class="detail">
-      <h3>easy-youtube-selected-card-hide <span>100%</span></h3>
-      <img class="shot" src="browser-screenshots/run-1-easy-youtube-selected-card-hide-after.png" alt="Screenshot for easy-youtube-selected-card-hide">
-      <div class="mini-grid">
-        <div>
-          <h4>Immediate</h4>
-          <p>browser target is hidden browser forbidden nodes remain visible</p>
-        </div>
-        <div>
-          <h4>Persistence</h4>
-          <p>browser target is hidden browser forbidden nodes remain visible</p>
+          <p>n/a</p>
         </div>
         <div>
           <h4>Blast Radius</h4>
           <p>No forbidden nodes changed in selected run.</p>
           <p>No broad selector diagnostic in selected run.</p>
           <p>Did not clearly use selection hints.</p>
+          <p>Phase: n/a</p>
         </div>
       </div>
-      <h4>Selector Matches</h4>
-      <table>
-        <thead><tr><th>Target</th><th>Selectors</th><th>Count</th><th>Matched UIDs</th></tr></thead>
-        <tbody>
-    <tr>
-      <td>video_card</td>
-      <td>main#contents &gt; article:nth-of-type(3)</td>
-      <td>1</td>
-      <td>video-cooking-card</td>
-    </tr>
-  </tbody>
-      </table>
-      <h4>Generated Rules</h4>
-      <pre><code>[
-  {
-    &quot;id&quot;: &quot;hide-video-card&quot;,
-    &quot;type&quot;: &quot;style&quot;,
-    &quot;targetRef&quot;: &quot;video_card&quot;,
-    &quot;styles&quot;: {
-      &quot;display&quot;: &quot;none&quot;
-    }
-  }
-]</code></pre>
-      <h4>Target Map</h4>
-      <pre><code>{
-  &quot;video_card&quot;: {
-    &quot;source&quot;: &quot;selection&quot;,
-    &quot;selectionRef&quot;: &quot;sel_1&quot;,
-    &quot;selectors&quot;: [
-      &quot;main#contents &gt; article:nth-of-type(3)&quot;
-    ],
-    &quot;fallbackSelectors&quot;: [
-      &quot;article.video-card[data-channel=\&quot;Kitchen Daily\&quot;]&quot;,
-      &quot;article.ytd-rich-item-renderer.video-card&quot;
-    ]
-  }
-}</code></pre>
       
-    </section>
+    <h4>Semantic Target Candidates</h4>
+    <p>Query: <code>Mark Ruber</code>; expected: <code>Mark Rober</code>; expected visible in context: yes; expected selected by plan: yes.</p>
+    <table>
+      <thead><tr><th>UID</th><th>Text / label</th><th>Fuzzy score</th><th>Expected</th><th>Selected by plan</th></tr></thead>
+      <tbody>
+    <tr>
+      <td>video-first-channel</td>
+      <td>Nature Lab</td>
+      <td>22%</td>
+      <td>no</td>
+      <td>no</td>
+    </tr>
   
-    <section class="detail">
-      <h3>medium-dashboard-hide-warning <span>100%</span></h3>
-      <img class="shot" src="browser-screenshots/run-1-medium-dashboard-hide-warning-after.png" alt="Screenshot for medium-dashboard-hide-warning">
-      <div class="mini-grid">
-        <div>
-          <h4>Immediate</h4>
-          <p>browser target is hidden browser forbidden nodes remain visible</p>
-        </div>
-        <div>
-          <h4>Persistence</h4>
-          <p>browser target is hidden browser forbidden nodes remain visible</p>
-        </div>
-        <div>
-          <h4>Blast Radius</h4>
-          <p>No forbidden nodes changed in selected run.</p>
-          <p>No broad selector diagnostic in selected run.</p>
-          <p>Did not clearly use selection hints.</p>
-        </div>
-      </div>
+    <tr>
+      <td>video-mark-rober-channel</td>
+      <td>Mark Rober</td>
+      <td>21%</td>
+      <td>yes</td>
+      <td>no</td>
+    </tr>
+  
+    <tr>
+      <td>video-mkbhd-channel</td>
+      <td>Marques Brownlee</td>
+      <td>21%</td>
+      <td>no</td>
+      <td>no</td>
+    </tr>
+  
+    <tr>
+      <td>video-rocket-channel</td>
+      <td>Everyday Astronaut</td>
+      <td>16%</td>
+      <td>no</td>
+      <td>no</td>
+    </tr>
+  
+    <tr>
+      <td>video-sponsored-channel</td>
+      <td>CloudDesk</td>
+      <td>14%</td>
+      <td>no</td>
+      <td>no</td>
+    </tr>
+  
+    <tr>
+      <td>video-cooking-channel</td>
+      <td>Kitchen Daily</td>
+      <td>12%</td>
+      <td>no</td>
+      <td>no</td>
+    </tr>
+  
+    <tr>
+      <td>video-mkbhd-card</td>
+      <td>Phone awards Marques Brownlee</td>
+      <td>11%</td>
+      <td>no</td>
+      <td>no</td>
+    </tr>
+  
+    <tr>
+      <td>video-mark-rober-card</td>
+      <td>World&#039;s Smallest Nerf Gun Mark Rober</td>
+      <td>11%</td>
+      <td>yes</td>
+      <td>yes</td>
+    </tr>
+  </tbody>
+    </table>
+  
       <h4>Selector Matches</h4>
       <table>
         <thead><tr><th>Target</th><th>Selectors</th><th>Count</th><th>Matched UIDs</th></tr></thead>
-        <tbody>
-    <tr>
-      <td>sync_warning_card</td>
-      <td>article.metric-card.warning-card</td>
-      <td>1</td>
-      <td>warning-card</td>
-    </tr>
-  </tbody>
+        <tbody><tr><td colspan="4">No target matches recorded.</td></tr></tbody>
       </table>
       <h4>Generated Rules</h4>
-      <pre><code>[
-  {
-    &quot;id&quot;: &quot;hide-sync-warning&quot;,
-    &quot;type&quot;: &quot;style&quot;,
-    &quot;targetRef&quot;: &quot;sync_warning_card&quot;,
-    &quot;styles&quot;: {
-      &quot;display&quot;: &quot;none&quot;
-    }
-  }
-]</code></pre>
+      <pre><code>[]</code></pre>
       <h4>Target Map</h4>
-      <pre><code>{
-  &quot;sync_warning_card&quot;: {
-    &quot;source&quot;: &quot;inferred&quot;,
-    &quot;selectors&quot;: [
-      &quot;article.metric-card.warning-card&quot;
-    ],
-    &quot;fallbackSelectors&quot;: [
-      &quot;[role=&#039;status&#039;][aria-label=&#039;Sync warning&#039;]&quot;
-    ]
-  }
-}</code></pre>
-      
-    </section>
-  
-    <section class="detail">
-      <h3>medium-docs-remove-recent <span>100%</span></h3>
-      <img class="shot" src="browser-screenshots/run-1-medium-docs-remove-recent-after.png" alt="Screenshot for medium-docs-remove-recent">
-      <div class="mini-grid">
-        <div>
-          <h4>Immediate</h4>
-          <p>browser target is hidden browser forbidden nodes remain visible</p>
-        </div>
-        <div>
-          <h4>Persistence</h4>
-          <p>browser target is hidden browser forbidden nodes remain visible</p>
-        </div>
-        <div>
-          <h4>Blast Radius</h4>
-          <p>No forbidden nodes changed in selected run.</p>
-          <p>No broad selector diagnostic in selected run.</p>
-          <p>Did not clearly use selection hints.</p>
-        </div>
-      </div>
-      <h4>Selector Matches</h4>
-      <table>
-        <thead><tr><th>Target</th><th>Selectors</th><th>Count</th><th>Matched UIDs</th></tr></thead>
-        <tbody>
-    <tr>
-      <td>recent_docs</td>
-      <td>.docs-recent-list</td>
-      <td>1</td>
-      <td>recent-docs-list</td>
-    </tr>
-  </tbody>
-      </table>
-      <h4>Generated Rules</h4>
-      <pre><code>[
-  {
-    &quot;id&quot;: &quot;hide-recent-docs&quot;,
-    &quot;type&quot;: &quot;style&quot;,
-    &quot;targetRef&quot;: &quot;recent_docs&quot;,
-    &quot;styles&quot;: {
-      &quot;display&quot;: &quot;none&quot;
-    }
-  }
-]</code></pre>
-      <h4>Target Map</h4>
-      <pre><code>{
-  &quot;recent_docs&quot;: {
-    &quot;source&quot;: &quot;inferred&quot;,
-    &quot;selectors&quot;: [
-      &quot;.docs-recent-list&quot;
-    ],
-    &quot;fallbackSelectors&quot;: []
-  }
-}</code></pre>
-      
-    </section>
-  
-    <section class="detail">
-      <h3>medium-youtube-hide-creator-typo <span>30%</span></h3>
-      <img class="shot" src="browser-screenshots/run-1-medium-youtube-hide-creator-typo-after.png" alt="Screenshot for medium-youtube-hide-creator-typo">
-      <div class="mini-grid">
-        <div>
-          <h4>Immediate</h4>
-          <p>browser target is still visible browser forbidden nodes remain visible</p>
-        </div>
-        <div>
-          <h4>Persistence</h4>
-          <p>browser target is still visible browser forbidden nodes remain visible</p>
-        </div>
-        <div>
-          <h4>Blast Radius</h4>
-          <p>No forbidden nodes changed in selected run.</p>
-          <p>No broad selector diagnostic in selected run.</p>
-          <p>Did not clearly use selection hints.</p>
-        </div>
-      </div>
-      <h4>Selector Matches</h4>
-      <table>
-        <thead><tr><th>Target</th><th>Selectors</th><th>Count</th><th>Matched UIDs</th></tr></thead>
-        <tbody>
-    <tr>
-      <td>mark_rober_video</td>
-      <td>article.video-card:has(a.channel-name[text=&#039;Mark Rober&#039;])</td>
-      <td>0</td>
-      <td></td>
-    </tr>
-  </tbody>
-      </table>
-      <h4>Generated Rules</h4>
-      <pre><code>[
-  {
-    &quot;id&quot;: &quot;hide-mark-rober-video&quot;,
-    &quot;type&quot;: &quot;style&quot;,
-    &quot;targetRef&quot;: &quot;mark_rober_video&quot;,
-    &quot;styles&quot;: {
-      &quot;display&quot;: &quot;none&quot;
-    }
-  }
-]</code></pre>
-      <h4>Target Map</h4>
-      <pre><code>{
-  &quot;mark_rober_video&quot;: {
-    &quot;source&quot;: &quot;inferred&quot;,
-    &quot;selectors&quot;: [
-      &quot;article.ytd-rich-item-renderer:has(a.channel-name[ariaLabel=&#039;Mark Rober channel&#039;])&quot;
-    ],
-    &quot;fallbackSelectors&quot;: [
-      &quot;article.video-card:has(a.channel-name[text=&#039;Mark Rober&#039;])&quot;
-    ]
-  }
-}</code></pre>
+      <pre><code>{}</code></pre>
       
     </section>
   
     <section class="detail">
       <h3>medium-youtube-hide-rocket-title <span>100%</span></h3>
-      <img class="shot" src="browser-screenshots/run-1-medium-youtube-hide-rocket-title-after.png" alt="Screenshot for medium-youtube-hide-rocket-title">
+      <img class="shot" src="browser-screenshots/run-3-medium-youtube-hide-rocket-title-after.png" alt="Screenshot for medium-youtube-hide-rocket-title">
       <div class="mini-grid">
         <div>
           <h4>Immediate</h4>
@@ -1687,17 +1108,58 @@
           <p>No forbidden nodes changed in selected run.</p>
           <p>No broad selector diagnostic in selected run.</p>
           <p>Did not clearly use selection hints.</p>
+          <p>Phase: ok-or-low-risk</p>
         </div>
       </div>
+      
+    <h4>Semantic Target Candidates</h4>
+    <p>Query: <code>rockets</code>; expected: <code>Engineering a rocket</code>; expected visible in context: yes; expected selected by plan: yes.</p>
+    <table>
+      <thead><tr><th>UID</th><th>Text / label</th><th>Fuzzy score</th><th>Expected</th><th>Selected by plan</th></tr></thead>
+      <tbody>
+    <tr>
+      <td>video-rocket-link</td>
+      <td>Engineering a rocket</td>
+      <td>12%</td>
+      <td>yes</td>
+      <td>yes</td>
+    </tr>
+  
+    <tr>
+      <td>video-first-link</td>
+      <td>Backyard Squirrel Maze</td>
+      <td>9%</td>
+      <td>no</td>
+      <td>no</td>
+    </tr>
+  
+    <tr>
+      <td>video-sponsored-link</td>
+      <td>CloudDesk AI tool</td>
+      <td>9%</td>
+      <td>no</td>
+      <td>no</td>
+    </tr>
+  
+    <tr>
+      <td>video-mark-rober-link</td>
+      <td>World&#039;s Smallest Nerf Gun</td>
+      <td>8%</td>
+      <td>no</td>
+      <td>no</td>
+    </tr>
+  </tbody>
+    </table>
+  
       <h4>Selector Matches</h4>
       <table>
         <thead><tr><th>Target</th><th>Selectors</th><th>Count</th><th>Matched UIDs</th></tr></thead>
         <tbody>
     <tr>
-      <td>rocket_videos</td>
-      <td>article.video-card:has(a#rocket-video-title)</td>
+      <td>rocket_video_card</td>
+      <td>article.ytd-rich-item-renderer.video-card a#rocket-video-title</td>
       <td>1</td>
-      <td>video-rocket-card</td>
+      <td>video-rocket-link</td>
     </tr>
   </tbody>
       </table>
@@ -1706,7 +1168,7 @@
   {
     &quot;id&quot;: &quot;hide-rocket-videos&quot;,
     &quot;type&quot;: &quot;style&quot;,
-    &quot;targetRef&quot;: &quot;rocket_videos&quot;,
+    &quot;targetRef&quot;: &quot;rocket_video_card&quot;,
     &quot;styles&quot;: {
       &quot;display&quot;: &quot;none&quot;
     }
@@ -1714,10 +1176,14 @@
 ]</code></pre>
       <h4>Target Map</h4>
       <pre><code>{
-  &quot;rocket_videos&quot;: {
+  &quot;rocket_video_card&quot;: {
     &quot;source&quot;: &quot;inferred&quot;,
     &quot;selectors&quot;: [
-      &quot;article.video-card:has(a#rocket-video-title)&quot;
+      &quot;article.ytd-rich-item-renderer.video-card a#rocket-video-title&quot;
+    ],
+    &quot;fallbackSelectors&quot;: [
+      &quot;article.ytd-rich-item-renderer.video-card:has(a#rocket-video-title)&quot;,
+      &quot;article.ytd-rich-item-renderer.video-card:has(a[id*=\&quot;rocket\&quot;])&quot;
     ]
   }
 }</code></pre>
@@ -1726,7 +1192,7 @@
   
     <section class="detail">
       <h3>medium-youtube-hide-sponsored <span>100%</span></h3>
-      <img class="shot" src="browser-screenshots/run-1-medium-youtube-hide-sponsored-after.png" alt="Screenshot for medium-youtube-hide-sponsored">
+      <img class="shot" src="browser-screenshots/run-3-medium-youtube-hide-sponsored-after.png" alt="Screenshot for medium-youtube-hide-sponsored">
       <div class="mini-grid">
         <div>
           <h4>Immediate</h4>
@@ -1741,14 +1207,39 @@
           <p>No forbidden nodes changed in selected run.</p>
           <p>No broad selector diagnostic in selected run.</p>
           <p>Did not clearly use selection hints.</p>
+          <p>Phase: ok-or-low-risk</p>
         </div>
       </div>
+      
+    <h4>Semantic Target Candidates</h4>
+    <p>Query: <code>sponsored</code>; expected: <code>Sponsored</code>; expected visible in context: yes; expected selected by plan: yes.</p>
+    <table>
+      <thead><tr><th>UID</th><th>Text / label</th><th>Fuzzy score</th><th>Expected</th><th>Selected by plan</th></tr></thead>
+      <tbody>
+    <tr>
+      <td>video-sponsored-card</td>
+      <td>Sponsored CloudDesk AI tool CloudDesk</td>
+      <td>100%</td>
+      <td>yes</td>
+      <td>yes</td>
+    </tr>
+  
+    <tr>
+      <td>video-sponsored-badge</td>
+      <td>Sponsored</td>
+      <td>100%</td>
+      <td>yes</td>
+      <td>no</td>
+    </tr>
+  </tbody>
+    </table>
+  
       <h4>Selector Matches</h4>
       <table>
         <thead><tr><th>Target</th><th>Selectors</th><th>Count</th><th>Matched UIDs</th></tr></thead>
         <tbody>
     <tr>
-      <td>sponsored_videos</td>
+      <td>sponsored_content</td>
       <td>article.ytd-rich-item-renderer.sponsored-card</td>
       <td>1</td>
       <td>video-sponsored-card</td>
@@ -1760,7 +1251,7 @@
   {
     &quot;id&quot;: &quot;hide-sponsored-content&quot;,
     &quot;type&quot;: &quot;style&quot;,
-    &quot;targetRef&quot;: &quot;sponsored_videos&quot;,
+    &quot;targetRef&quot;: &quot;sponsored_content&quot;,
     &quot;styles&quot;: {
       &quot;display&quot;: &quot;none&quot;
     }
@@ -1768,7 +1259,7 @@
 ]</code></pre>
       <h4>Target Map</h4>
       <pre><code>{
-  &quot;sponsored_videos&quot;: {
+  &quot;sponsored_content&quot;: {
     &quot;source&quot;: &quot;inferred&quot;,
     &quot;selectors&quot;: [
       &quot;article.ytd-rich-item-renderer.sponsored-card&quot;
@@ -1782,8 +1273,240 @@
     </section>
   
     <section class="detail">
-      <h3>medium-selected-warning-remove-vague <span>100%</span></h3>
-      <img class="shot" src="browser-screenshots/run-1-medium-selected-warning-remove-vague-after.png" alt="Screenshot for medium-selected-warning-remove-vague">
+      <h3>medium-youtube-hide-creator-exact <span>91%</span></h3>
+      <img class="shot" src="browser-screenshots/run-2-medium-youtube-hide-creator-exact-after.png" alt="Screenshot for medium-youtube-hide-creator-exact">
+      <div class="mini-grid">
+        <div>
+          <h4>Immediate</h4>
+          <p>browser target is hidden browser forbidden node was hidden</p>
+        </div>
+        <div>
+          <h4>Persistence</h4>
+          <p>browser target is hidden browser forbidden node was hidden</p>
+        </div>
+        <div>
+          <h4>Blast Radius</h4>
+          <p>Forbidden changed: video-cooking-card, video-rocket-card, video-mkbhd-card, video-sponsored-card</p>
+          <p>Broad selectors: article.video-card -&gt; 6</p>
+          <p>Did not clearly use selection hints.</p>
+          <p>Phase: selector-blast-radius</p>
+        </div>
+      </div>
+      
+    <h4>Semantic Target Candidates</h4>
+    <p>Query: <code>Mark Rober</code>; expected: <code>Mark Rober</code>; expected visible in context: yes; expected selected by plan: yes.</p>
+    <table>
+      <thead><tr><th>UID</th><th>Text / label</th><th>Fuzzy score</th><th>Expected</th><th>Selected by plan</th></tr></thead>
+      <tbody>
+    <tr>
+      <td>video-mark-rober-card</td>
+      <td>World&#039;s Smallest Nerf Gun Mark Rober</td>
+      <td>100%</td>
+      <td>yes</td>
+      <td>yes</td>
+    </tr>
+  
+    <tr>
+      <td>video-mark-rober-channel</td>
+      <td>Mark Rober</td>
+      <td>100%</td>
+      <td>yes</td>
+      <td>no</td>
+    </tr>
+  
+    <tr>
+      <td>video-mkbhd-channel</td>
+      <td>Marques Brownlee</td>
+      <td>24%</td>
+      <td>no</td>
+      <td>no</td>
+    </tr>
+  
+    <tr>
+      <td>video-first-channel</td>
+      <td>Nature Lab</td>
+      <td>22%</td>
+      <td>no</td>
+      <td>no</td>
+    </tr>
+  
+    <tr>
+      <td>video-rocket-channel</td>
+      <td>Everyday Astronaut</td>
+      <td>16%</td>
+      <td>no</td>
+      <td>no</td>
+    </tr>
+  
+    <tr>
+      <td>video-sponsored-channel</td>
+      <td>CloudDesk</td>
+      <td>14%</td>
+      <td>no</td>
+      <td>no</td>
+    </tr>
+  
+    <tr>
+      <td>video-cooking-channel</td>
+      <td>Kitchen Daily</td>
+      <td>12%</td>
+      <td>no</td>
+      <td>no</td>
+    </tr>
+  
+    <tr>
+      <td>video-mkbhd-card</td>
+      <td>Phone awards Marques Brownlee</td>
+      <td>11%</td>
+      <td>no</td>
+      <td>yes</td>
+    </tr>
+  </tbody>
+    </table>
+  
+      <h4>Selector Matches</h4>
+      <table>
+        <thead><tr><th>Target</th><th>Selectors</th><th>Count</th><th>Matched UIDs</th></tr></thead>
+        <tbody>
+    <tr>
+      <td>mark_rober_videos</td>
+      <td>article.video-card</td>
+      <td>6</td>
+      <td>video-first-card, video-mark-rober-card, video-cooking-card, video-rocket-card, video-mkbhd-card, video-sponsored-card</td>
+    </tr>
+  </tbody>
+      </table>
+      <h4>Generated Rules</h4>
+      <pre><code>[
+  {
+    &quot;id&quot;: &quot;hide-mark-rober-videos&quot;,
+    &quot;type&quot;: &quot;style&quot;,
+    &quot;targetRef&quot;: &quot;mark_rober_videos&quot;,
+    &quot;styles&quot;: {
+      &quot;display&quot;: &quot;none&quot;
+    }
+  }
+]</code></pre>
+      <h4>Target Map</h4>
+      <pre><code>{
+  &quot;mark_rober_videos&quot;: {
+    &quot;source&quot;: &quot;inferred&quot;,
+    &quot;selectors&quot;: [
+      &quot;article.video-card&quot;
+    ],
+    &quot;fallbackSelectors&quot;: []
+  }
+}</code></pre>
+      
+    </section>
+  
+    <section class="detail">
+      <h3>medium-youtube-hide-creator-partial <span>0%</span></h3>
+      
+      <div class="mini-grid">
+        <div>
+          <h4>Immediate</h4>
+          <p>Uncaught (in promise) Error: Generated plan failed validation: Rule 0 uses unsupported style key visibility.</p>
+        </div>
+        <div>
+          <h4>Persistence</h4>
+          <p>n/a</p>
+        </div>
+        <div>
+          <h4>Blast Radius</h4>
+          <p>No forbidden nodes changed in selected run.</p>
+          <p>No broad selector diagnostic in selected run.</p>
+          <p>Did not clearly use selection hints.</p>
+          <p>Phase: n/a</p>
+        </div>
+      </div>
+      
+    <h4>Semantic Target Candidates</h4>
+    <p>Query: <code>Rober</code>; expected: <code>Mark Rober</code>; expected visible in context: yes; expected selected by plan: no.</p>
+    <table>
+      <thead><tr><th>UID</th><th>Text / label</th><th>Fuzzy score</th><th>Expected</th><th>Selected by plan</th></tr></thead>
+      <tbody>
+    <tr>
+      <td>video-mark-rober-card</td>
+      <td>World&#039;s Smallest Nerf Gun Mark Rober</td>
+      <td>100%</td>
+      <td>yes</td>
+      <td>no</td>
+    </tr>
+  
+    <tr>
+      <td>video-mark-rober-channel</td>
+      <td>Mark Rober</td>
+      <td>100%</td>
+      <td>yes</td>
+      <td>no</td>
+    </tr>
+  
+    <tr>
+      <td>video-first-channel</td>
+      <td>Nature Lab</td>
+      <td>13%</td>
+      <td>no</td>
+      <td>no</td>
+    </tr>
+  
+    <tr>
+      <td>video-mkbhd-channel</td>
+      <td>Marques Brownlee</td>
+      <td>10%</td>
+      <td>no</td>
+      <td>no</td>
+    </tr>
+  
+    <tr>
+      <td>video-rocket-channel</td>
+      <td>Everyday Astronaut</td>
+      <td>10%</td>
+      <td>no</td>
+      <td>no</td>
+    </tr>
+  
+    <tr>
+      <td>video-sponsored-channel</td>
+      <td>CloudDesk</td>
+      <td>9%</td>
+      <td>no</td>
+      <td>no</td>
+    </tr>
+  
+    <tr>
+      <td>video-mkbhd-card</td>
+      <td>Phone awards Marques Brownlee</td>
+      <td>6%</td>
+      <td>no</td>
+      <td>no</td>
+    </tr>
+  
+    <tr>
+      <td>video-first-card</td>
+      <td>Backyard Squirrel Maze Nature Lab</td>
+      <td>5%</td>
+      <td>no</td>
+      <td>no</td>
+    </tr>
+  </tbody>
+    </table>
+  
+      <h4>Selector Matches</h4>
+      <table>
+        <thead><tr><th>Target</th><th>Selectors</th><th>Count</th><th>Matched UIDs</th></tr></thead>
+        <tbody><tr><td colspan="4">No target matches recorded.</td></tr></tbody>
+      </table>
+      <h4>Generated Rules</h4>
+      <pre><code>[]</code></pre>
+      <h4>Target Map</h4>
+      <pre><code>{}</code></pre>
+      
+    </section>
+  
+    <section class="detail">
+      <h3>medium-youtube-hide-title-typo <span>100%</span></h3>
+      <img class="shot" src="browser-screenshots/run-3-medium-youtube-hide-title-typo-after.png" alt="Screenshot for medium-youtube-hide-title-typo">
       <div class="mini-grid">
         <div>
           <h4>Immediate</h4>
@@ -1797,27 +1520,68 @@
           <h4>Blast Radius</h4>
           <p>No forbidden nodes changed in selected run.</p>
           <p>No broad selector diagnostic in selected run.</p>
-          <p>Used selection hints.</p>
+          <p>Did not clearly use selection hints.</p>
+          <p>Phase: ok-or-low-risk</p>
         </div>
       </div>
+      
+    <h4>Semantic Target Candidates</h4>
+    <p>Query: <code>rokcet engineering</code>; expected: <code>Engineering a rocket</code>; expected visible in context: yes; expected selected by plan: no.</p>
+    <table>
+      <thead><tr><th>UID</th><th>Text / label</th><th>Fuzzy score</th><th>Expected</th><th>Selected by plan</th></tr></thead>
+      <tbody>
+    <tr>
+      <td>video-rocket-link</td>
+      <td>Engineering a rocket</td>
+      <td>22%</td>
+      <td>yes</td>
+      <td>no</td>
+    </tr>
+  
+    <tr>
+      <td>video-mark-rober-link</td>
+      <td>World&#039;s Smallest Nerf Gun</td>
+      <td>20%</td>
+      <td>no</td>
+      <td>no</td>
+    </tr>
+  
+    <tr>
+      <td>video-sponsored-link</td>
+      <td>CloudDesk AI tool</td>
+      <td>17%</td>
+      <td>no</td>
+      <td>no</td>
+    </tr>
+  
+    <tr>
+      <td>video-first-link</td>
+      <td>Backyard Squirrel Maze</td>
+      <td>17%</td>
+      <td>no</td>
+      <td>no</td>
+    </tr>
+  </tbody>
+    </table>
+  
       <h4>Selector Matches</h4>
       <table>
         <thead><tr><th>Target</th><th>Selectors</th><th>Count</th><th>Matched UIDs</th></tr></thead>
         <tbody>
     <tr>
-      <td>card_to_remove</td>
-      <td>article[aria-label=&quot;Sync warning&quot;]</td>
+      <td>rocket_video_card</td>
+      <td>article.ytd-rich-item-renderer.video-card:has(a#rocket-video-title)</td>
       <td>1</td>
-      <td>warning-card</td>
+      <td>video-rocket-card</td>
     </tr>
   </tbody>
       </table>
       <h4>Generated Rules</h4>
       <pre><code>[
   {
-    &quot;id&quot;: &quot;remove-card&quot;,
+    &quot;id&quot;: &quot;hide-rocket-video&quot;,
     &quot;type&quot;: &quot;style&quot;,
-    &quot;targetRef&quot;: &quot;card_to_remove&quot;,
+    &quot;targetRef&quot;: &quot;rocket_video_card&quot;,
     &quot;styles&quot;: {
       &quot;display&quot;: &quot;none&quot;
     }
@@ -1825,14 +1589,96 @@
 ]</code></pre>
       <h4>Target Map</h4>
       <pre><code>{
-  &quot;card_to_remove&quot;: {
-    &quot;source&quot;: &quot;selection&quot;,
-    &quot;selectionRef&quot;: &quot;sel_1&quot;,
+  &quot;rocket_video_card&quot;: {
+    &quot;source&quot;: &quot;inferred&quot;,
     &quot;selectors&quot;: [
-      &quot;article[aria-label=\&quot;Sync warning\&quot;]&quot;
+      &quot;article.ytd-rich-item-renderer.video-card:has(a#rocket-video-title)&quot;
     ],
     &quot;fallbackSelectors&quot;: [
-      &quot;[data-testid=\&quot;sync-warning\&quot;]&quot;
+      &quot;article.video-card:has(a#rocket-video-title)&quot;,
+      &quot;article:has(a#rocket-video-title)&quot;
+    ]
+  }
+}</code></pre>
+      
+    </section>
+  
+    <section class="detail">
+      <h3>medium-youtube-hide-ad-synonym <span>100%</span></h3>
+      <img class="shot" src="browser-screenshots/run-3-medium-youtube-hide-ad-synonym-after.png" alt="Screenshot for medium-youtube-hide-ad-synonym">
+      <div class="mini-grid">
+        <div>
+          <h4>Immediate</h4>
+          <p>browser target is hidden browser forbidden nodes remain visible</p>
+        </div>
+        <div>
+          <h4>Persistence</h4>
+          <p>browser target is hidden browser forbidden nodes remain visible</p>
+        </div>
+        <div>
+          <h4>Blast Radius</h4>
+          <p>No forbidden nodes changed in selected run.</p>
+          <p>No broad selector diagnostic in selected run.</p>
+          <p>Did not clearly use selection hints.</p>
+          <p>Phase: ok-or-low-risk</p>
+        </div>
+      </div>
+      
+    <h4>Semantic Target Candidates</h4>
+    <p>Query: <code>ads</code>; expected: <code>Sponsored</code>; expected visible in context: yes; expected selected by plan: yes.</p>
+    <table>
+      <thead><tr><th>UID</th><th>Text / label</th><th>Fuzzy score</th><th>Expected</th><th>Selected by plan</th></tr></thead>
+      <tbody>
+    <tr>
+      <td>video-sponsored-badge</td>
+      <td>Sponsored</td>
+      <td>9%</td>
+      <td>yes</td>
+      <td>no</td>
+    </tr>
+  
+    <tr>
+      <td>video-sponsored-card</td>
+      <td>Sponsored CloudDesk AI tool CloudDesk</td>
+      <td>2%</td>
+      <td>yes</td>
+      <td>yes</td>
+    </tr>
+  </tbody>
+    </table>
+  
+      <h4>Selector Matches</h4>
+      <table>
+        <thead><tr><th>Target</th><th>Selectors</th><th>Count</th><th>Matched UIDs</th></tr></thead>
+        <tbody>
+    <tr>
+      <td>sponsored_card</td>
+      <td>article.ytd-rich-item-renderer.sponsored-card</td>
+      <td>1</td>
+      <td>video-sponsored-card</td>
+    </tr>
+  </tbody>
+      </table>
+      <h4>Generated Rules</h4>
+      <pre><code>[
+  {
+    &quot;id&quot;: &quot;hide-sponsored-card&quot;,
+    &quot;type&quot;: &quot;style&quot;,
+    &quot;targetRef&quot;: &quot;sponsored_card&quot;,
+    &quot;styles&quot;: {
+      &quot;display&quot;: &quot;none&quot;
+    }
+  }
+]</code></pre>
+      <h4>Target Map</h4>
+      <pre><code>{
+  &quot;sponsored_card&quot;: {
+    &quot;source&quot;: &quot;inferred&quot;,
+    &quot;selectors&quot;: [
+      &quot;article.ytd-rich-item-renderer.sponsored-card&quot;
+    ],
+    &quot;fallbackSelectors&quot;: [
+      &quot;.sponsored-card&quot;
     ]
   }
 }</code></pre>

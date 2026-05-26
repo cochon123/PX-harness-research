@@ -24,6 +24,8 @@ const RUN_COUNT = Number(args.runs || 1);
 const SCREENSHOT_DIR = "reports/browser-screenshots";
 const SKIP_PASS_RATE = args["skip-pass-rate"] ? Number(args["skip-pass-rate"]) : null;
 const SKIP_SOURCE = args["skip-source"] || "reports/browser-baseline.json";
+const TASK_FILTER = parseListArg(args.tasks);
+const TAG_FILTER = parseListArg(args.tags);
 
 const routesByPageId = {
   dashboard: "/dashboard",
@@ -33,13 +35,17 @@ const routesByPageId = {
 
 const server = await startWebZooServer();
 const userDataDir = join(tmpdir(), `px-harness-chrome-${Date.now()}`);
-const skipPlan = buildSkipPlan(tasks, { threshold: SKIP_PASS_RATE, sourcePath: SKIP_SOURCE });
-const runnableTasks = tasks.filter((task) => !skipPlan.ids.has(task.id));
+const selectedTasks = filterTasks(tasks, { taskIds: TASK_FILTER, tags: TAG_FILTER });
+const skipPlan = buildSkipPlan(selectedTasks, { threshold: SKIP_PASS_RATE, sourcePath: SKIP_SOURCE });
+const runnableTasks = selectedTasks.filter((task) => !skipPlan.ids.has(task.id));
 mkdirSync(userDataDir, { recursive: true });
 if (!args["keep-screenshots"]) rmSync(SCREENSHOT_DIR, { recursive: true, force: true });
 mkdirSync(SCREENSHOT_DIR, { recursive: true });
 if (skipPlan.skipped.length) {
   console.log(`[browser-baseline] skipping ${skipPlan.skipped.length} task(s) at pass-rate >= ${formatScore(SKIP_PASS_RATE)} from ${SKIP_SOURCE}`);
+}
+if (selectedTasks.length !== tasks.length) {
+  console.log(`[browser-baseline] selected ${selectedTasks.length}/${tasks.length} task(s)`);
 }
 
 let context;
@@ -92,6 +98,7 @@ async function runBrowserSuite(browserContext, origin, { extensionAvailable, run
     const startedAt = Date.now();
     const consoleMessages = [];
     let beforeScreenshotPath = null;
+    const fallbackSemanticCandidates = buildSemanticCandidates(task, fixturePage, { plan: {} }, { planGrade: { targetMatches: {} } });
     page.on("console", (message) => {
       consoleMessages.push({ type: message.type(), text: message.text() });
     });
@@ -116,7 +123,7 @@ async function runBrowserSuite(browserContext, origin, { extensionAvailable, run
       const combinedScore = roundScore((grade.score * 0.75) + (persistence.score * 0.25));
       const screenshotPath = `${SCREENSHOT_DIR}/run-${runIndex + 1}-${task.id}-after.png`;
       await page.screenshot({ path: screenshotPath, fullPage: true });
-      const diagnostics = buildTaskDiagnostics({ task, generation, grade, persistence });
+      const diagnostics = buildTaskDiagnostics({ task, fixturePage, generation, grade, persistence });
       taskResults.push({
         taskId: task.id,
         tier: task.tier,
@@ -145,6 +152,11 @@ async function runBrowserSuite(browserContext, origin, { extensionAvailable, run
         passed: false,
         durationMs: Date.now() - startedAt,
         error: error.message,
+        diagnostics: {
+          phase: "generation-or-validation",
+          semanticCandidates: fallbackSemanticCandidates,
+          failureReasons: [error.message]
+        },
         beforeScreenshotPath,
         consoleMessages: filterConsoleMessages(consoleMessages).slice(-20)
       });
@@ -360,7 +372,7 @@ async function contentTaskRunner({ prompt, selectionUid, model }) {
 }
 
 function finalize(runs, skipPlan = { skipped: [] }) {
-  const taskAverages = tasks.map((task) => {
+  const taskAverages = selectedTasks.map((task) => {
     const skipped = skipPlan.skipped.find((item) => item.id === task.id);
     if (skipped) {
       return {
@@ -415,12 +427,15 @@ function finalize(runs, skipPlan = { skipped: [] }) {
       reasoningMode: "low",
       executionMode: runs[0]?.executionMode || "unknown",
       runCount: runs.length,
-      taskCount: tasks.length,
-      executedTaskCount: tasks.length - skipPlan.skipped.length,
+      taskCount: selectedTasks.length,
+      allTaskCount: tasks.length,
+      executedTaskCount: selectedTasks.length - skipPlan.skipped.length,
       skippedTaskCount: skipPlan.skipped.length,
       skippedTasks: skipPlan.skipped,
       skipPassRate: SKIP_PASS_RATE,
       skipSource: SKIP_SOURCE,
+      taskFilter: TASK_FILTER,
+      tagFilter: TAG_FILTER,
       extensionPath: resolve(EXTENSION_PATH)
     },
     summary: {
@@ -443,6 +458,14 @@ function finalize(runs, skipPlan = { skipped: [] }) {
     observations: buildObservations(runs, taskAverages),
     raw: runs
   };
+}
+
+function filterTasks(allTasks, { taskIds, tags }) {
+  return allTasks.filter((task) => {
+    const taskMatch = !taskIds.length || taskIds.includes(task.id);
+    const tagMatch = !tags.length || (task.tags || []).some((tag) => tags.includes(tag));
+    return taskMatch && tagMatch;
+  });
 }
 
 function buildSkipPlan(allTasks, { threshold, sourcePath }) {
@@ -475,7 +498,7 @@ function buildSkipPlan(allTasks, { threshold, sourcePath }) {
   };
 }
 
-function buildTaskDiagnostics({ task, generation, grade, persistence }) {
+function buildTaskDiagnostics({ task, fixturePage, generation, grade, persistence }) {
   const targetMatches = grade.planGrade?.targetMatches || {};
   const broadSelectors = Object.entries(targetMatches)
     .flatMap(([targetRef, match]) => (match.selectors || []).map((selector) => ({
@@ -509,6 +532,8 @@ function buildTaskDiagnostics({ task, generation, grade, persistence }) {
     targetMatches,
     broadSelectors,
     forbiddenChanged,
+    semanticCandidates: buildSemanticCandidates(task, fixturePage, generation, grade),
+    phase: classifyFailurePhase({ generation, grade, persistence, broadSelectors, forbiddenChanged }),
     usedSelectionHints,
     genericSelectors,
     failureReasons: [
@@ -520,6 +545,67 @@ function buildTaskDiagnostics({ task, generation, grade, persistence }) {
     ],
     taskKind: task.expect.kind
   };
+}
+
+function buildSemanticCandidates(task, fixturePage, generation, grade) {
+  if (!task.semanticProbe) return null;
+  const expectedUids = new Set(task.expect?.targetUids || []);
+  const targetMatches = grade.planGrade?.targetMatches || {};
+  const matchedUids = new Set(Object.values(targetMatches).flatMap((match) => match.uids || []));
+  const candidates = fixturePage.nodes
+    .filter((node) => isSemanticCandidate(node, task.semanticProbe.candidateKind))
+    .map((node) => {
+      const haystack = [
+        node.text,
+        node.attrs?.["aria-label"],
+        node.attrs?.["data-channel"],
+        node.id,
+        node.classes?.join(" ")
+      ].filter(Boolean).join(" ");
+      return {
+        uid: node.uid,
+        tag: node.tag,
+        text: node.text || "",
+        ariaLabel: node.attrs?.["aria-label"] || "",
+        dataChannel: node.attrs?.["data-channel"] || "",
+        scoreToQuery: similarity(task.semanticProbe.query, haystack),
+        scoreToExpected: similarity(task.semanticProbe.expected, haystack),
+        isExpected: expectedUids.has(node.uid),
+        selectedByPlan: matchedUids.has(node.uid)
+      };
+    })
+    .sort((left, right) => right.scoreToQuery - left.scoreToQuery)
+    .slice(0, 8);
+
+  const best = candidates[0] || null;
+  const expected = candidates.find((candidate) => candidate.isExpected) || null;
+  const expectedSelected = candidates.some((candidate) => candidate.isExpected && candidate.selectedByPlan);
+  return {
+    query: task.semanticProbe.query,
+    expected: task.semanticProbe.expected,
+    candidateKind: task.semanticProbe.candidateKind,
+    expectedCandidateVisibleInContext: Boolean(expected),
+    expectedCandidateSelectedByPlan: expectedSelected,
+    bestCandidate: best,
+    candidates
+  };
+}
+
+function isSemanticCandidate(node, kind) {
+  if (!node?.uid) return false;
+  if (kind === "youtube-channel") return node.classes?.includes("channel-name") || Boolean(node.attrs?.["data-channel"]);
+  if (kind === "youtube-title") return /title/i.test(node.id || "") || node.classes?.includes("yt-simple-endpoint");
+  if (kind === "youtube-badge") return node.classes?.includes("sponsor-badge") || node.attrs?.["data-sponsored"] === "true";
+  return Boolean(node.text || node.attrs?.["aria-label"]);
+}
+
+function classifyFailurePhase({ generation, grade, persistence, broadSelectors, forbiddenChanged }) {
+  if (generation.validation && generation.validation.ok === false) return "plan-validation";
+  if (grade.actual?.targetHit === false && !grade.planGrade?.passed) return "target-understanding-or-selector";
+  if (broadSelectors.length || forbiddenChanged.length || grade.actual?.forbiddenHit || persistence?.forbiddenHit) return "selector-blast-radius";
+  if (grade.actual?.targetHit && persistence?.targetHit === false) return "persistence";
+  if (grade.actual?.targetHit === false) return "browser-application";
+  return "ok-or-low-risk";
 }
 
 function buildObservations(runs, taskAverages) {
@@ -609,6 +695,43 @@ function parseArgs(argv) {
     parsed[key] = value;
   }
   return parsed;
+}
+
+function parseListArg(value) {
+  if (!value || value === "true") return [];
+  return String(value).split(",").map((item) => item.trim()).filter(Boolean);
+}
+
+function similarity(left, right) {
+  const a = normalizeText(left);
+  const b = normalizeText(right);
+  if (!a || !b) return 0;
+  if (b.includes(a) || a.includes(b)) return 1;
+  const distance = levenshtein(a, b);
+  return roundScore(1 - (distance / Math.max(a.length, b.length)));
+}
+
+function normalizeText(value) {
+  return String(value || "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+}
+
+function levenshtein(left, right) {
+  const previous = Array.from({ length: right.length + 1 }, (_, index) => index);
+  for (let row = 1; row <= left.length; row += 1) {
+    let diagonal = previous[0];
+    previous[0] = row;
+    for (let column = 1; column <= right.length; column += 1) {
+      const insert = previous[column] + 1;
+      const remove = previous[column - 1] + 1;
+      const replace = diagonal + (left[row - 1] === right[column - 1] ? 0 : 1);
+      diagonal = previous[column];
+      previous[column] = Math.min(insert, remove, replace);
+    }
+  }
+  return previous[right.length];
 }
 
 function filterConsoleMessages(messages) {

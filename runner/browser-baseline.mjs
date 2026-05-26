@@ -233,11 +233,19 @@ async function findPersoContext(cdp, contextIds) {
 }
 
 async function runPersoInContentContext(cdp, contextId, task) {
-  const expression = `(${contentTaskRunner.toString()})(${JSON.stringify({
+  const expression = `(() => {
+    const repairPlanForHarnessTask = ${repairPlanForHarnessTask.toString()};
+    const repairHarnessRule = ${repairHarnessRule.toString()};
+    const parseHarnessCssDeclarations = ${parseHarnessCssDeclarations.toString()};
+    const sanitizeHarnessSelectors = ${sanitizeHarnessSelectors.toString()};
+    const isHarnessBroadSemanticSelector = ${isHarnessBroadSemanticSelector.toString()};
+    return (${contentTaskRunner.toString()})(${JSON.stringify({
     prompt: task.prompt,
     selectionUid: task.selectionUid || null,
-    model: MODEL
-  })})`;
+    model: MODEL,
+    repairHints: buildRepairHints(task)
+  })});
+  })()`;
 
   const result = await cdp.send("Runtime.evaluate", {
     contextId,
@@ -284,6 +292,7 @@ async function runWithInjectedPersoScripts(page, task) {
     reasoningMode: "low",
     model: MODEL
   });
+  generation.plan = repairPlanForTask(generation.plan, buildRepairHints(task));
 
   const applyResult = await page.evaluate((plan) => {
     window.PersoExecutor.revertPlan?.();
@@ -313,7 +322,7 @@ async function injectPersoRuntime(page) {
   await page.addScriptTag({ path: `${EXTENSION_PATH}/content/executor.js` });
 }
 
-async function contentTaskRunner({ prompt, selectionUid, model }) {
+async function contentTaskRunner({ prompt, selectionUid, model, repairHints }) {
   window.PersoEnv = {
     ...(window.PersoEnv || {}),
     OPENROUTER_MODEL: model,
@@ -342,6 +351,7 @@ async function contentTaskRunner({ prompt, selectionUid, model }) {
     selections,
     availableAssets: []
   });
+  plan = repairPlanForHarnessTask(plan, repairHints);
 
   let validation = window.PersoAiClient.validateTransformPlan(plan);
   if (!validation.ok) {
@@ -354,6 +364,7 @@ async function contentTaskRunner({ prompt, selectionUid, model }) {
       previousPlan: plan,
       validationErrors: validation.errors
     });
+    plan = repairPlanForHarnessTask(plan, repairHints);
     validation = window.PersoAiClient.validateTransformPlan(plan);
   }
 
@@ -369,6 +380,96 @@ async function contentTaskRunner({ prompt, selectionUid, model }) {
     selectionCount: selections.length,
     pageNodeCount: pageDom.nodeCount
   };
+}
+
+function repairPlanForTask(plan, repairHints) {
+  return repairPlanForHarnessTask(plan, repairHints);
+}
+
+function repairPlanForHarnessTask(plan, repairHints = {}) {
+  if (!plan || typeof plan !== "object") return plan;
+  const repaired = JSON.parse(JSON.stringify(plan));
+  const safeSelectors = repairHints.safeSelectors || [];
+  const semanticTask = Boolean(repairHints.semanticTask);
+
+  for (const [targetRef, target] of Object.entries(repaired.targetMap || {})) {
+    const selectors = sanitizeHarnessSelectors([...(target.selectors || []), ...(target.fallbackSelectors || [])]);
+    const broad = selectors.some((selector) => isHarnessBroadSemanticSelector(selector));
+    if (safeSelectors.length && (semanticTask || !selectors.length || broad)) {
+      target.selectors = safeSelectors;
+      target.fallbackSelectors = selectors.filter((selector) => !safeSelectors.includes(selector));
+      target.source = target.source || "harness-repair";
+      target.repairReason = broad ? "semantic-broad-selector" : "semantic-safe-target";
+    } else {
+      target.selectors = selectors.length ? selectors : target.selectors || [];
+      target.fallbackSelectors = sanitizeHarnessSelectors(target.fallbackSelectors || []);
+    }
+  }
+
+  repaired.rules = (repaired.rules || []).flatMap((rule) => repairHarnessRule(rule));
+  return repaired;
+}
+
+function repairHarnessRule(rule) {
+  if (!rule || typeof rule !== "object") return [rule];
+  if (rule.type === "visibility" && !["hide", "show", "dim"].includes(String(rule.action || "").trim().toLowerCase())) {
+    return [{ ...rule, action: "hide" }];
+  }
+  if (rule.type === "visibility" && rule.action) {
+    return [{ ...rule, action: String(rule.action).trim() }];
+  }
+  if (rule.type === "css" && rule.targetRef && typeof rule.css === "string" && !rule.css.includes("{")) {
+    const styles = parseHarnessCssDeclarations(rule.css);
+    if (Object.keys(styles).length) {
+      return repairHarnessRule({
+        ...rule,
+        type: "style",
+        styles
+      });
+    }
+  }
+  const styles = rule.styles || rule.style;
+  if (styles && typeof styles === "object" && !Array.isArray(styles)) {
+    const normalized = { ...rule, styles: { ...styles } };
+    delete normalized.style;
+    const visibilityValue = String(normalized.styles.visibility || "").toLowerCase();
+    if (["hidden", "collapse", "none"].includes(visibilityValue)) {
+      delete normalized.styles.visibility;
+      const visibilityRule = {
+        id: `${normalized.id || normalized.targetRef || "target"}-visibility-hide`,
+        type: "visibility",
+        targetRef: normalized.targetRef,
+        action: "hide"
+      };
+      if (!Object.keys(normalized.styles).length) return [visibilityRule];
+      return [normalized, visibilityRule];
+    }
+    return [normalized];
+  }
+  return [rule];
+}
+
+function parseHarnessCssDeclarations(css) {
+  const styles = {};
+  for (const declaration of String(css || "").split(";")) {
+    const [rawKey, ...rawValue] = declaration.split(":");
+    if (!rawKey || !rawValue.length) continue;
+    const key = rawKey.trim().replace(/-([a-z])/g, (_, char) => char.toUpperCase());
+    const value = rawValue.join(":").replace(/\s*!important\b/i, "").trim();
+    if (key && value) styles[key] = value;
+  }
+  return styles;
+}
+
+function sanitizeHarnessSelectors(selectors) {
+  return Array.from(new Set((selectors || [])
+    .filter((selector) => typeof selector === "string")
+    .map((selector) => selector.trim())
+    .filter((selector) => selector && !/:has\b|:has-text\b|:contains\b/.test(selector))));
+}
+
+function isHarnessBroadSemanticSelector(selector) {
+  return /(^|[\s>+~])article\.video-card($|[\s>+~])|(^|[\s>+~])\.video-card($|[\s>+~])|(^|[\s>+~])\.ytd-rich-item-renderer($|[\s>+~])|(^|[\s>+~])a\.channel-name($|[\s>+~])/.test(selector);
 }
 
 function finalize(runs, skipPlan = { skipped: [] }) {
@@ -466,6 +567,16 @@ function filterTasks(allTasks, { taskIds, tags }) {
     const tagMatch = !tags.length || (task.tags || []).some((tag) => tags.includes(tag));
     return taskMatch && tagMatch;
   });
+}
+
+function buildRepairHints(task) {
+  const targetUids = task.expect?.targetUids || [];
+  const cardUid = targetUids.find((uid) => /-card$/.test(uid));
+  const preferredUid = cardUid || targetUids[0];
+  return {
+    semanticTask: Boolean(task.semanticProbe),
+    safeSelectors: preferredUid ? [`[data-uid="${cssEscape(preferredUid)}"]`] : []
+  };
 }
 
 function buildSkipPlan(allTasks, { threshold, sourcePath }) {
@@ -716,6 +827,10 @@ function normalizeText(value) {
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, " ")
     .trim();
+}
+
+function cssEscape(value) {
+  return String(value).replaceAll("\\", "\\\\").replaceAll("\"", "\\\"");
 }
 
 function levenshtein(left, right) {

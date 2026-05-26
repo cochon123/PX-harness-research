@@ -111,7 +111,9 @@ function matchesCompound(node, compound) {
       ? node.id
       : attr.name === "class"
         ? node.classes.join(" ")
-        : node.attrs?.[attr.name];
+        : attr.name === "data-uid"
+          ? node.uid
+          : node.attrs?.[attr.name];
     if (actual === undefined || actual === null) return false;
     if (attr.operator === "=" && String(actual) !== attr.value) return false;
     if (attr.operator === "*=" && !String(actual).includes(attr.value)) return false;

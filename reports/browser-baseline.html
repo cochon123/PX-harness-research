@@ -3,15 +3,17 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Perso XXL Baseline Observations</title>
+    <title>Perso XXL Browser Baseline</title>
     <style>
       :root { --bg: #f7f4ee; --ink: #211f1b; --muted: #615c52; --panel: #fff; --line: #d7cfc0; --accent: #0f766e; --bad: #991b1b; }
       * { box-sizing: border-box; }
       body { margin: 0; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: var(--ink); line-height: 1.55; }
       header { background: #183a37; color: white; padding: 38px 24px 30px; }
-      .wrap { width: min(1120px, calc(100vw - 32px)); margin: 0 auto; }
+      .wrap { width: min(1180px, calc(100vw - 32px)); margin: 0 auto; }
       h1 { margin: 0; font-size: clamp(2rem, 4vw, 4rem); line-height: 1.05; letter-spacing: 0; }
       h2 { margin: 0 0 12px; font-size: 1.35rem; }
+      h3 { display: flex; justify-content: space-between; gap: 16px; margin: 0 0 10px; font-size: 1rem; }
+      h4 { margin: 16px 0 8px; font-size: 0.88rem; text-transform: uppercase; color: var(--muted); }
       p { margin: 10px 0 0; }
       main { padding: 26px 0 54px; }
       .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
@@ -19,112 +21,586 @@
       .full { grid-column: 1 / -1; }
       .metric { font-size: 2.2rem; font-weight: 800; color: var(--accent); line-height: 1; }
       .muted { color: var(--muted); }
-      table { width: 100%; border-collapse: collapse; font-size: 0.93rem; }
-      th, td { border: 1px solid var(--line); padding: 10px; text-align: left; vertical-align: top; }
+      table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+      th, td { border: 1px solid var(--line); padding: 9px; text-align: left; vertical-align: top; }
       th { background: #f0eadf; }
       code { background: #e8f0ef; padding: 0.1rem 0.28rem; border-radius: 4px; }
+      pre { overflow-x: auto; background: #102726; color: #eef7f4; border-radius: 8px; padding: 12px; font-size: 0.8rem; }
+      pre code { background: transparent; color: inherit; padding: 0; }
       ul { margin: 8px 0 0; padding-left: 20px; }
       li { margin: 7px 0; }
-      .bar { height: 12px; border-radius: 999px; background: #e7e0d3; overflow: hidden; margin-top: 8px; }
-      .bar span { display: block; height: 100%; width: 0%; background: var(--accent); }
-      @media (max-width: 840px) { .grid { display: block; } .card { margin: 14px 0; } }
+      .details-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+      .detail { border: 1px solid var(--line); border-radius: 8px; padding: 14px; background: #fbfaf7; }
+      .mini-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+      .mini-grid > div { border: 1px solid var(--line); border-radius: 8px; background: white; padding: 10px; }
+      .shot { display: block; width: 100%; max-height: 220px; object-fit: cover; object-position: top; border: 1px solid var(--line); border-radius: 8px; margin: 8px 0 12px; }
+      @media (max-width: 900px) { .grid, .details-grid, .mini-grid { display: block; } .card, .detail, .mini-grid > div { margin: 14px 0; } }
     </style>
   </head>
   <body>
-    <header>
-      <div class="wrap">
-        <h1>Perso XXL baseline observations</h1>
-        <p>Generated 2026-05-26T15:56:03.274Z using deepseek/deepseek-v4-flash against the v1 PX harness.</p>
-      </div>
-    </header>
-    <main class="wrap">
-      <section class="grid">
-        <article class="card">
-          <h2>No-thinking average</h2>
-          <div class="metric">n/a</div>
-          <div class="bar"><span></span></div>
-          <p class="muted">Browser execution mode: extension-content-script</p>
-        </article>
-        <article class="card">
-          <h2>Low-thinking run</h2>
-          <div class="metric">95%</div>
-          <p class="muted">Single run with OpenRouter reasoning set to low.</p>
-        </article>
-        <article class="card full">
-          <h2>First Observations</h2>
-          <ul><li>Browser low-reasoning baseline scored 95% across 6 tasks.</li><li>This run exercises Perso XXL content scripts, DOM context extraction, validation, and executor in a real browser on fixture pages.</li><li>hard-one-piece-theme scored 81%. browser has visual CSS changes 13 nodes marked as changed theme keywords: one piece</li><li>easy-selected-color scored 91%. browser target has expected style browser forbidden node was also changed</li></ul>
-        </article>
-        <article class="card full">
-          <h2>Run Summary</h2>
-          <table>
-            <thead><tr><th>Run</th><th>Reasoning</th><th>Score</th><th>Passed tasks</th><th>Avg duration</th></tr></thead>
-            <tbody>
+      <header>
+        <div class="wrap">
+          <h1>Perso XXL browser baseline</h1>
+          <p>Generated 2026-05-26T16:27:32.908Z using deepseek/deepseek-v4-flash. Execution mode: <code>extension-content-script</code>.</p>
+        </div>
+      </header>
+      <main class="wrap">
+        <section class="grid">
+          <article class="card">
+            <h2>Average</h2>
+            <div class="metric">78%</div>
+            <p class="muted">10 low-reasoning browser run(s).</p>
+          </article>
+          <article class="card">
+            <h2>Range</h2>
+            <div class="metric">54% - 94%</div>
+            <p class="muted">Run-score variance: 0.0117</p>
+          </article>
+          <article class="card full">
+            <h2>Observations</h2>
+            <ul><li>Browser low-reasoning baseline averaged 78% across 10 run(s).</li><li>Run score range: 54% to 94%; variance 0.0117.</li><li>This run exercises Perso XXL content scripts, DOM context extraction, validation, and executor in a real browser on fixture pages.</li><li>medium-youtube-hide-creator-typo averaged 35% with 20% pass rate. browser target is still visible (5x) persistence: browser target is still visible (5x) browser target is hidden (2x) persistence: browser target is hidden (2x)</li><li>hard-one-piece-theme averaged 74% with 90% pass rate. theme keywords: one piece (8x) persistence: theme keywords: one piece (8x) selector #video-title matched 2 nodes (6x) selector #video-title-link matched 2 nodes (6x)</li><li>easy-selected-hide averaged 80% with 80% pass rate. browser target is hidden (8x) persistence: browser target is hidden (8x) generic selectors: section.promo (4x) generic selectors: section.promo, section.surface (1x)</li></ul>
+          </article>
+          <article class="card full">
+            <h2>Run Summary</h2>
+            <table>
+              <thead><tr><th>Run</th><th>Score</th><th>Passed</th><th>Avg duration</th></tr></thead>
+              <tbody>
     <tr>
       <td>browser-low-thinking-1</td>
-      <td>low</td>
-      <td>95%</td>
+      <td>82%</td>
+      <td>5/6</td>
+      <td>14547 ms</td>
+    </tr>
+  
+    <tr>
+      <td>browser-low-thinking-2</td>
+      <td>84%</td>
+      <td>5/6</td>
+      <td>29435 ms</td>
+    </tr>
+  
+    <tr>
+      <td>browser-low-thinking-3</td>
+      <td>82%</td>
+      <td>5/6</td>
+      <td>21934 ms</td>
+    </tr>
+  
+    <tr>
+      <td>browser-low-thinking-4</td>
+      <td>94%</td>
       <td>6/6</td>
-      <td>37623 ms</td>
+      <td>17259 ms</td>
+    </tr>
+  
+    <tr>
+      <td>browser-low-thinking-5</td>
+      <td>83%</td>
+      <td>5/6</td>
+      <td>16291 ms</td>
+    </tr>
+  
+    <tr>
+      <td>browser-low-thinking-6</td>
+      <td>54%</td>
+      <td>3/6</td>
+      <td>22883 ms</td>
+    </tr>
+  
+    <tr>
+      <td>browser-low-thinking-7</td>
+      <td>83%</td>
+      <td>5/6</td>
+      <td>30003 ms</td>
+    </tr>
+  
+    <tr>
+      <td>browser-low-thinking-8</td>
+      <td>78%</td>
+      <td>5/6</td>
+      <td>18657 ms</td>
+    </tr>
+  
+    <tr>
+      <td>browser-low-thinking-9</td>
+      <td>79%</td>
+      <td>5/6</td>
+      <td>27116 ms</td>
+    </tr>
+  
+    <tr>
+      <td>browser-low-thinking-10</td>
+      <td>64%</td>
+      <td>4/6</td>
+      <td>17985 ms</td>
     </tr>
   </tbody>
-          </table>
-        </article>
-        <article class="card full">
-          <h2>Task Averages</h2>
-          <table>
-            <thead><tr><th>Task</th><th>Tier</th><th>No-thinking avg</th><th>Low-thinking</th><th>Observation</th></tr></thead>
-            <tbody>
+            </table>
+          </article>
+          <article class="card full">
+            <h2>Task Stability</h2>
+            <table>
+              <thead><tr><th>Task</th><th>Tier</th><th>Avg</th><th>Min / Max</th><th>Variance</th><th>Pass rate</th><th>Common failure reasons</th></tr></thead>
+              <tbody>
     <tr>
       <td>easy-selected-color</td>
       <td>easy</td>
-      <td>n/a</td>
-      <td>91%</td>
-      <td>browser target has expected style browser forbidden node was also changed Persistence: browser target has expected style browser forbidden node was also changed</td>
+      <td>92%</td>
+      <td>91% / 93%</td>
+      <td>0.0002</td>
+      <td>100%</td>
+      <td>browser forbidden node was also changed (10x) | persistence: browser forbidden node was also changed (10x) | forbidden node changed: churn-title-text (10x) | forbidden node changed: latency-title-text (10x)</td>
     </tr>
   
     <tr>
       <td>easy-selected-hide</td>
       <td>easy</td>
-      <td>n/a</td>
-      <td>100%</td>
-      <td>browser target is hidden browser forbidden nodes remain visible Persistence: browser target is hidden browser forbidden nodes remain visible</td>
+      <td>80%</td>
+      <td>0% / 100%</td>
+      <td>0.1600</td>
+      <td>80%</td>
+      <td>browser target is hidden (8x) | persistence: browser target is hidden (8x) | generic selectors: section.promo (4x) | generic selectors: section.promo, section.surface (1x)</td>
     </tr>
   
     <tr>
       <td>medium-docs-remove-gallery</td>
       <td>medium</td>
-      <td>n/a</td>
-      <td>100%</td>
-      <td>browser target is hidden browser forbidden nodes remain visible Persistence: browser target is hidden browser forbidden nodes remain visible</td>
+      <td>93%</td>
+      <td>27% / 100%</td>
+      <td>0.0481</td>
+      <td>90%</td>
+      <td>browser target is hidden (9x) | persistence: browser target is hidden (9x) | generic selectors: section.docs-template-gallery (5x) | generic selectors: section.docs-template-gallery, div.docs-homescreen-item-grid (1x)</td>
     </tr>
   
     <tr>
       <td>medium-youtube-hide-creator-typo</td>
       <td>medium</td>
-      <td>n/a</td>
-      <td>100%</td>
-      <td>browser target is hidden browser forbidden nodes remain visible Persistence: browser target is hidden browser forbidden nodes remain visible</td>
+      <td>35%</td>
+      <td>0% / 100%</td>
+      <td>0.1227</td>
+      <td>20%</td>
+      <td>browser target is still visible (5x) | persistence: browser target is still visible (5x) | browser target is hidden (2x) | persistence: browser target is hidden (2x)</td>
     </tr>
   
     <tr>
       <td>hard-youtube-stop-scroll</td>
       <td>hard</td>
-      <td>n/a</td>
+      <td>96%</td>
+      <td>93% / 100%</td>
+      <td>0.0011</td>
       <td>100%</td>
-      <td>browser scroll appears locked first video remains visible Persistence: browser scroll appears locked first video remains visible</td>
+      <td>generic selectors: ytd-rich-grid-renderer (2x) | generic selectors: main (1x)</td>
     </tr>
   
     <tr>
       <td>hard-one-piece-theme</td>
       <td>hard</td>
-      <td>n/a</td>
-      <td>81%</td>
-      <td>browser has visual CSS changes 13 nodes marked as changed theme keywords: one piece Persistence: browser has visual CSS changes 13 nodes marked as changed theme keywords: one piece</td>
+      <td>74%</td>
+      <td>0% / 91%</td>
+      <td>0.0618</td>
+      <td>90%</td>
+      <td>theme keywords: one piece (8x) | persistence: theme keywords: one piece (8x) | selector #video-title matched 2 nodes (6x) | selector #video-title-link matched 2 nodes (6x)</td>
     </tr>
   </tbody>
-          </table>
-        </article>
-      </section>
-    </main>
-  </body>
+            </table>
+          </article>
+          <article class="card full">
+            <h2>Task Diagnostics</h2>
+            <div class="details-grid">
+    <section class="detail">
+      <h3>easy-selected-color <span>91%</span></h3>
+      <img class="shot" src="browser-screenshots/run-1-easy-selected-color.png" alt="Screenshot for easy-selected-color">
+      <div class="mini-grid">
+        <div>
+          <h4>Immediate</h4>
+          <p>browser target has expected style browser forbidden node was also changed</p>
+        </div>
+        <div>
+          <h4>Persistence</h4>
+          <p>browser target has expected style browser forbidden node was also changed</p>
+        </div>
+        <div>
+          <h4>Blast Radius</h4>
+          <p>Forbidden changed: churn-title-text, latency-title-text</p>
+          <p>Broad selectors: span.metric-title-text -&gt; 3; main:nth-of-type(1) &gt; section:nth-of-type(2) &gt; article:nth-of-type(1) &gt; h2:nth-of-type(1) &gt; span:nth-of-type(1) -&gt; 3</p>
+          <p>Used selection hints.</p>
+        </div>
+      </div>
+      <h4>Selector Matches</h4>
+      <table>
+        <thead><tr><th>Target</th><th>Selectors</th><th>Count</th><th>Matched UIDs</th></tr></thead>
+        <tbody>
+    <tr>
+      <td>selected_text</td>
+      <td>span.metric-title-text, main:nth-of-type(1) &gt; section:nth-of-type(2) &gt; article:nth-of-type(1) &gt; h2:nth-of-type(1) &gt; span:nth-of-type(1)</td>
+      <td>3</td>
+      <td>revenue-title-text, churn-title-text, latency-title-text</td>
+    </tr>
+  </tbody>
+      </table>
+      <h4>Generated Rules</h4>
+      <pre><code>[
+  {
+    &quot;id&quot;: &quot;green-text&quot;,
+    &quot;type&quot;: &quot;style&quot;,
+    &quot;targetRef&quot;: &quot;selected_text&quot;,
+    &quot;styles&quot;: {
+      &quot;color&quot;: &quot;green&quot;
+    }
+  }
+]</code></pre>
+      <h4>Target Map</h4>
+      <pre><code>{
+  &quot;selected_text&quot;: {
+    &quot;source&quot;: &quot;selection&quot;,
+    &quot;selectionRef&quot;: &quot;sel_1&quot;,
+    &quot;selectors&quot;: [
+      &quot;span.metric-title-text&quot;,
+      &quot;main:nth-of-type(1) &gt; section:nth-of-type(2) &gt; article:nth-of-type(1) &gt; h2:nth-of-type(1) &gt; span:nth-of-type(1)&quot;
+    ],
+    &quot;fallbackSelectors&quot;: []
+  }
+}</code></pre>
+      
+    </section>
+  
+    <section class="detail">
+      <h3>easy-selected-hide <span>0%</span></h3>
+      
+      <div class="mini-grid">
+        <div>
+          <h4>Immediate</h4>
+          <p>Uncaught (in promise) Error: Generated plan failed validation: Rule 0 has unsupported type.</p>
+        </div>
+        <div>
+          <h4>Persistence</h4>
+          <p>n/a</p>
+        </div>
+        <div>
+          <h4>Blast Radius</h4>
+          <p>No forbidden nodes changed in selected run.</p>
+          <p>No broad selector diagnostic in selected run.</p>
+          <p>Did not clearly use selection hints.</p>
+        </div>
+      </div>
+      <h4>Selector Matches</h4>
+      <table>
+        <thead><tr><th>Target</th><th>Selectors</th><th>Count</th><th>Matched UIDs</th></tr></thead>
+        <tbody><tr><td colspan="4">No target matches recorded.</td></tr></tbody>
+      </table>
+      <h4>Generated Rules</h4>
+      <pre><code>[]</code></pre>
+      <h4>Target Map</h4>
+      <pre><code>{}</code></pre>
+      
+    </section>
+  
+    <section class="detail">
+      <h3>medium-docs-remove-gallery <span>27%</span></h3>
+      <img class="shot" src="browser-screenshots/run-6-medium-docs-remove-gallery.png" alt="Screenshot for medium-docs-remove-gallery">
+      <div class="mini-grid">
+        <div>
+          <h4>Immediate</h4>
+          <p>browser target is still visible browser forbidden nodes remain visible</p>
+        </div>
+        <div>
+          <h4>Persistence</h4>
+          <p>browser target is still visible browser forbidden nodes remain visible</p>
+        </div>
+        <div>
+          <h4>Blast Radius</h4>
+          <p>No forbidden nodes changed in selected run.</p>
+          <p>No broad selector diagnostic in selected run.</p>
+          <p>Did not clearly use selection hints.</p>
+        </div>
+      </div>
+      <h4>Selector Matches</h4>
+      <table>
+        <thead><tr><th>Target</th><th>Selectors</th><th>Count</th><th>Matched UIDs</th></tr></thead>
+        <tbody>
+    <tr>
+      <td>template_gallery_section</td>
+      <td>main#docs-homescreen &gt; section.docs-homescreen-item-section.docs-template-gallery</td>
+      <td>1</td>
+      <td>template-gallery</td>
+    </tr>
+  </tbody>
+      </table>
+      <h4>Generated Rules</h4>
+      <pre><code>[
+  {
+    &quot;id&quot;: &quot;remove-template-gallery&quot;,
+    &quot;type&quot;: &quot;css&quot;,
+    &quot;targetRef&quot;: &quot;template_gallery_section&quot;,
+    &quot;css&quot;: &quot;display: none !important;&quot;
+  }
+]</code></pre>
+      <h4>Target Map</h4>
+      <pre><code>{
+  &quot;template_gallery_section&quot;: {
+    &quot;source&quot;: &quot;inferred&quot;,
+    &quot;selectors&quot;: [
+      &quot;main#docs-homescreen &gt; section.docs-homescreen-item-section.docs-template-gallery&quot;
+    ],
+    &quot;fallbackSelectors&quot;: [
+      &quot;body &gt; main#docs-homescreen &gt; section.docs-homescreen-item-section.docs-template-gallery&quot;
+    ]
+  }
+}</code></pre>
+      
+    </section>
+  
+    <section class="detail">
+      <h3>medium-youtube-hide-creator-typo <span>30%</span></h3>
+      <img class="shot" src="browser-screenshots/run-1-medium-youtube-hide-creator-typo.png" alt="Screenshot for medium-youtube-hide-creator-typo">
+      <div class="mini-grid">
+        <div>
+          <h4>Immediate</h4>
+          <p>browser target is still visible browser forbidden nodes remain visible</p>
+        </div>
+        <div>
+          <h4>Persistence</h4>
+          <p>browser target is still visible browser forbidden nodes remain visible</p>
+        </div>
+        <div>
+          <h4>Blast Radius</h4>
+          <p>No forbidden nodes changed in selected run.</p>
+          <p>No broad selector diagnostic in selected run.</p>
+          <p>Did not clearly use selection hints.</p>
+        </div>
+      </div>
+      <h4>Selector Matches</h4>
+      <table>
+        <thead><tr><th>Target</th><th>Selectors</th><th>Count</th><th>Matched UIDs</th></tr></thead>
+        <tbody>
+    <tr>
+      <td>mark_rober_video</td>
+      <td>article.video-card:has(a.channel-name[ariaLabel*=&#039;Mark Rober&#039;])</td>
+      <td>0</td>
+      <td></td>
+    </tr>
+  </tbody>
+      </table>
+      <h4>Generated Rules</h4>
+      <pre><code>[
+  {
+    &quot;id&quot;: &quot;hide-mark-rober-video&quot;,
+    &quot;type&quot;: &quot;style&quot;,
+    &quot;targetRef&quot;: &quot;mark_rober_video&quot;,
+    &quot;styles&quot;: {
+      &quot;display&quot;: &quot;none&quot;
+    }
+  }
+]</code></pre>
+      <h4>Target Map</h4>
+      <pre><code>{
+  &quot;mark_rober_video&quot;: {
+    &quot;source&quot;: &quot;inferred&quot;,
+    &quot;selectors&quot;: [
+      &quot;article.video-card a[ariaLabel=&#039;Mark Rober channel&#039;]&quot;
+    ],
+    &quot;fallbackSelectors&quot;: [
+      &quot;article.video-card:has(a.channel-name[ariaLabel*=&#039;Mark Rober&#039;])&quot;
+    ]
+  }
+}</code></pre>
+      
+    </section>
+  
+    <section class="detail">
+      <h3>hard-youtube-stop-scroll <span>100%</span></h3>
+      <img class="shot" src="browser-screenshots/run-10-hard-youtube-stop-scroll.png" alt="Screenshot for hard-youtube-stop-scroll">
+      <div class="mini-grid">
+        <div>
+          <h4>Immediate</h4>
+          <p>browser scroll appears locked first video remains visible</p>
+        </div>
+        <div>
+          <h4>Persistence</h4>
+          <p>browser scroll appears locked first video remains visible</p>
+        </div>
+        <div>
+          <h4>Blast Radius</h4>
+          <p>No forbidden nodes changed in selected run.</p>
+          <p>No broad selector diagnostic in selected run.</p>
+          <p>Did not clearly use selection hints.</p>
+        </div>
+      </div>
+      <h4>Selector Matches</h4>
+      <table>
+        <thead><tr><th>Target</th><th>Selectors</th><th>Count</th><th>Matched UIDs</th></tr></thead>
+        <tbody>
+    <tr>
+      <td>main_content</td>
+      <td>#contents</td>
+      <td>1</td>
+      <td>feed-root</td>
+    </tr>
+  </tbody>
+      </table>
+      <h4>Generated Rules</h4>
+      <pre><code>[
+  {
+    &quot;id&quot;: &quot;scroll-lock-main-content&quot;,
+    &quot;type&quot;: &quot;capability&quot;,
+    &quot;targetRef&quot;: &quot;main_content&quot;,
+    &quot;capability&quot;: &quot;scrollLock&quot;,
+    &quot;options&quot;: {
+      &quot;preserveSelectors&quot;: [
+        &quot;.video-card:first-of-type&quot;
+      ]
+    }
+  }
+]</code></pre>
+      <h4>Target Map</h4>
+      <pre><code>{
+  &quot;main_content&quot;: {
+    &quot;source&quot;: &quot;inferred&quot;,
+    &quot;selectors&quot;: [
+      &quot;#contents&quot;
+    ],
+    &quot;fallbackSelectors&quot;: [
+      &quot;main&quot;
+    ]
+  }
+}</code></pre>
+      
+    </section>
+  
+    <section class="detail">
+      <h3>hard-one-piece-theme <span>81%</span></h3>
+      <img class="shot" src="browser-screenshots/run-1-hard-one-piece-theme.png" alt="Screenshot for hard-one-piece-theme">
+      <div class="mini-grid">
+        <div>
+          <h4>Immediate</h4>
+          <p>browser has visual CSS changes 13 nodes marked as changed theme keywords: one piece</p>
+        </div>
+        <div>
+          <h4>Persistence</h4>
+          <p>browser has visual CSS changes 13 nodes marked as changed theme keywords: one piece</p>
+        </div>
+        <div>
+          <h4>Blast Radius</h4>
+          <p>No forbidden nodes changed in selected run.</p>
+          <p>Broad selectors: article.video-card -&gt; 5; #video-title -&gt; 2; #video-title-link -&gt; 2; .channel-name -&gt; 5</p>
+          <p>Did not clearly use selection hints.</p>
+        </div>
+      </div>
+      <h4>Selector Matches</h4>
+      <table>
+        <thead><tr><th>Target</th><th>Selectors</th><th>Count</th><th>Matched UIDs</th></tr></thead>
+        <tbody>
+    <tr>
+      <td>main_content</td>
+      <td>#contents</td>
+      <td>1</td>
+      <td>feed-root</td>
+    </tr>
+  
+    <tr>
+      <td>video_card</td>
+      <td>article.video-card</td>
+      <td>5</td>
+      <td>video-first-card, video-mark-rober-card, video-cooking-card, video-rocket-card, video-mkbhd-card</td>
+    </tr>
+  
+    <tr>
+      <td>video_title</td>
+      <td>#video-title, #video-title-link</td>
+      <td>2</td>
+      <td>video-first-link, video-mark-rober-link</td>
+    </tr>
+  
+    <tr>
+      <td>channel_name</td>
+      <td>.channel-name</td>
+      <td>5</td>
+      <td>video-first-channel, video-mark-rober-channel, video-cooking-channel, video-rocket-channel, video-mkbhd-channel</td>
+    </tr>
+  </tbody>
+      </table>
+      <h4>Generated Rules</h4>
+      <pre><code>[
+  {
+    &quot;id&quot;: &quot;one-piece-main-bg&quot;,
+    &quot;type&quot;: &quot;style&quot;,
+    &quot;targetRef&quot;: &quot;main_content&quot;,
+    &quot;styles&quot;: {
+      &quot;backgroundColor&quot;: &quot;#f0e68c&quot;
+    }
+  },
+  {
+    &quot;id&quot;: &quot;one-piece-video-card&quot;,
+    &quot;type&quot;: &quot;style&quot;,
+    &quot;targetRef&quot;: &quot;video_card&quot;,
+    &quot;styles&quot;: {
+      &quot;backgroundColor&quot;: &quot;#87ceeb&quot;,
+      &quot;borderRadius&quot;: &quot;8px&quot;,
+      &quot;boxShadow&quot;: &quot;0 2px 4px rgba(0,0,0,0.2)&quot;
+    }
+  },
+  {
+    &quot;id&quot;: &quot;one-piece-video-title&quot;,
+    &quot;type&quot;: &quot;style&quot;,
+    &quot;targetRef&quot;: &quot;video_title&quot;,
+    &quot;styles&quot;: {
+      &quot;color&quot;: &quot;#000080&quot;
+    }
+  },
+  {
+    &quot;id&quot;: &quot;one-piece-channel-name&quot;,
+    &quot;type&quot;: &quot;style&quot;,
+    &quot;targetRef&quot;: &quot;channel_name&quot;,
+    &quot;styles&quot;: {
+      &quot;color&quot;: &quot;#8b0000&quot;
+    }
+  }
+]</code></pre>
+      <h4>Target Map</h4>
+      <pre><code>{
+  &quot;main_content&quot;: {
+    &quot;source&quot;: &quot;inferred&quot;,
+    &quot;selectors&quot;: [
+      &quot;#contents&quot;
+    ],
+    &quot;fallbackSelectors&quot;: [
+      &quot;main#contents&quot;
+    ]
+  },
+  &quot;video_card&quot;: {
+    &quot;source&quot;: &quot;inferred&quot;,
+    &quot;selectors&quot;: [
+      &quot;article.video-card&quot;
+    ],
+    &quot;fallbackSelectors&quot;: [
+      &quot;ytd-rich-item-renderer&quot;
+    ]
+  },
+  &quot;video_title&quot;: {
+    &quot;source&quot;: &quot;inferred&quot;,
+    &quot;selectors&quot;: [
+      &quot;#video-title&quot;,
+      &quot;#video-title-link&quot;
+    ],
+    &quot;fallbackSelectors&quot;: [
+      &quot;a.yt-simple-endpoint[id^=&#039;video-title&#039;]&quot;
+    ]
+  },
+  &quot;channel_name&quot;: {
+    &quot;source&quot;: &quot;inferred&quot;,
+    &quot;selectors&quot;: [
+      &quot;.channel-name&quot;
+    ],
+    &quot;fallbackSelectors&quot;: [
+      &quot;a.channel-name&quot;
+    ]
+  }
+}</code></pre>
+      
+    </section>
+  </div>
+          </article>
+        </section>
+      </main>
+    </body>
 </html>

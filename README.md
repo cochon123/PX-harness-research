@@ -19,6 +19,12 @@ Browser-mode baseline:
 npm run baseline:browser
 ```
 
+Run the browser baseline repeatedly for stability stats:
+
+```sh
+npm run baseline:browser -- --runs=10
+```
+
 Browser mode starts the local web-zoo app, launches Chromium or Chrome, runs low-reasoning
 tasks, applies plans to actual DOM pages, and writes
 `reports/browser-baseline.html` plus `reports/browser-baseline.json`.

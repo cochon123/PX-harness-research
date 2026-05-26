@@ -19,6 +19,9 @@ const BROWSER_CANDIDATES = [
 ].filter(Boolean);
 const MODEL = "deepseek/deepseek-v4-flash";
 const BROWSER_PATH = findBrowserPath();
+const args = parseArgs(process.argv.slice(2));
+const RUN_COUNT = Number(args.runs || 1);
+const SCREENSHOT_DIR = "reports/browser-screenshots";
 
 const routesByPageId = {
   dashboard: "/dashboard",
@@ -29,6 +32,7 @@ const routesByPageId = {
 const server = await startWebZooServer();
 const userDataDir = join(tmpdir(), `px-harness-chrome-${Date.now()}`);
 mkdirSync(userDataDir, { recursive: true });
+mkdirSync(SCREENSHOT_DIR, { recursive: true });
 
 let context;
 try {
@@ -44,8 +48,16 @@ try {
   });
 
   const extensionAvailable = await detectExtensionSupport(context);
-  const run = await runBrowserSuite(context, server.origin, { extensionAvailable });
-  const result = finalize(run);
+  const runs = [];
+  for (let runIndex = 0; runIndex < RUN_COUNT; runIndex += 1) {
+    const run = await runBrowserSuite(context, server.origin, { extensionAvailable, runIndex });
+    runs.push(run);
+    const partial = finalize(runs);
+    writeFileSync("reports/browser-baseline.json", JSON.stringify(partial, null, 2));
+    writeReports(partial, "reports/browser-baseline");
+    console.log(`[browser-baseline] ${run.label}: ${formatScore(run.averageScore)}`);
+  }
+  const result = finalize(runs);
   writeFileSync("reports/browser-baseline.json", JSON.stringify(result, null, 2));
   writeReports(result, "reports/browser-baseline");
   console.log(`[browser-baseline] low reasoning average: ${formatScore(result.summary.lowThinkingScore)}`);
@@ -56,7 +68,7 @@ try {
   rmSync(userDataDir, { recursive: true, force: true });
 }
 
-async function runBrowserSuite(browserContext, origin, { extensionAvailable }) {
+async function runBrowserSuite(browserContext, origin, { extensionAvailable, runIndex }) {
   const page = await browserContext.newPage();
   const cdp = await browserContext.newCDPSession(page);
   const contextIds = new Set();
@@ -91,6 +103,9 @@ async function runBrowserSuite(browserContext, origin, { extensionAvailable }) {
       await page.waitForTimeout(350);
       const persistence = await gradeBrowserActual({ page, task, plan: generation.plan });
       const combinedScore = roundScore((grade.score * 0.75) + (persistence.score * 0.25));
+      const screenshotPath = `${SCREENSHOT_DIR}/run-${runIndex + 1}-${task.id}.png`;
+      await page.screenshot({ path: screenshotPath, fullPage: true });
+      const diagnostics = buildTaskDiagnostics({ task, generation, grade, persistence });
       taskResults.push({
         taskId: task.id,
         tier: task.tier,
@@ -99,13 +114,15 @@ async function runBrowserSuite(browserContext, origin, { extensionAvailable }) {
         durationMs: Date.now() - startedAt,
         grade,
         persistence,
+        diagnostics,
         plan: generation.plan,
         validation: generation.validation,
         applyResult: generation.applyResult,
         selectionCount: generation.selectionCount,
         pageNodeCount: generation.pageNodeCount,
         executionMode: generation.executionMode,
-        consoleMessages: consoleMessages.slice(-20)
+        screenshotPath,
+        consoleMessages: filterConsoleMessages(consoleMessages).slice(-20)
       });
       console.log(`  browser-low ${task.id}: ${formatScore(combinedScore)}`);
     } catch (error) {
@@ -116,7 +133,7 @@ async function runBrowserSuite(browserContext, origin, { extensionAvailable }) {
         passed: false,
         durationMs: Date.now() - startedAt,
         error: error.message,
-        consoleMessages: consoleMessages.slice(-20)
+        consoleMessages: filterConsoleMessages(consoleMessages).slice(-20)
       });
       console.log(`  browser-low ${task.id}: ERROR ${error.message}`);
     }
@@ -124,7 +141,7 @@ async function runBrowserSuite(browserContext, origin, { extensionAvailable }) {
 
   await page.close();
   return {
-    label: "browser-low-thinking-1",
+    label: `browser-low-thinking-${runIndex + 1}`,
     reasoningMode: "low",
     executionMode: extensionAvailable ? "extension-content-script" : "injected-perso-scripts",
     averageScore: average(taskResults.map((task) => task.score)),
@@ -329,17 +346,29 @@ async function contentTaskRunner({ prompt, selectionUid, model }) {
   };
 }
 
-function finalize(run) {
-  const taskAverages = run.tasks.map((task) => ({
-    id: task.taskId,
-    tier: task.tier,
-    noThinkingAverage: task.score,
-    lowThinkingScore: task.score,
-    observation: task.error || [
-      task.grade?.actual?.notes?.join(" "),
-      `Persistence: ${task.persistence?.notes?.join(" ") || "not checked"}`
-    ].filter(Boolean).join(" ")
-  }));
+function finalize(runs) {
+  const taskAverages = tasks.map((task) => {
+    const taskRuns = runs
+      .map((run) => run.tasks.find((item) => item.taskId === task.id))
+      .filter(Boolean);
+    const scores = taskRuns.map((item) => item.score);
+    const failed = taskRuns.filter((item) => !item.passed || item.error);
+    return {
+      id: task.id,
+      tier: task.tier,
+      noThinkingAverage: null,
+      lowThinkingScore: average(scores),
+      minScore: Math.min(...scores),
+      maxScore: Math.max(...scores),
+      variance: variance(scores),
+      passRate: taskRuns.length ? failed.length === 0 ? 1 : (taskRuns.length - failed.length) / taskRuns.length : 0,
+      runCount: taskRuns.length,
+      commonFailureReasons: commonFailureReasons(taskRuns),
+      observation: summarizeTaskObservation(taskRuns)
+    };
+  });
+
+  const runScores = runs.map((run) => run.averageScore);
 
   return {
     generatedAt: new Date().toISOString(),
@@ -347,39 +376,92 @@ function finalize(run) {
     config: {
       mode: "browser",
       reasoningMode: "low",
-      executionMode: run.executionMode,
-      taskCount: run.tasks.length,
+      executionMode: runs[0]?.executionMode || "unknown",
+      runCount: runs.length,
+      taskCount: tasks.length,
       extensionPath: resolve(EXTENSION_PATH)
     },
     summary: {
       noThinkingRuns: 0,
       noThinkingAverage: 0,
-      lowThinkingScore: run.averageScore
+      lowThinkingScore: average(runScores),
+      minScore: Math.min(...runScores),
+      maxScore: Math.max(...runScores),
+      variance: variance(runScores)
     },
-    runs: [{
+    runs: runs.map((run) => ({
       label: run.label,
       reasoningMode: run.reasoningMode,
       averageScore: run.averageScore,
       passedTasks: run.passedTasks,
       totalTasks: run.totalTasks,
       averageDurationMs: run.averageDurationMs
-    }],
+    })),
     taskAverages,
-    observations: buildObservations(run),
-    raw: [run]
+    observations: buildObservations(runs, taskAverages),
+    raw: runs
   };
 }
 
-function buildObservations(run) {
+function buildTaskDiagnostics({ task, generation, grade, persistence }) {
+  const targetMatches = grade.planGrade?.targetMatches || {};
+  const broadSelectors = Object.entries(targetMatches)
+    .flatMap(([targetRef, match]) => (match.selectors || []).map((selector) => ({
+      targetRef,
+      selector,
+      matchCount: match.uids?.length || 0,
+      matchedUids: match.uids || [],
+      sampleText: match.sampleText || []
+    })))
+    .filter((item) => item.matchCount > 1);
+
+  const forbiddenChanged = Array.from(new Set([
+    ...(grade.actual?.details?.changedForbiddenUids || []),
+    ...(persistence?.details?.changedForbiddenUids || [])
+  ]));
+
+  const selectionHintStrings = (generation.plan?.selections || [])
+    .flatMap((selection) => [
+      ...(selection.selectorHints || []),
+      ...(selection.semanticTarget?.selectorHints || [])
+    ])
+    .filter(Boolean);
+
+  const selectors = Object.values(generation.plan?.targetMap || {})
+    .flatMap((target) => [...(target.selectors || []), ...(target.fallbackSelectors || [])]);
+
+  const usedSelectionHints = selectors.some((selector) => selectionHintStrings.some((hint) => selector.includes(hint) || hint.includes(selector)));
+  const genericSelectors = selectors.filter((selector) => isGenericSelector(selector));
+
+  return {
+    targetMatches,
+    broadSelectors,
+    forbiddenChanged,
+    usedSelectionHints,
+    genericSelectors,
+    failureReasons: [
+      ...(grade.actual?.notes || []),
+      ...(persistence?.notes || []).map((note) => `persistence: ${note}`),
+      ...broadSelectors.map((item) => `selector ${item.selector} matched ${item.matchCount} nodes`),
+      ...forbiddenChanged.map((uid) => `forbidden node changed: ${uid}`),
+      ...(genericSelectors.length ? [`generic selectors: ${genericSelectors.join(", ")}`] : [])
+    ],
+    taskKind: task.expect.kind
+  };
+}
+
+function buildObservations(runs, taskAverages) {
+  const runScores = runs.map((run) => run.averageScore);
   const observations = [
-    `Browser low-reasoning baseline scored ${formatScore(run.averageScore)} across ${run.totalTasks} tasks.`,
-    run.executionMode === "extension-content-script"
+    `Browser low-reasoning baseline averaged ${formatScore(average(runScores))} across ${runs.length} run(s).`,
+    `Run score range: ${formatScore(Math.min(...runScores))} to ${formatScore(Math.max(...runScores))}; variance ${variance(runScores).toFixed(4)}.`,
+    runs[0]?.executionMode === "extension-content-script"
       ? "This run exercises Perso XXL content scripts, DOM context extraction, validation, and executor in a real browser on fixture pages."
       : "Chrome did not load unpacked extensions in this environment, so this run injects Perso DOM/executor scripts into Chrome pages and uses the Node planner. It tests real browser DOM execution, but not extension loading."
   ];
-  const weakest = [...run.tasks].sort((left, right) => left.score - right.score).slice(0, 2);
+  const weakest = [...taskAverages].sort((left, right) => left.lowThinkingScore - right.lowThinkingScore).slice(0, 3);
   for (const task of weakest) {
-    observations.push(`${task.taskId} scored ${formatScore(task.score)}. ${task.error || task.grade?.actual?.notes?.join(" ") || "Inspect trace details."}`);
+    observations.push(`${task.id} averaged ${formatScore(task.lowThinkingScore)} with ${formatScore(task.passRate)} pass rate. ${task.commonFailureReasons.join(" ") || task.observation}`);
   }
   return observations;
 }
@@ -398,8 +480,67 @@ function average(values) {
   return nums.reduce((sum, value) => sum + value, 0) / nums.length;
 }
 
+function variance(values) {
+  const nums = values.filter((value) => typeof value === "number" && Number.isFinite(value));
+  if (nums.length <= 1) return 0;
+  const avg = average(nums);
+  return nums.reduce((sum, value) => sum + ((value - avg) ** 2), 0) / nums.length;
+}
+
+function commonFailureReasons(taskRuns) {
+  const counts = new Map();
+  for (const taskRun of taskRuns) {
+    const reasons = taskRun.error
+      ? [taskRun.error]
+      : taskRun.diagnostics?.failureReasons || [];
+    for (const reason of reasons) {
+      if (!reason || /browser target has expected|remain visible|scroll appears locked|first video remains visible|has visual CSS/.test(reason)) continue;
+      counts.set(reason, (counts.get(reason) || 0) + 1);
+    }
+  }
+  return Array.from(counts.entries())
+    .sort((left, right) => right[1] - left[1])
+    .slice(0, 4)
+    .map(([reason, count]) => `${reason} (${count}x)`);
+}
+
+function summarizeTaskObservation(taskRuns) {
+  const latest = taskRuns[taskRuns.length - 1];
+  if (!latest) return "No runs.";
+  if (latest.error) return latest.error;
+  return [
+    latest.grade?.actual?.notes?.join(" "),
+    `Persistence: ${latest.persistence?.notes?.join(" ") || "not checked"}`,
+    latest.diagnostics?.forbiddenChanged?.length ? `Forbidden changed: ${latest.diagnostics.forbiddenChanged.join(", ")}` : "",
+    latest.diagnostics?.broadSelectors?.length ? `Broad selectors: ${latest.diagnostics.broadSelectors.map((item) => `${item.selector} -> ${item.matchCount}`).join("; ")}` : ""
+  ].filter(Boolean).join(" ");
+}
+
+function isGenericSelector(selector) {
+  return /^\.?[a-z0-9_-]+$/i.test(selector) ||
+    /^[a-z]+(\.[a-z0-9_-]+)?$/i.test(selector) ||
+    selector.split(/\s+|>/).some((part) => /^\.?(metric-title-text|video-card|channel-name|ytd-rich-item-renderer)$/i.test(part.replace(/[.#]/g, "")));
+}
+
 function roundScore(value) {
   return Math.round(Math.max(0, Math.min(1, value)) * 1000) / 1000;
+}
+
+function parseArgs(argv) {
+  const parsed = {};
+  for (const arg of argv) {
+    if (!arg.startsWith("--")) continue;
+    const [key, value = "true"] = arg.slice(2).split("=");
+    parsed[key] = value;
+  }
+  return parsed;
+}
+
+function filterConsoleMessages(messages) {
+  return messages.filter((message) => {
+    if (message.type !== "error") return true;
+    return !/localhost:8787|net::ERR_CONNECTION_REFUSED/.test(message.text);
+  });
 }
 
 function formatScore(score) {

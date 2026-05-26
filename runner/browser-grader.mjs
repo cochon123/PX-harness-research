@@ -21,6 +21,9 @@ export async function gradeBrowserActual({ page, task, plan }) {
     const forbiddenValues = await getComputedValues(page, expect.forbiddenUids || [], expect.property);
     const targetHit = targetValues.some((item) => valueMatches(item.value, expect.valueIncludes));
     const forbiddenHit = forbiddenValues.some((item) => valueMatches(item.value, expect.valueIncludes));
+    const changedForbiddenUids = forbiddenValues
+      .filter((item) => valueMatches(item.value, expect.valueIncludes))
+      .map((item) => item.uid);
     return scoreParts({
       targetHit,
       forbiddenHit,
@@ -30,7 +33,7 @@ export async function gradeBrowserActual({ page, task, plan }) {
         targetHit ? "browser target has expected style" : "browser target does not have expected style",
         forbiddenHit ? "browser forbidden node was also changed" : "browser forbidden nodes avoided"
       ],
-      details: { targetValues, forbiddenValues }
+      details: { targetValues, forbiddenValues, changedForbiddenUids }
     });
   }
 
@@ -39,6 +42,9 @@ export async function gradeBrowserActual({ page, task, plan }) {
     const forbiddenVisibility = await getVisibility(page, expect.forbiddenUids || []);
     const targetHit = targetVisibility.some((item) => item.hidden);
     const forbiddenHit = forbiddenVisibility.some((item) => item.hidden);
+    const changedForbiddenUids = forbiddenVisibility
+      .filter((item) => item.hidden)
+      .map((item) => item.uid);
     return scoreParts({
       targetHit,
       forbiddenHit,
@@ -48,7 +54,7 @@ export async function gradeBrowserActual({ page, task, plan }) {
         targetHit ? "browser target is hidden" : "browser target is still visible",
         forbiddenHit ? "browser forbidden node was hidden" : "browser forbidden nodes remain visible"
       ],
-      details: { targetVisibility, forbiddenVisibility }
+      details: { targetVisibility, forbiddenVisibility, changedForbiddenUids }
     });
   }
 

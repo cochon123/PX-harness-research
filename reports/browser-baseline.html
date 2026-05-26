@@ -34,7 +34,7 @@
     <header>
       <div class="wrap">
         <h1>Perso XXL baseline observations</h1>
-        <p>Generated 2026-05-25T18:33:37.428Z using deepseek/deepseek-v4-flash against the v1 PX harness.</p>
+        <p>Generated 2026-05-26T15:36:57.584Z using deepseek/deepseek-v4-flash against the v1 PX harness.</p>
       </div>
     </header>
     <main class="wrap">
@@ -43,16 +43,16 @@
           <h2>No-thinking average</h2>
           <div class="metric">n/a</div>
           <div class="bar"><span></span></div>
-          <p class="muted">Browser execution mode: injected-perso-scripts</p>
+          <p class="muted">Browser execution mode: extension-content-script</p>
         </article>
         <article class="card">
           <h2>Low-thinking run</h2>
-          <div class="metric">57%</div>
+          <div class="metric">85%</div>
           <p class="muted">Single run with OpenRouter reasoning set to low.</p>
         </article>
         <article class="card full">
           <h2>First Observations</h2>
-          <ul><li>Browser low-reasoning baseline scored 57% across 6 tasks.</li><li>Chrome did not load unpacked extensions in this environment, so this run injects Perso DOM/executor scripts into Chrome pages and uses the Node planner. It tests real browser DOM execution, but not extension loading.</li><li>medium-youtube-hide-creator-typo scored 9%. browser target is still visible browser forbidden nodes remain visible</li><li>easy-selected-hide scored 24%. browser target is still visible browser forbidden nodes remain visible</li></ul>
+          <ul><li>Browser low-reasoning baseline scored 85% across 6 tasks.</li><li>This run exercises Perso XXL content scripts, DOM context extraction, validation, and executor in a real browser on fixture pages.</li><li>hard-youtube-stop-scroll scored 36%. browser can still scroll first video remains visible</li><li>hard-one-piece-theme scored 82%. browser has visual CSS changes 8 nodes marked as changed theme keywords: one piece</li></ul>
         </article>
         <article class="card full">
           <h2>Run Summary</h2>
@@ -62,9 +62,9 @@
     <tr>
       <td>browser-low-thinking-1</td>
       <td>low</td>
-      <td>57%</td>
-      <td>3/6</td>
-      <td>17628 ms</td>
+      <td>85%</td>
+      <td>5/6</td>
+      <td>23965 ms</td>
     </tr>
   </tbody>
           </table>
@@ -78,16 +78,16 @@
       <td>easy-selected-color</td>
       <td>easy</td>
       <td>n/a</td>
-      <td>100%</td>
-      <td>browser target has expected style browser forbidden nodes avoided</td>
+      <td>91%</td>
+      <td>browser target has expected style browser forbidden node was also changed</td>
     </tr>
   
     <tr>
       <td>easy-selected-hide</td>
       <td>easy</td>
       <td>n/a</td>
-      <td>24%</td>
-      <td>browser target is still visible browser forbidden nodes remain visible</td>
+      <td>100%</td>
+      <td>browser target is hidden browser forbidden nodes remain visible</td>
     </tr>
   
     <tr>
@@ -102,15 +102,15 @@
       <td>medium-youtube-hide-creator-typo</td>
       <td>medium</td>
       <td>n/a</td>
-      <td>9%</td>
-      <td>browser target is still visible browser forbidden nodes remain visible</td>
+      <td>100%</td>
+      <td>browser target is hidden browser forbidden nodes remain visible</td>
     </tr>
   
     <tr>
       <td>hard-youtube-stop-scroll</td>
       <td>hard</td>
       <td>n/a</td>
-      <td>27%</td>
+      <td>36%</td>
       <td>browser can still scroll first video remains visible</td>
     </tr>
   
@@ -119,7 +119,7 @@
       <td>hard</td>
       <td>n/a</td>
       <td>82%</td>
-      <td>browser has visual CSS changes 13 nodes marked as changed theme keywords: one piece</td>
+      <td>browser has visual CSS changes 8 nodes marked as changed theme keywords: one piece</td>
     </tr>
   </tbody>
           </table>

@@ -19,14 +19,15 @@ Browser-mode baseline:
 npm run baseline:browser
 ```
 
-Browser mode starts the local web-zoo app, launches Chrome, runs low-reasoning
+Browser mode starts the local web-zoo app, launches Chromium or Chrome, runs low-reasoning
 tasks, applies plans to actual DOM pages, and writes
 `reports/browser-baseline.html` plus `reports/browser-baseline.json`.
 
-In this environment Google Chrome did not load unpacked extensions, so the
-browser runner falls back to injecting Perso's DOM/executor scripts into the
-fixture pages and using the Node OpenRouter planner. That still tests real
-browser DOM execution, but not extension loading.
+The runner prefers `/snap/bin/chromium`, then other Chromium paths, then
+Google Chrome. If the selected browser cannot load unpacked extensions, it
+falls back to injecting Perso's DOM/executor scripts into the fixture pages and
+using the Node OpenRouter planner. That fallback still tests real browser DOM
+execution, but not extension loading.
 
 The runner reads the OpenRouter key from `/home/cochon/Documents/Perso-XXL/config/env.js`
 or `/home/cochon/Documents/Perso-XXL/.env`.

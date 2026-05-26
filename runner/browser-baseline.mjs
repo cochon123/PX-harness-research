@@ -1,4 +1,4 @@
-import { mkdirSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { chromium } from "playwright";
@@ -10,8 +10,15 @@ import { writeReports } from "./report.mjs";
 import { startWebZooServer } from "./web-zoo-server.mjs";
 
 const EXTENSION_PATH = "/home/cochon/Documents/Perso-XXL";
-const CHROME_PATH = "/usr/bin/google-chrome";
+const BROWSER_CANDIDATES = [
+  process.env.PX_HARNESS_BROWSER,
+  "/snap/bin/chromium",
+  "/usr/bin/chromium",
+  "/usr/bin/chromium-browser",
+  "/usr/bin/google-chrome"
+].filter(Boolean);
 const MODEL = "deepseek/deepseek-v4-flash";
+const BROWSER_PATH = findBrowserPath();
 
 const routesByPageId = {
   dashboard: "/dashboard",
@@ -26,7 +33,7 @@ mkdirSync(userDataDir, { recursive: true });
 let context;
 try {
   context = await chromium.launchPersistentContext(userDataDir, {
-    executablePath: CHROME_PATH,
+    executablePath: BROWSER_PATH,
     headless: false,
     args: [
       `--disable-extensions-except=${EXTENSION_PATH}`,
@@ -337,7 +344,7 @@ function buildObservations(run) {
   const observations = [
     `Browser low-reasoning baseline scored ${formatScore(run.averageScore)} across ${run.totalTasks} tasks.`,
     run.executionMode === "extension-content-script"
-      ? "This run exercises Perso XXL content scripts, DOM context extraction, validation, and executor in Chrome on real fixture pages."
+      ? "This run exercises Perso XXL content scripts, DOM context extraction, validation, and executor in a real browser on fixture pages."
       : "Chrome did not load unpacked extensions in this environment, so this run injects Perso DOM/executor scripts into Chrome pages and uses the Node planner. It tests real browser DOM execution, but not extension loading."
   ];
   const weakest = [...run.tasks].sort((left, right) => left.score - right.score).slice(0, 2);
@@ -345,6 +352,14 @@ function buildObservations(run) {
     observations.push(`${task.taskId} scored ${formatScore(task.score)}. ${task.error || task.grade?.actual?.notes?.join(" ") || "Inspect trace details."}`);
   }
   return observations;
+}
+
+function findBrowserPath() {
+  const found = BROWSER_CANDIDATES.find((candidate) => existsSync(candidate));
+  if (!found) {
+    throw new Error(`No supported browser found. Tried: ${BROWSER_CANDIDATES.join(", ")}`);
+  }
+  return found;
 }
 
 function average(values) {

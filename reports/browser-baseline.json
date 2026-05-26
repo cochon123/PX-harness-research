@@ -1,42 +1,42 @@
 {
-  "generatedAt": "2026-05-25T18:33:37.428Z",
+  "generatedAt": "2026-05-26T15:36:57.584Z",
   "model": "deepseek/deepseek-v4-flash",
   "config": {
     "mode": "browser",
     "reasoningMode": "low",
-    "executionMode": "injected-perso-scripts",
+    "executionMode": "extension-content-script",
     "taskCount": 6,
     "extensionPath": "/home/cochon/Documents/Perso-XXL"
   },
   "summary": {
     "noThinkingRuns": 0,
     "noThinkingAverage": 0,
-    "lowThinkingScore": 0.5681666666666667
+    "lowThinkingScore": 0.8469999999999999
   },
   "runs": [
     {
       "label": "browser-low-thinking-1",
       "reasoningMode": "low",
-      "averageScore": 0.5681666666666667,
-      "passedTasks": 3,
+      "averageScore": 0.8469999999999999,
+      "passedTasks": 5,
       "totalTasks": 6,
-      "averageDurationMs": 17628.166666666668
+      "averageDurationMs": 23965.166666666668
     }
   ],
   "taskAverages": [
     {
       "id": "easy-selected-color",
       "tier": "easy",
-      "noThinkingAverage": 1,
-      "lowThinkingScore": 1,
-      "observation": "browser target has expected style browser forbidden nodes avoided"
+      "noThinkingAverage": 0.909,
+      "lowThinkingScore": 0.909,
+      "observation": "browser target has expected style browser forbidden node was also changed"
     },
     {
       "id": "easy-selected-hide",
       "tier": "easy",
-      "noThinkingAverage": 0.235,
-      "lowThinkingScore": 0.235,
-      "observation": "browser target is still visible browser forbidden nodes remain visible"
+      "noThinkingAverage": 1,
+      "lowThinkingScore": 1,
+      "observation": "browser target is hidden browser forbidden nodes remain visible"
     },
     {
       "id": "medium-docs-remove-gallery",
@@ -48,15 +48,15 @@
     {
       "id": "medium-youtube-hide-creator-typo",
       "tier": "medium",
-      "noThinkingAverage": 0.091,
-      "lowThinkingScore": 0.091,
-      "observation": "browser target is still visible browser forbidden nodes remain visible"
+      "noThinkingAverage": 1,
+      "lowThinkingScore": 1,
+      "observation": "browser target is hidden browser forbidden nodes remain visible"
     },
     {
       "id": "hard-youtube-stop-scroll",
       "tier": "hard",
-      "noThinkingAverage": 0.265,
-      "lowThinkingScore": 0.265,
+      "noThinkingAverage": 0.355,
+      "lowThinkingScore": 0.355,
       "observation": "browser can still scroll first video remains visible"
     },
     {
@@ -64,73 +64,77 @@
       "tier": "hard",
       "noThinkingAverage": 0.818,
       "lowThinkingScore": 0.818,
-      "observation": "browser has visual CSS changes 13 nodes marked as changed theme keywords: one piece"
+      "observation": "browser has visual CSS changes 8 nodes marked as changed theme keywords: one piece"
     }
   ],
   "observations": [
-    "Browser low-reasoning baseline scored 57% across 6 tasks.",
-    "Chrome did not load unpacked extensions in this environment, so this run injects Perso DOM/executor scripts into Chrome pages and uses the Node planner. It tests real browser DOM execution, but not extension loading.",
-    "medium-youtube-hide-creator-typo scored 9%. browser target is still visible browser forbidden nodes remain visible",
-    "easy-selected-hide scored 24%. browser target is still visible browser forbidden nodes remain visible"
+    "Browser low-reasoning baseline scored 85% across 6 tasks.",
+    "This run exercises Perso XXL content scripts, DOM context extraction, validation, and executor in a real browser on fixture pages.",
+    "hard-youtube-stop-scroll scored 36%. browser can still scroll first video remains visible",
+    "hard-one-piece-theme scored 82%. browser has visual CSS changes 8 nodes marked as changed theme keywords: one piece"
   ],
   "raw": [
     {
       "label": "browser-low-thinking-1",
       "reasoningMode": "low",
-      "executionMode": "injected-perso-scripts",
-      "averageScore": 0.5681666666666667,
-      "passedTasks": 3,
+      "executionMode": "extension-content-script",
+      "averageScore": 0.8469999999999999,
+      "passedTasks": 5,
       "totalTasks": 6,
-      "averageDurationMs": 17628.166666666668,
+      "averageDurationMs": 23965.166666666668,
       "tasks": [
         {
           "taskId": "easy-selected-color",
           "tier": "easy",
-          "score": 1,
+          "score": 0.909,
           "passed": true,
-          "durationMs": 30275,
+          "durationMs": 12936,
           "grade": {
-            "score": 1,
+            "score": 0.909,
             "passed": true,
             "planGrade": {
-              "score": 1,
+              "score": 0.92,
               "passed": true,
               "validation": {
                 "ok": true,
                 "errors": []
               },
               "expectation": {
-                "score": 1,
+                "score": 0.9,
                 "notes": [
                   "matched intended target",
                   "set color close to expected value"
                 ],
                 "targetHit": true,
-                "forbiddenHit": false
+                "forbiddenHit": true
               },
               "targetMatches": {
-                "selected_label": {
+                "revenue_title_text": {
                   "selectors": [
-                    "main:nth-of-type(1) > section:nth-of-type(2) > article:nth-of-type(1) > h2:nth-of-type(1) > span:nth-of-type(1)"
+                    "span.metric-title-text"
                   ],
-                  "usedFallback": true,
+                  "usedFallback": false,
                   "uids": [
-                    "revenue-title-text"
+                    "revenue-title-text",
+                    "churn-title-text",
+                    "latency-title-text"
                   ],
                   "sampleText": [
-                    "Revenue"
+                    "Revenue",
+                    "Churn",
+                    "Latency"
                   ]
                 }
               }
             },
             "actual": {
-              "score": 1,
+              "score": 0.9,
               "notes": [
                 "browser target has expected style",
-                "browser forbidden nodes avoided"
+                "browser forbidden node was also changed"
               ],
               "targetHit": true,
-              "forbiddenHit": false,
+              "forbiddenHit": true,
               "details": {
                 "targetValues": [
                   {
@@ -153,12 +157,12 @@
                   {
                     "uid": "churn-title-text",
                     "exists": true,
-                    "value": "rgb(33, 31, 27)"
+                    "value": "rgb(0, 128, 0)"
                   },
                   {
                     "uid": "latency-title-text",
                     "exists": true,
-                    "value": "rgb(33, 31, 27)"
+                    "value": "rgb(0, 128, 0)"
                   }
                 ]
               }
@@ -168,23 +172,38 @@
             "version": "2.0",
             "site": {
               "hostname": "127.0.0.1",
-              "pathname": "/dashboard",
-              "urlPattern": "127.0.0.1/dashboard"
+              "pathname": "/dashboard"
             },
             "sourcePrompt": "Change this element text color to green.",
             "selections": [
               {
                 "id": "sel_1",
                 "tag": "span",
-                "text": "Revenue"
+                "classes": [
+                  "metric-title-text"
+                ],
+                "elementKind": "text",
+                "semanticTarget": {
+                  "levelsUp": 0,
+                  "tag": "span",
+                  "classes": [
+                    "metric-title-text"
+                  ],
+                  "text": "Revenue",
+                  "selectorHints": [
+                    "span.metric-title-text",
+                    "main:nth-of-type(1) > section:nth-of-type(2) > article:nth-of-type(1) > h2:nth-of-type(1) > span:nth-of-type(1)"
+                  ],
+                  "reason": "The selected span owns the visible text 'Revenue' and is not decorative; it is the element that directly displays the text the user wants to recolor."
+                }
               }
             ],
             "targetMap": {
-              "selected_label": {
+              "revenue_title_text": {
                 "source": "selection",
                 "selectionRef": "sel_1",
                 "selectors": [
-                  "[data-uid=\"revenue-title-text\"]"
+                  "span.metric-title-text"
                 ],
                 "fallbackSelectors": [
                   "main:nth-of-type(1) > section:nth-of-type(2) > article:nth-of-type(1) > h2:nth-of-type(1) > span:nth-of-type(1)"
@@ -193,9 +212,9 @@
             },
             "rules": [
               {
-                "id": "green-label",
+                "id": "revenue-text-green",
                 "type": "style",
-                "targetRef": "selected_label",
+                "targetRef": "revenue_title_text",
                 "styles": {
                   "color": "green"
                 }
@@ -207,49 +226,122 @@
             "errors": []
           },
           "applyResult": {
-            "totalMatched": 1,
+            "totalMatched": 3,
             "cssRuleCount": 0,
             "targetCssRuleCount": 1
           },
           "selectionCount": 1,
           "pageNodeCount": 15,
-          "executionMode": "injected-perso-scripts",
           "consoleMessages": [
             {
+              "type": "log",
+              "text": "[Perso XXL] openrouter.request.started {taskName: plan-generation, model: deepseek/deepseek-v4-flash, messageCount: 2, reasoning: Object}"
+            },
+            {
               "type": "error",
-              "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] openrouter.response.received {ok: true, status: 200, durationMs: 11907, hasChoices: true, hasReasoning: false}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] openrouter.content.received {contentLength: 1339, preview: {\n  \"version\": \"2.0\",\n  \"site\": {\n    \"hostname\": …rHints\": [\n          \"span.metric-title-text\",\n  }"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] plan.validation.started {site: Object, ruleCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] plan.validation.finished {ok: true, errors: Array(0)}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.target_ref.css.generated {ruleId: revenue-text-green, targetRef: revenue_title_text, selectorCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.rule.style {ruleId: revenue-text-green, targetRef: revenue_title_text, matchCount: 3, matched: Array(3)}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 1, totalMatched: 3}"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
             }
           ]
         },
         {
           "taskId": "easy-selected-hide",
           "tier": "easy",
-          "score": 0.235,
-          "passed": false,
-          "durationMs": 8922,
+          "score": 1,
+          "passed": true,
+          "durationMs": 46892,
           "grade": {
-            "score": 0.235,
-            "passed": false,
+            "score": 1,
+            "passed": true,
             "planGrade": {
-              "score": 0.4,
-              "passed": false,
+              "score": 1,
+              "passed": true,
               "validation": {
-                "ok": false,
-                "errors": [
-                  "Rule 0 has unsupported visibility action."
-                ]
+                "ok": true,
+                "errors": []
               },
               "expectation": {
-                "score": 0.5,
+                "score": 1,
                 "notes": [
                   "matched intended target",
-                  "did not use expected hide action"
+                  "used a hide operation"
                 ],
                 "targetHit": true,
                 "forbiddenHit": false
               },
               "targetMatches": {
-                "promo_section": {
+                "promo_banner": {
                   "selectors": [
                     "section[aria-label=\"Upgrade promotion\"]"
                   ],
@@ -264,24 +356,24 @@
               }
             },
             "actual": {
-              "score": 0.1,
+              "score": 1,
               "notes": [
-                "browser target is still visible",
+                "browser target is hidden",
                 "browser forbidden nodes remain visible"
               ],
-              "targetHit": false,
+              "targetHit": true,
               "forbiddenHit": false,
               "details": {
                 "targetVisibility": [
                   {
                     "uid": "promo-banner",
                     "exists": true,
-                    "hidden": false
+                    "hidden": true
                   },
                   {
                     "uid": "promo-banner-copy",
                     "exists": true,
-                    "hidden": false
+                    "hidden": true
                   }
                 ],
                 "forbiddenVisibility": [
@@ -311,28 +403,51 @@
               {
                 "id": "sel_1",
                 "tag": "p",
-                "text": "Upgrade today to unlock forecasts"
+                "classes": [
+                  "promo-copy"
+                ],
+                "elementKind": "text",
+                "semanticTarget": {
+                  "levelsUp": 1,
+                  "tag": "section",
+                  "classes": [
+                    "promo",
+                    "surface"
+                  ],
+                  "ariaLabel": "Upgrade promotion",
+                  "text": "Upgrade today to unlock forecasts",
+                  "selectorHints": [
+                    "section[aria-label=\"Upgrade promotion\"]",
+                    "[data-testid=\"promo-banner\"]",
+                    "section.promo",
+                    "section.surface"
+                  ],
+                  "reason": "Parent 1 level(s) up is likely what the user meant to modify."
+                }
               }
             ],
             "targetMap": {
-              "promo_section": {
+              "promo_banner": {
                 "source": "selection",
                 "selectionRef": "sel_1",
                 "selectors": [
                   "section[aria-label=\"Upgrade promotion\"]"
                 ],
                 "fallbackSelectors": [
+                  "[data-testid=\"promo-banner\"]",
                   "section.promo",
-                  "[data-testid=\"promo-banner\"]"
+                  "section.surface"
                 ]
               }
             },
             "rules": [
               {
-                "id": "delete-promo-section",
-                "type": "visibility",
-                "targetRef": "promo_section",
-                "visible": false
+                "id": "hide-promo-banner",
+                "type": "style",
+                "targetRef": "promo_banner",
+                "styles": {
+                  "display": "none"
+                }
               }
             ]
           },
@@ -343,19 +458,99 @@
           "applyResult": {
             "totalMatched": 1,
             "cssRuleCount": 0,
-            "targetCssRuleCount": 0
+            "targetCssRuleCount": 1
           },
           "selectionCount": 1,
           "pageNodeCount": 15,
-          "executionMode": "injected-perso-scripts",
-          "consoleMessages": []
+          "consoleMessages": [
+            {
+              "type": "log",
+              "text": "[Perso XXL] openrouter.request.started {taskName: plan-generation, model: deepseek/deepseek-v4-flash, messageCount: 2, reasoning: Object}"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] openrouter.response.received {ok: true, status: 200, durationMs: 45934, hasChoices: true, hasReasoning: false}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] openrouter.content.received {contentLength: 1304, preview: {\n  \"version\": \"2.0\",\n  \"site\": {\n    \"hostname\": …promotion\",\n        \"text\": \"Upgrade today to unl}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] plan.validation.started {site: Object, ruleCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] plan.validation.finished {ok: true, errors: Array(0)}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.target_ref.css.generated {ruleId: hide-promo-banner, targetRef: promo_banner, selectorCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.rule.style {ruleId: hide-promo-banner, targetRef: promo_banner, matchCount: 1, matched: Array(1)}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 1, totalMatched: 1}"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            }
+          ]
         },
         {
           "taskId": "medium-docs-remove-gallery",
           "tier": "medium",
           "score": 1,
           "passed": true,
-          "durationMs": 29285,
+          "durationMs": 13320,
           "grade": {
             "score": 1,
             "passed": true,
@@ -378,7 +573,7 @@
               "targetMatches": {
                 "template_gallery": {
                   "selectors": [
-                    "section.docs-homescreen-item-section.docs-template-gallery"
+                    "section.docs-template-gallery"
                   ],
                   "usedFallback": false,
                   "uids": [
@@ -431,7 +626,7 @@
             "site": {
               "hostname": "127.0.0.1",
               "pathname": "/docs",
-              "urlPattern": "127.0.0.1/docs*"
+              "urlPattern": "127.0.0.1/docs"
             },
             "sourcePrompt": "Remove the model gallery, I never use it, I am always starting from a new document.",
             "selections": [],
@@ -439,10 +634,10 @@
               "template_gallery": {
                 "source": "inferred",
                 "selectors": [
-                  "section.docs-homescreen-item-section.docs-template-gallery"
+                  "section.docs-template-gallery"
                 ],
                 "fallbackSelectors": [
-                  "#docs-homescreen > section:nth-child(2)"
+                  ".docs-homescreen-item-section.docs-template-gallery"
                 ]
               }
             },
@@ -468,72 +663,153 @@
           },
           "selectionCount": 0,
           "pageNodeCount": 8,
-          "executionMode": "injected-perso-scripts",
-          "consoleMessages": []
+          "consoleMessages": [
+            {
+              "type": "log",
+              "text": "[Perso XXL] openrouter.request.started {taskName: plan-generation, model: deepseek/deepseek-v4-flash, messageCount: 2, reasoning: Object}"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] openrouter.response.received {ok: true, status: 200, durationMs: 12329, hasChoices: true, hasReasoning: false}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] openrouter.content.received {contentLength: 653, preview: {\n  \"version\": \"2.0\",\n  \"site\": {\n    \"hostname\": …gallery\"]\n    }\n  },\n  \"rules\": [\n    {\n      \"id}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] plan.validation.started {site: Object, ruleCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] plan.validation.finished {ok: true, errors: Array(0)}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.target_ref.css.generated {ruleId: hide-template-gallery, targetRef: template_gallery, selectorCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.rule.style {ruleId: hide-template-gallery, targetRef: template_gallery, matchCount: 1, matched: Array(1)}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 1, totalMatched: 1}"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            }
+          ]
         },
         {
           "taskId": "medium-youtube-hide-creator-typo",
           "tier": "medium",
-          "score": 0.091,
-          "passed": false,
-          "durationMs": 8297,
+          "score": 1,
+          "passed": true,
+          "durationMs": 36137,
           "grade": {
-            "score": 0.091,
-            "passed": false,
+            "score": 1,
+            "passed": true,
             "planGrade": {
-              "score": 0.08,
-              "passed": false,
+              "score": 1,
+              "passed": true,
               "validation": {
-                "ok": false,
-                "errors": [
-                  "Rule 0 has unsupported visibility action.",
-                  "Target mark_rober_video has unsupported or invalid selector article.ytd-rich-item-renderer:has([class*=\"channel-name\"]:is(:contains(\"Mark Rober\")))."
-                ]
+                "ok": true,
+                "errors": []
               },
               "expectation": {
-                "score": 0.1,
+                "score": 1,
                 "notes": [
-                  "did not match intended target",
-                  "did not use expected hide action"
+                  "matched intended target",
+                  "used a hide operation"
                 ],
-                "targetHit": false,
+                "targetHit": true,
                 "forbiddenHit": false
               },
               "targetMatches": {
-                "mark_rober_video": {
+                "mark_rober_card": {
                   "selectors": [
-                    "article.ytd-rich-item-renderer:has([class*=\"channel-name\"]:is(:contains(\"Mark Rober\")))"
+                    "article.ytd-rich-item-renderer.video-card:has(a.channel-name[aria-label=\"Mark Rober channel\"])"
                   ],
                   "usedFallback": false,
-                  "uids": [],
-                  "sampleText": []
+                  "uids": [
+                    "video-mark-rober-card"
+                  ],
+                  "sampleText": [
+                    "World's Smallest Nerf Gun Mark Rober"
+                  ]
                 }
               }
             },
             "actual": {
-              "score": 0.1,
+              "score": 1,
               "notes": [
-                "browser target is still visible",
+                "browser target is hidden",
                 "browser forbidden nodes remain visible"
               ],
-              "targetHit": false,
+              "targetHit": true,
               "forbiddenHit": false,
               "details": {
                 "targetVisibility": [
                   {
                     "uid": "video-mark-rober-card",
                     "exists": true,
-                    "hidden": false
+                    "hidden": true
                   },
                   {
                     "uid": "video-mark-rober-link",
                     "exists": true,
-                    "hidden": false
+                    "hidden": true
                   },
                   {
                     "uid": "video-mark-rober-channel",
                     "exists": true,
-                    "hidden": false
+                    "hidden": true
                   }
                 ],
                 "forbiddenVisibility": [
@@ -561,27 +837,26 @@
             "site": {
               "hostname": "127.0.0.1",
               "pathname": "/youtube",
-              "urlPattern": "127.0.0.1/youtube/*"
+              "urlPattern": "127.0.0.1/youtube"
             },
             "sourcePrompt": "I don't want to see the video of Mark Ruber in my feed.",
             "selections": [],
             "targetMap": {
-              "mark_rober_video": {
+              "mark_rober_card": {
                 "source": "inferred",
                 "selectors": [
-                  "article.video-card:has(a[ariaLabel*=\"Mark Rober\"])"
-                ],
-                "fallbackSelectors": [
-                  "article.ytd-rich-item-renderer:has([class*=\"channel-name\"]:is(:contains(\"Mark Rober\")))"
+                  "article.ytd-rich-item-renderer.video-card:has(a.channel-name[aria-label=\"Mark Rober channel\"])"
                 ]
               }
             },
             "rules": [
               {
-                "id": "hide-mark-rober-video",
-                "type": "visibility",
-                "targetRef": "mark_rober_video",
-                "visibility": "hidden"
+                "id": "hide-mark-rober-videos",
+                "type": "style",
+                "targetRef": "mark_rober_card",
+                "styles": {
+                  "display": "none"
+                }
               }
             ]
           },
@@ -590,34 +865,110 @@
             "errors": []
           },
           "applyResult": {
-            "totalMatched": 0,
+            "totalMatched": 1,
             "cssRuleCount": 0,
-            "targetCssRuleCount": 0
+            "targetCssRuleCount": 1
           },
           "selectionCount": 0,
           "pageNodeCount": 14,
-          "executionMode": "injected-perso-scripts",
-          "consoleMessages": []
+          "consoleMessages": [
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] openrouter.response.received {ok: true, status: 200, durationMs: 28154, hasChoices: true, hasReasoning: false}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] openrouter.content.received {contentLength: 613, preview: {\n  \"version\": \"2.0\",\n  \"site\": {\n    \"hostname\": …      \"id\": \"hide-mark-rober-videos\",\n      \"type}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] plan.validation.started {site: Object, ruleCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] plan.validation.finished {ok: true, errors: Array(0)}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.target_ref.css.generated {ruleId: hide-mark-rober-videos, targetRef: mark_rober_card, selectorCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.rule.style {ruleId: hide-mark-rober-videos, targetRef: mark_rober_card, matchCount: 1, matched: Array(1)}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 1, totalMatched: 1}"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            }
+          ]
         },
         {
           "taskId": "hard-youtube-stop-scroll",
           "tier": "hard",
-          "score": 0.265,
+          "score": 0.355,
           "passed": false,
-          "durationMs": 16020,
+          "durationMs": 24000,
           "grade": {
-            "score": 0.265,
+            "score": 0.355,
             "passed": false,
             "planGrade": {
-              "score": 0.16,
+              "score": 0.36,
               "passed": false,
               "validation": {
-                "ok": false,
-                "errors": [
-                  "Rule 0 has unsupported visibility action.",
-                  "Target all_video_cards_except_first has unsupported or invalid selector main#contents > article.video-card:not(:first-child).",
-                  "Target all_video_cards_except_first has unsupported or invalid selector article.video-card ~ article.video-card."
-                ]
+                "ok": true,
+                "errors": []
               },
               "expectation": {
                 "score": 0.2,
@@ -630,13 +981,23 @@
                 "forbiddenHit": false
               },
               "targetMatches": {
-                "all_video_cards_except_first": {
+                "secondary_videos": {
                   "selectors": [
-                    "article.video-card ~ article.video-card"
+                    "main#contents > article.video-card:nth-child(n+2)"
                   ],
                   "usedFallback": false,
-                  "uids": [],
-                  "sampleText": []
+                  "uids": [
+                    "video-mark-rober-card",
+                    "video-cooking-card",
+                    "video-rocket-card",
+                    "video-mkbhd-card"
+                  ],
+                  "sampleText": [
+                    "World's Smallest Nerf Gun Mark Rober",
+                    "Perfect pasta Kitchen Daily",
+                    "Engineering a rocket Everyday Astronaut",
+                    "Phone awards Marques Brownlee"
+                  ]
                 }
               }
             },
@@ -661,28 +1022,29 @@
             "site": {
               "hostname": "127.0.0.1",
               "pathname": "/youtube",
-              "urlPattern": "127.0.0.1/youtube"
+              "urlPattern": "127.0.0.1/youtube*"
             },
             "sourcePrompt": "I am spending too much time on YouTube. I don't want to be able to scroll anymore; I just want to see the first video that appears when I load the page.",
             "selections": [],
             "targetMap": {
-              "all_video_cards_except_first": {
+              "secondary_videos": {
                 "source": "inferred",
-                "description": "All video article cards except the first one, which should be hidden to prevent scrolling past it.",
                 "selectors": [
-                  "main#contents > article.video-card:not(:first-child)"
+                  "main#contents > article.video-card:nth-child(n+2)"
                 ],
                 "fallbackSelectors": [
-                  "article.video-card ~ article.video-card"
+                  "main#contents > ytd-rich-item-renderer:nth-child(n+2)"
                 ]
               }
             },
             "rules": [
               {
-                "id": "hide-extra-videos",
-                "type": "visibility",
-                "targetRef": "all_video_cards_except_first",
-                "visible": false
+                "id": "hide-secondary-videos",
+                "type": "style",
+                "targetRef": "secondary_videos",
+                "styles": {
+                  "display": "none"
+                }
               }
             ]
           },
@@ -693,19 +1055,99 @@
           "applyResult": {
             "totalMatched": 4,
             "cssRuleCount": 0,
-            "targetCssRuleCount": 0
+            "targetCssRuleCount": 1
           },
           "selectionCount": 0,
           "pageNodeCount": 14,
-          "executionMode": "injected-perso-scripts",
-          "consoleMessages": []
+          "consoleMessages": [
+            {
+              "type": "log",
+              "text": "[Perso XXL] openrouter.request.started {taskName: plan-generation, model: deepseek/deepseek-v4-flash, messageCount: 2, reasoning: Object}"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] openrouter.response.received {ok: true, status: 200, durationMs: 22881, hasChoices: true, hasReasoning: false}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] openrouter.content.received {contentLength: 783, preview: {\n  \"version\": \"2.0\",\n  \"site\": {\n    \"hostname\": …le.video-card:nth-child(n+2)\"\n      ],\n      \"fal}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] plan.validation.started {site: Object, ruleCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] plan.validation.finished {ok: true, errors: Array(0)}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.target_ref.css.generated {ruleId: hide-secondary-videos, targetRef: secondary_videos, selectorCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.rule.style {ruleId: hide-secondary-videos, targetRef: secondary_videos, matchCount: 4, matched: Array(4)}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 1, totalMatched: 4}"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            }
+          ]
         },
         {
           "taskId": "hard-one-piece-theme",
           "tier": "hard",
           "score": 0.818,
           "passed": true,
-          "durationMs": 12970,
+          "durationMs": 10506,
           "grade": {
             "score": 0.818,
             "passed": true,
@@ -739,11 +1181,10 @@
                     "FixtureTube"
                   ]
                 },
-                "video_titles": {
+                "video_title": {
                   "selectors": [
                     "#video-title",
-                    "#video-title-link",
-                    "a.yt-simple-endpoint"
+                    "#video-title-link"
                   ],
                   "usedFallback": false,
                   "uids": [
@@ -755,9 +1196,9 @@
                     "World's Smallest Nerf Gun"
                   ]
                 },
-                "channel_names": {
+                "channel_name": {
                   "selectors": [
-                    ".channel-name"
+                    "a.channel-name"
                   ],
                   "usedFallback": false,
                   "uids": [
@@ -774,26 +1215,6 @@
                     "Everyday Astronaut",
                     "Marques Brownlee"
                   ]
-                },
-                "video_cards": {
-                  "selectors": [
-                    "article.video-card"
-                  ],
-                  "usedFallback": false,
-                  "uids": [
-                    "video-first-card",
-                    "video-mark-rober-card",
-                    "video-cooking-card",
-                    "video-rocket-card",
-                    "video-mkbhd-card"
-                  ],
-                  "sampleText": [
-                    "Backyard Squirrel Maze Nature Lab",
-                    "World's Smallest Nerf Gun Mark Rober",
-                    "Perfect pasta Kitchen Daily",
-                    "Engineering a rocket Everyday Astronaut",
-                    "Phone awards Marques Brownlee"
-                  ]
                 }
               }
             },
@@ -801,13 +1222,13 @@
               "score": 0.8,
               "notes": [
                 "browser has visual CSS changes",
-                "13 nodes marked as changed",
+                "8 nodes marked as changed",
                 "theme keywords: one piece"
               ],
               "targetHit": true,
               "forbiddenHit": false,
               "details": {
-                "styledCount": 13,
+                "styledCount": 8,
                 "styleTextSample": "\n      :root {\n        color-scheme: light;\n        --bg: #f7f4ee;\n        --ink: #211f1b;\n        --muted: #676157;\n        --panel: #ffffff;\n        --line: #d8d0c0;\n        --accent: #0f766e;\n      }\n      * { box-sizing: border-box; }\n      body {\n        margin: 0;\n        min-height: 180vh;\n        font-family: inter, ui-sans-serif, system-ui, -apple-system, blinkmacsystemfont, \"segoe ui\", sans-serif;\n        color: var(--ink);\n        background: var(--bg);\n      }\n      main, section, article, header {\n        display: block;\n      }\n      .fixture-shell {\n        width: min(1120px, calc(100vw - 32px));\n        margin: 0 auto;\n        padding: 32px 0 80px;\n      }\n      .dashboard-shell, .docs-homescreen, .fixturetube {\n        width: min(1120px, calc(100vw - 32px));\n        margin: 0 auto;\n        padding: 32px 0 80px;\n      }\n      .promo {\n        border: 1px solid var(--line);\n        border-radius: 8px;\n        background: #e8f4f1;\n        padding: 20px;\n        margin-bot",
                 "hasVisualCss": true
               }
@@ -828,38 +1249,22 @@
                 "selectors": [
                   "body"
                 ],
-                "fallbackSelectors": [
-                  "#contents"
-                ]
+                "fallbackSelectors": []
               },
-              "video_titles": {
+              "video_title": {
                 "source": "inferred",
                 "selectors": [
                   "#video-title",
-                  "#video-title-link",
-                  "a.yt-simple-endpoint"
+                  "#video-title-link"
                 ],
-                "fallbackSelectors": [
-                  "article.video-card a[href]"
-                ]
+                "fallbackSelectors": []
               },
-              "channel_names": {
+              "channel_name": {
                 "source": "inferred",
                 "selectors": [
-                  ".channel-name"
-                ],
-                "fallbackSelectors": [
                   "a.channel-name"
-                ]
-              },
-              "video_cards": {
-                "source": "inferred",
-                "selectors": [
-                  "article.video-card"
                 ],
-                "fallbackSelectors": [
-                  ".ytd-rich-item-renderer"
-                ]
+                "fallbackSelectors": []
               }
             },
             "rules": [
@@ -868,36 +1273,23 @@
                 "type": "style",
                 "targetRef": "page_background",
                 "styles": {
-                  "backgroundColor": "#001f3d",
+                  "backgroundColor": "#1a237e"
+                }
+              },
+              {
+                "id": "one-piece-title-color",
+                "type": "style",
+                "targetRef": "video_title",
+                "styles": {
+                  "color": "#ffd54f"
+                }
+              },
+              {
+                "id": "one-piece-channel-color",
+                "type": "style",
+                "targetRef": "channel_name",
+                "styles": {
                   "color": "#ffffff"
-                }
-              },
-              {
-                "id": "video-title-style",
-                "type": "style",
-                "targetRef": "video_titles",
-                "styles": {
-                  "color": "#FFD700",
-                  "fontFamily": "Georgia, serif",
-                  "fontWeight": "bold"
-                }
-              },
-              {
-                "id": "channel-name-style",
-                "type": "style",
-                "targetRef": "channel_names",
-                "styles": {
-                  "color": "#FF6347",
-                  "fontFamily": "Georgia, serif"
-                }
-              },
-              {
-                "id": "video-card-border",
-                "type": "style",
-                "targetRef": "video_cards",
-                "styles": {
-                  "border": "2px solid #FFD700",
-                  "borderRadius": "8px"
                 }
               }
             ]
@@ -907,14 +1299,94 @@
             "errors": []
           },
           "applyResult": {
-            "totalMatched": 13,
+            "totalMatched": 8,
             "cssRuleCount": 0,
-            "targetCssRuleCount": 4
+            "targetCssRuleCount": 3
           },
           "selectionCount": 0,
           "pageNodeCount": 14,
-          "executionMode": "injected-perso-scripts",
-          "consoleMessages": []
+          "consoleMessages": [
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.apply.started {ruleCount: 3, targetCount: 3}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.target_ref.css.generated {ruleId: one-piece-bg, targetRef: page_background, selectorCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.rule.style {ruleId: one-piece-bg, targetRef: page_background, matchCount: 1, matched: Array(1)}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.target_ref.css.generated {ruleId: one-piece-title-color, targetRef: video_title, selectorCount: 2}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.rule.style {ruleId: one-piece-title-color, targetRef: video_title, matchCount: 2, matched: Array(2)}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.target_ref.css.generated {ruleId: one-piece-channel-color, targetRef: channel_name, selectorCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.rule.style {ruleId: one-piece-channel-color, targetRef: channel_name, matchCount: 5, matched: Array(5)}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 3, totalMatched: 8}"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+            }
+          ]
         }
       ]
     }

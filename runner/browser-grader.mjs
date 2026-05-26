@@ -2,7 +2,7 @@ import { gradePlan } from "./grader.mjs";
 
 export async function gradeBrowserTask({ page, task, fixturePage, plan }) {
   const planGrade = gradePlan({ task, page: fixturePage, plan });
-  const actual = await collectActualExpectation(page, task, plan);
+  const actual = await gradeBrowserActual({ page, task, plan });
   const score = roundScore((planGrade.score * 0.45) + (actual.score * 0.55));
 
   return {
@@ -13,7 +13,7 @@ export async function gradeBrowserTask({ page, task, fixturePage, plan }) {
   };
 }
 
-async function collectActualExpectation(page, task, plan) {
+export async function gradeBrowserActual({ page, task, plan }) {
   const expect = task.expect;
 
   if (expect.kind === "style") {

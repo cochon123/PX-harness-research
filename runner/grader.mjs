@@ -1,7 +1,8 @@
 import { ALLOWED_STYLE_KEYS } from "./plan-client.mjs";
 import { isValidSubsetSelector, querySelectorAllSubset } from "./selector-engine.mjs";
 
-const ALLOWED_RULE_TYPES = new Set(["style", "visibility", "attribute", "css"]);
+const ALLOWED_RULE_TYPES = new Set(["style", "visibility", "attribute", "css", "capability"]);
+const ALLOWED_CAPABILITIES = new Set(["scrollLock"]);
 const ALLOWED_STYLE_KEY_SET = new Set(ALLOWED_STYLE_KEYS);
 
 export function gradePlan({ task, page, plan }) {
@@ -87,6 +88,10 @@ function validateRule(rule, index, errors, targetRefs) {
       errors.push(`Rule ${index} CSS contains a blocked pattern.`);
     }
   }
+
+  if (rule.type === "capability" && !ALLOWED_CAPABILITIES.has(rule.capability)) {
+    errors.push(`Rule ${index} has unsupported capability ${rule.capability}.`);
+  }
 }
 
 function collectTargetMatches(plan, page) {
@@ -160,17 +165,19 @@ function gradeExpectation(task, plan, targetMatches) {
   }
 
   if (expect.kind === "scrollLock") {
+    const capabilityRules = (plan.rules || []).filter((rule) => rule.type === "capability" && rule.capability === "scrollLock");
     const cssText = (plan.rules || []).filter((rule) => rule.type === "css").map((rule) => rule.css).join("\n").toLowerCase();
     const styleRules = (plan.rules || []).filter((rule) => rule.type === "style");
     const hasOverflowHidden = /overflow\s*:\s*hidden/.test(cssText) ||
       styleRules.some((rule) => String(rule.styles?.overflow || "").toLowerCase().includes("hidden"));
+    const hasScrollLock = capabilityRules.length > 0 || hasOverflowHidden;
     const firstVideoPreserved = !allMatchedUids.has("video-first-card");
     const broadEnough = cssText.includes("body") || cssText.includes("html") || allMatchedUids.has("youtube-root") || allMatchedUids.has("feed-root");
     return {
-      score: roundScore((hasOverflowHidden ? 0.45 : 0) + (broadEnough ? 0.25 : 0) + (firstVideoPreserved ? 0.2 : 0) + (targetHit ? 0.1 : 0)),
+      score: roundScore((hasScrollLock ? 0.45 : 0) + ((broadEnough || capabilityRules.length) ? 0.25 : 0) + (firstVideoPreserved ? 0.2 : 0) + (targetHit ? 0.1 : 0)),
       notes: [
-        hasOverflowHidden ? "attempted overflow lock" : "no clear scroll lock",
-        broadEnough ? "targets page/feed level" : "does not target page/feed level",
+        hasScrollLock ? "attempted scroll lock" : "no clear scroll lock",
+        (broadEnough || capabilityRules.length) ? "targets page/feed level" : "does not target page/feed level",
         firstVideoPreserved ? "does not hide the first video" : "may hide the first video"
       ],
       targetHit,

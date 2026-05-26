@@ -4,7 +4,7 @@ import { join, resolve } from "node:path";
 import { chromium } from "playwright";
 import tasks from "../evals/tasks.json" with { type: "json" };
 import { getPage } from "./fixtures.mjs";
-import { gradeBrowserTask } from "./browser-grader.mjs";
+import { gradeBrowserActual, gradeBrowserTask } from "./browser-grader.mjs";
 import { generateTransformPlan } from "./plan-client.mjs";
 import { writeReports } from "./report.mjs";
 import { startWebZooServer } from "./web-zoo-server.mjs";
@@ -87,13 +87,18 @@ async function runBrowserSuite(browserContext, origin, { extensionAvailable }) {
         fixturePage,
         plan: generation.plan
       });
+      await triggerRerenderAndReapply({ page, cdp, contextIds, extensionAvailable, plan: generation.plan });
+      await page.waitForTimeout(350);
+      const persistence = await gradeBrowserActual({ page, task, plan: generation.plan });
+      const combinedScore = roundScore((grade.score * 0.75) + (persistence.score * 0.25));
       taskResults.push({
         taskId: task.id,
         tier: task.tier,
-        score: grade.score,
-        passed: grade.passed,
+        score: combinedScore,
+        passed: combinedScore >= 0.8,
         durationMs: Date.now() - startedAt,
         grade,
+        persistence,
         plan: generation.plan,
         validation: generation.validation,
         applyResult: generation.applyResult,
@@ -102,7 +107,7 @@ async function runBrowserSuite(browserContext, origin, { extensionAvailable }) {
         executionMode: generation.executionMode,
         consoleMessages: consoleMessages.slice(-20)
       });
-      console.log(`  browser-low ${task.id}: ${formatScore(grade.score)}`);
+      console.log(`  browser-low ${task.id}: ${formatScore(combinedScore)}`);
     } catch (error) {
       taskResults.push({
         taskId: task.id,
@@ -145,6 +150,28 @@ async function detectExtensionSupport(browserContext) {
 async function runWithExtensionContext(cdp, contextIds, task) {
   const contentContextId = await findPersoContext(cdp, contextIds);
   return runPersoInContentContext(cdp, contentContextId, task);
+}
+
+async function triggerRerenderAndReapply({ page, cdp, contextIds, extensionAvailable, plan }) {
+  await page.evaluate(() => {
+    window.__PX_WEB_ZOO_RERENDER__?.();
+  });
+
+  if (extensionAvailable) {
+    const contentContextId = await findPersoContext(cdp, contextIds);
+    await cdp.send("Runtime.evaluate", {
+      contextId: contentContextId,
+      expression: `window.PersoExecutor.applyPlan(${JSON.stringify(plan)})`,
+      awaitPromise: true,
+      returnByValue: true,
+      timeout: 30000
+    });
+    return;
+  }
+
+  await page.evaluate((planToApply) => {
+    window.PersoExecutor.applyPlan(planToApply);
+  }, plan);
 }
 
 async function findPersoContext(cdp, contextIds) {
@@ -308,7 +335,10 @@ function finalize(run) {
     tier: task.tier,
     noThinkingAverage: task.score,
     lowThinkingScore: task.score,
-    observation: task.error || task.grade?.actual?.notes?.join(" ")
+    observation: task.error || [
+      task.grade?.actual?.notes?.join(" "),
+      `Persistence: ${task.persistence?.notes?.join(" ") || "not checked"}`
+    ].filter(Boolean).join(" ")
   }));
 
   return {
@@ -366,6 +396,10 @@ function average(values) {
   const nums = values.filter((value) => typeof value === "number" && Number.isFinite(value));
   if (!nums.length) return 0;
   return nums.reduce((sum, value) => sum + value, 0) / nums.length;
+}
+
+function roundScore(value) {
+  return Math.round(Math.max(0, Math.min(1, value)) * 1000) / 1000;
 }
 
 function formatScore(score) {

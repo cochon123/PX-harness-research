@@ -135,6 +135,9 @@ function buildMessages({ prompt, pageContext, pageDom, selections }) {
         "Prefer type style with a styles object for color, size, spacing, borders, backgrounds, and other standard CSS properties.",
         "Use type css only when a raw CSS declaration block is truly necessary. css rules must include a css string field.",
         "Do not use type css for simple property changes such as color red or font-size 16px.",
+        "Use type capability only for trusted extension-owned behaviors. The only allowed capability is scrollLock.",
+        "For requests such as stop scrolling, prevent scrolling, or show only the first loaded item, use a capability rule with capability scrollLock instead of raw JavaScript.",
+        "A scrollLock capability rule should target the page, feed, or main content area and may include options.preserveSelectors for the first item that should remain visible.",
         "Use only allowed style properties.",
         "Never use local filesystem paths in CSS."
       ].join(" ")
@@ -148,7 +151,8 @@ function buildMessages({ prompt, pageContext, pageDom, selections }) {
         pageDom,
         selections,
         availableAssets: [],
-        allowedRuleTypes: ["css", "style", "visibility", "attribute"],
+        allowedRuleTypes: ["css", "style", "visibility", "attribute", "capability"],
+        allowedCapabilities: ["scrollLock"],
         allowedStyleKeys: ALLOWED_STYLE_KEYS,
         schemaExample: TRANSFORM_SCHEMA_HINT
       })
@@ -236,4 +240,3 @@ function stripJsonMarkdown(value) {
   const fenced = trimmed.match(/^```(?:json)?\s*([\s\S]*?)```$/i);
   return fenced ? fenced[1].trim() : trimmed;
 }
-

@@ -8,6 +8,8 @@ import { gradeBrowserActual, gradeBrowserTask } from "./browser-grader.mjs";
 import { generateTransformPlan } from "./plan-client.mjs";
 import { writeReports } from "./report.mjs";
 import { startWebZooServer } from "./web-zoo-server.mjs";
+import { buildDomfsContext } from "./domfs-tools.mjs";
+import { querySelectorAllSubset } from "./selector-engine.mjs";
 
 const EXTENSION_PATH = "/home/cochon/Documents/Perso-XXL";
 const BROWSER_CANDIDATES = [
@@ -26,6 +28,10 @@ const SKIP_PASS_RATE = args["skip-pass-rate"] ? Number(args["skip-pass-rate"]) :
 const SKIP_SOURCE = args["skip-source"] || "reports/browser-baseline.json";
 const TASK_FILTER = parseListArg(args.tasks);
 const TAG_FILTER = parseListArg(args.tags);
+const CONTEXT_MODE = args["context-mode"] || "page-dom";
+const OUTPUT_BASE = args.output || (CONTEXT_MODE === "domfs" ? "reports/domfs-experiment" : "reports/browser-baseline");
+const COMPARE_SOURCE = args["compare-source"] || null;
+const BLOCK_FIXTURE_SELECTORS = Boolean(args["block-fixture-selectors"]);
 
 const routesByPageId = {
   dashboard: "/dashboard",
@@ -67,15 +73,15 @@ try {
     const run = await runBrowserSuite(context, server.origin, { extensionAvailable, runIndex, runnableTasks });
     runs.push(run);
     const partial = finalize(runs, skipPlan);
-    writeFileSync("reports/browser-baseline.json", JSON.stringify(partial, null, 2));
-    writeReports(partial, "reports/browser-baseline");
+    writeFileSync(`${OUTPUT_BASE}.json`, JSON.stringify(partial, null, 2));
+    writeReports(partial, OUTPUT_BASE);
     console.log(`[browser-baseline] ${run.label}: ${formatScore(run.averageScore)}`);
   }
   const result = finalize(runs, skipPlan);
-  writeFileSync("reports/browser-baseline.json", JSON.stringify(result, null, 2));
-  writeReports(result, "reports/browser-baseline");
+  writeFileSync(`${OUTPUT_BASE}.json`, JSON.stringify(result, null, 2));
+  writeReports(result, OUTPUT_BASE);
   console.log(`[browser-baseline] low reasoning average: ${formatScore(result.summary.lowThinkingScore)}`);
-  console.log("[browser-baseline] wrote reports/browser-baseline.html and reports/browser-baseline.json");
+  console.log(`[browser-baseline] wrote ${OUTPUT_BASE}.html and ${OUTPUT_BASE}.json`);
 } finally {
   await context?.close().catch(() => {});
   await server.close().catch(() => {});
@@ -107,7 +113,9 @@ async function runBrowserSuite(browserContext, origin, { extensionAvailable, run
       await page.goto(url, { waitUntil: "networkidle" });
       beforeScreenshotPath = `${SCREENSHOT_DIR}/run-${runIndex + 1}-${task.id}-before.png`;
       await page.screenshot({ path: beforeScreenshotPath, fullPage: true });
-      const generation = extensionAvailable
+      const generation = CONTEXT_MODE === "domfs"
+        ? await runWithDomfsContext(page, task, fixturePage)
+        : extensionAvailable
         ? await runWithExtensionContext(cdp, contextIds, task)
         : await runWithInjectedPersoScripts(page, task);
       await page.waitForTimeout(350);
@@ -139,6 +147,7 @@ async function runBrowserSuite(browserContext, origin, { extensionAvailable, run
         selectionCount: generation.selectionCount,
         pageNodeCount: generation.pageNodeCount,
         executionMode: generation.executionMode,
+        domNavigation: generation.domNavigation || null,
         beforeScreenshotPath,
         screenshotPath,
         consoleMessages: filterConsoleMessages(consoleMessages).slice(-20)
@@ -168,7 +177,7 @@ async function runBrowserSuite(browserContext, origin, { extensionAvailable, run
   return {
     label: `browser-low-thinking-${runIndex + 1}`,
     reasoningMode: "low",
-    executionMode: extensionAvailable ? "extension-content-script" : "injected-perso-scripts",
+    executionMode: taskResults[0]?.executionMode || (extensionAvailable ? "extension-content-script" : "injected-perso-scripts"),
     averageScore: average(taskResults.map((task) => task.score)),
     passedTasks: taskResults.filter((task) => task.passed).length,
     totalTasks: taskResults.length,
@@ -292,7 +301,7 @@ async function runWithInjectedPersoScripts(page, task) {
     reasoningMode: "low",
     model: MODEL
   });
-  generation.plan = repairPlanForTask(generation.plan, buildRepairHints(task));
+  generation.plan = finalizeGeneratedPlanForTask(generation.plan, task);
 
   const applyResult = await page.evaluate((plan) => {
     window.PersoExecutor.revertPlan?.();
@@ -306,6 +315,59 @@ async function runWithInjectedPersoScripts(page, task) {
     selectionCount: browserContext.selectionCount,
     pageNodeCount: browserContext.pageNodeCount,
     executionMode: "injected-perso-scripts"
+  };
+}
+
+async function runWithDomfsContext(page, task, fixturePage) {
+  await injectPersoRuntime(page);
+  const browserContext = await page.evaluate((selectionUid) => {
+    const selected = selectionUid ? document.querySelector(`[data-uid="${CSS.escape(selectionUid)}"]`) : null;
+    const selections = selected ? [window.PersoDomContext.buildSelection(selected, "sel_1")] : [];
+    const pageContext = {
+      url: location.href,
+      hostname: location.hostname,
+      pathname: location.pathname,
+      title: document.title,
+      viewport: { width: window.innerWidth, height: window.innerHeight }
+    };
+    const pageDom = window.PersoDomContext.collectPageDom({ maxNodes: 180 });
+    return {
+      selections,
+      pageContext,
+      pageDom: {
+        ...pageDom,
+        nodes: pageDom.nodes.slice(0, 80)
+      },
+      selectionCount: selections.length,
+      pageNodeCount: pageDom.nodeCount
+    };
+  }, task.selectionUid || null);
+  const domNavigation = buildDomfsContext({ task, page: fixturePage });
+
+  const generation = await generateTransformPlan({
+    prompt: task.prompt,
+    pageContext: browserContext.pageContext,
+    pageDom: browserContext.pageDom,
+    selections: browserContext.selections,
+    domNavigation,
+    reasoningMode: "low",
+    model: MODEL
+  });
+  generation.plan = finalizeGeneratedPlanForTask(generation.plan, task);
+
+  const applyResult = await page.evaluate((plan) => {
+    window.PersoExecutor.revertPlan?.();
+    return window.PersoExecutor.applyPlan(plan);
+  }, generation.plan);
+
+  return {
+    plan: generation.plan,
+    validation: { ok: true, errors: [] },
+    applyResult,
+    selectionCount: browserContext.selectionCount,
+    pageNodeCount: browserContext.pageNodeCount,
+    executionMode: "domfs-injected-perso-scripts",
+    domNavigation
   };
 }
 
@@ -382,8 +444,14 @@ async function contentTaskRunner({ prompt, selectionUid, model, repairHints }) {
   };
 }
 
+function finalizeGeneratedPlanForTask(plan, task) {
+  const repaired = repairPlanForHarnessTask(plan, buildRepairHints(task));
+  return BLOCK_FIXTURE_SELECTORS ? stripFixtureUidSelectors(repaired) : repaired;
+}
+
 function repairPlanForTask(plan, repairHints) {
-  return repairPlanForHarnessTask(plan, repairHints);
+  const repaired = repairPlanForHarnessTask(plan, repairHints);
+  return BLOCK_FIXTURE_SELECTORS ? stripFixtureUidSelectors(repaired) : repaired;
 }
 
 function repairPlanForHarnessTask(plan, repairHints = {}) {
@@ -465,7 +533,21 @@ function sanitizeHarnessSelectors(selectors) {
   return Array.from(new Set((selectors || [])
     .filter((selector) => typeof selector === "string")
     .map((selector) => selector.trim())
-    .filter((selector) => selector && !/:has\b|:has-text\b|:contains\b/.test(selector))));
+    .filter((selector) => selector && !/:has\b|:has-text\b|:contains\b/.test(selector))
+    .filter((selector) => !BLOCK_FIXTURE_SELECTORS || !/\[data-uid=/.test(selector))));
+}
+
+function stripFixtureUidSelectors(plan) {
+  if (!plan || typeof plan !== "object") return plan;
+  const stripped = JSON.parse(JSON.stringify(plan));
+  for (const target of Object.values(stripped.targetMap || {})) {
+    target.selectors = (target.selectors || []).filter((selector) => !/\[data-uid=/.test(selector));
+    target.fallbackSelectors = (target.fallbackSelectors || []).filter((selector) => !/\[data-uid=/.test(selector));
+    if (!target.selectors.length && target.fallbackSelectors.length) {
+      target.selectors = target.fallbackSelectors.splice(0, 1);
+    }
+  }
+  return stripped;
 }
 
 function isHarnessBroadSemanticSelector(selector) {
@@ -519,6 +601,7 @@ function finalize(runs, skipPlan = { skipped: [] }) {
   });
 
   const runScores = runs.map((run) => run.averageScore);
+  const domfsFacts = CONTEXT_MODE === "domfs" ? buildDomfsFacts(runs, taskAverages, readComparison(COMPARE_SOURCE)) : null;
 
   return {
     generatedAt: new Date().toISOString(),
@@ -526,6 +609,8 @@ function finalize(runs, skipPlan = { skipped: [] }) {
     config: {
       mode: "browser",
       reasoningMode: "low",
+      contextMode: CONTEXT_MODE,
+      blockFixtureSelectors: BLOCK_FIXTURE_SELECTORS,
       executionMode: runs[0]?.executionMode || "unknown",
       runCount: runs.length,
       taskCount: selectedTasks.length,
@@ -535,6 +620,7 @@ function finalize(runs, skipPlan = { skipped: [] }) {
       skippedTasks: skipPlan.skipped,
       skipPassRate: SKIP_PASS_RATE,
       skipSource: SKIP_SOURCE,
+      compareSource: COMPARE_SOURCE,
       taskFilter: TASK_FILTER,
       tagFilter: TAG_FILTER,
       extensionPath: resolve(EXTENSION_PATH)
@@ -543,10 +629,12 @@ function finalize(runs, skipPlan = { skipped: [] }) {
       noThinkingRuns: 0,
       noThinkingAverage: 0,
       lowThinkingScore: average(runScores),
-      minScore: Math.min(...runScores),
-      maxScore: Math.max(...runScores),
+      minScore: runScores.length ? Math.min(...runScores) : 0,
+      maxScore: runScores.length ? Math.max(...runScores) : 0,
       variance: variance(runScores)
     },
+    domfsFacts,
+    recommendations: CONTEXT_MODE === "domfs" ? buildDomfsRecommendations(domfsFacts, taskAverages) : [],
     runs: runs.map((run) => ({
       label: run.label,
       reasoningMode: run.reasoningMode,
@@ -575,7 +663,7 @@ function buildRepairHints(task) {
   const preferredUid = cardUid || targetUids[0];
   return {
     semanticTask: Boolean(task.semanticProbe),
-    safeSelectors: preferredUid ? [`[data-uid="${cssEscape(preferredUid)}"]`] : []
+    safeSelectors: preferredUid && !BLOCK_FIXTURE_SELECTORS ? [`[data-uid="${cssEscape(preferredUid)}"]`] : []
   };
 }
 
@@ -612,13 +700,16 @@ function buildSkipPlan(allTasks, { threshold, sourcePath }) {
 function buildTaskDiagnostics({ task, fixturePage, generation, grade, persistence }) {
   const targetMatches = grade.planGrade?.targetMatches || {};
   const broadSelectors = Object.entries(targetMatches)
-    .flatMap(([targetRef, match]) => (match.selectors || []).map((selector) => ({
-      targetRef,
-      selector,
-      matchCount: match.uids?.length || 0,
-      matchedUids: match.uids || [],
-      sampleText: match.sampleText || []
-    })))
+    .flatMap(([targetRef, match]) => (match.selectors || []).map((selector) => {
+      const matched = selectorMatches(fixturePage, selector);
+      return {
+        targetRef,
+        selector,
+        matchCount: matched.length,
+        matchedUids: matched.map((node) => node.uid),
+        sampleText: matched.slice(0, 5).map((node) => node.text)
+      };
+    }))
     .filter((item) => item.matchCount > 1);
 
   const forbiddenChanged = Array.from(new Set([
@@ -644,6 +735,7 @@ function buildTaskDiagnostics({ task, fixturePage, generation, grade, persistenc
     broadSelectors,
     forbiddenChanged,
     semanticCandidates: buildSemanticCandidates(task, fixturePage, generation, grade),
+    domNavigation: generation.domNavigation ? summarizeDomNavigation(generation.domNavigation) : null,
     phase: classifyFailurePhase({ generation, grade, persistence, broadSelectors, forbiddenChanged }),
     usedSelectionHints,
     genericSelectors,
@@ -710,6 +802,14 @@ function isSemanticCandidate(node, kind) {
   return Boolean(node.text || node.attrs?.["aria-label"]);
 }
 
+function selectorMatches(page, selector) {
+  try {
+    return querySelectorAllSubset(page, selector);
+  } catch (_error) {
+    return [];
+  }
+}
+
 function classifyFailurePhase({ generation, grade, persistence, broadSelectors, forbiddenChanged }) {
   if (generation.validation && generation.validation.ok === false) return "plan-validation";
   if (grade.actual?.targetHit === false && !grade.planGrade?.passed) return "target-understanding-or-selector";
@@ -736,6 +836,92 @@ function buildObservations(runs, taskAverages) {
     observations.push(`${task.id} averaged ${formatScore(task.lowThinkingScore)} with ${formatScore(task.passRate)} pass rate. ${task.commonFailureReasons.join(" ") || task.observation}`);
   }
   return observations;
+}
+
+function buildDomfsFacts(runs, taskAverages, comparison = null) {
+  const executed = runs.flatMap((run) => run.tasks || []);
+  const withDomfs = executed.filter((task) => task.domNavigation || task.diagnostics?.domNavigation);
+  const searchCounts = withDomfs.map((task) => task.diagnostics?.domNavigation?.searchResultCount || 0);
+  const inspectionCounts = withDomfs.map((task) => task.diagnostics?.domNavigation?.inspectionCount || 0);
+  const usedFixtureUid = executed.filter((task) => {
+    const selectors = Object.values(task.plan?.targetMap || {})
+      .flatMap((target) => [...(target.selectors || []), ...(target.fallbackSelectors || [])]);
+    return selectors.some((selector) => /\[data-uid=/.test(selector));
+  }).length;
+  const broadFailures = executed.filter((task) => task.diagnostics?.broadSelectors?.length || task.diagnostics?.forbiddenChanged?.length).length;
+  const failed = executed.filter((task) => !task.passed || task.error).length;
+
+  return {
+    summary: "DOMFS v1 is an experimental context mode, not yet an interactive agent loop.",
+    executedTaskCount: executed.length,
+    taskAverageCount: taskAverages.filter((task) => !task.skipped).length,
+    tasksWithDomfsContext: withDomfs.length,
+    averageSearchResults: average(searchCounts),
+    averageInspections: average(inspectionCounts),
+    tasksUsingFixtureUidSelectors: usedFixtureUid,
+    blockFixtureSelectors: BLOCK_FIXTURE_SELECTORS,
+    selectorBlastRadiusFailures: broadFailures,
+    failedTaskRuns: failed,
+    comparison,
+    limits: [
+      "The current v1 precomputes outline/find/inspect context before the model call; the model is not yet choosing tools step by step.",
+      "The fixture exposes data-uid selectors, so high scores can overstate real-page reliability unless we separately test without fixture-only selectors.",
+      "This measures whether navigable context helps planning, not whether a production DOMFS API is complete."
+    ]
+  };
+}
+
+function buildDomfsRecommendations(facts, taskAverages) {
+  if (!facts) return [];
+  const weakTasks = taskAverages
+    .filter((task) => !task.skipped)
+    .sort((left, right) => left.lowThinkingScore - right.lowThinkingScore)
+    .filter((task) => task.lowThinkingScore < 0.95 || task.passRate < 1)
+    .slice(0, 3)
+    .map((task) => `${task.id}: ${formatScore(task.lowThinkingScore)} average, ${formatScore(task.passRate)} pass rate`);
+  return [
+    "Keep DOMFS as an experiment behind a context-mode switch until it beats the existing baseline on repeated medium/hard tasks.",
+    "Next, make the model call actual tools in a loop: outline, find, inspect, proposeSelector, apply, diff, verify. The current implementation only simulates that trace.",
+    "Add a no-fixture-selector run that blocks [data-uid] so we can tell whether the idea transfers to real websites.",
+    "Use DOMFS selectively for ambiguous or semantic requests; direct selected-element edits should stay fast and simple.",
+    weakTasks.length ? `Use the next run to study the weakest tasks: ${weakTasks.join("; ")}.` : "This semantic slice had no weak task in one run, so the next useful test is a harder no-fixture-selector or multi-run comparison."
+  ];
+}
+
+function summarizeDomNavigation(domNavigation) {
+  if (!domNavigation) return null;
+  return {
+    version: domNavigation.version,
+    queryCount: domNavigation.queries?.length || 0,
+    searchResultCount: (domNavigation.searchResults || []).reduce((sum, search) => sum + (search.results?.length || 0), 0),
+    inspectionCount: domNavigation.inspections?.length || 0,
+    selectedPath: domNavigation.selected?.path || null,
+    topFindings: (domNavigation.searchResults || []).map((search) => ({
+      query: search.query,
+      top: (search.results || []).slice(0, 3).map((result) => ({
+        uid: result.uid,
+        path: result.path,
+        text: result.text,
+        score: result.score,
+        selectors: result.selectors
+      }))
+    }))
+  };
+}
+
+function readComparison(sourcePath) {
+  if (!sourcePath || !existsSync(sourcePath)) return null;
+  const source = JSON.parse(readFileSync(sourcePath, "utf8"));
+  return {
+    sourcePath,
+    contextMode: source.config?.contextMode || "page-dom",
+    averageScore: source.summary?.lowThinkingScore ?? null,
+    minScore: source.summary?.minScore ?? null,
+    maxScore: source.summary?.maxScore ?? null,
+    runCount: source.config?.runCount || source.runs?.length || 0,
+    executedTaskCount: source.config?.executedTaskCount ?? source.config?.taskCount ?? null,
+    passRates: Object.fromEntries((source.taskAverages || []).map((task) => [task.id, task.passRate]))
+  };
 }
 
 function findBrowserPath() {

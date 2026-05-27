@@ -63,11 +63,12 @@ export async function generateTransformPlan({
   pageContext,
   pageDom,
   selections,
+  domNavigation = null,
   reasoningMode,
   model = DEFAULT_MODEL
 }) {
   const apiKey = loadOpenRouterKey();
-  const messages = buildMessages({ prompt, pageContext, pageDom, selections });
+  const messages = buildMessages({ prompt, pageContext, pageDom, selections, domNavigation });
   const body = {
     model,
     messages,
@@ -109,7 +110,7 @@ export async function generateTransformPlan({
   };
 }
 
-function buildMessages({ prompt, pageContext, pageDom, selections }) {
+function buildMessages({ prompt, pageContext, pageDom, selections, domNavigation }) {
   return [
     {
       role: "system",
@@ -118,6 +119,9 @@ function buildMessages({ prompt, pageContext, pageDom, selections }) {
         "Return only valid JSON.",
         "Never include JavaScript, event handlers, external URLs, network requests, or arbitrary executable code.",
         "Use the page DOM summary and user-selected elements as grounding.",
+        domNavigation
+          ? "You are also given a terminal-like DOM navigation trace with outline/find/inspect/proposed selector results. Treat paths as readable handles and use proposed selectors only when they are specific to the intended node."
+          : "",
         "User selections mark what the user pointed at, but clicks often land on inner decorative nodes such as touch feedback, overlays, icons, or empty wrappers.",
         "When the user says modify this element, they usually mean the visible control or label, often the parent or grandparent of the clicked node.",
         "Each selection includes hierarchyCandidates and semanticTarget. Walk up the hierarchy when needed and prefer the ancestor that contains the visible text, label, or interactive control.",
@@ -126,6 +130,7 @@ function buildMessages({ prompt, pageContext, pageDom, selections }) {
         "Prefer specific scoped selectors from hierarchyCandidates or selectorHints over broad shared classes that match many unrelated elements.",
         "User selections mark what the user pointed at. Infer broader targets when the prompt implies a class of elements, such as all video titles.",
         "Build targetMap entries with CSS selectors that match the intended elements on this page.",
+        "Use browser-standard CSS selectors only. Never use Playwright-only selectors or pseudo-classes such as :has-text(), :text(), or :contains(). Avoid :has() unless there is no simpler selector.",
         "Each targetMap entry must include selectors and may include fallbackSelectors.",
         "If a target comes from a user selection, set source to selection and include selectionRef.",
         "If a target is inferred from page patterns, set source to inferred.",
@@ -140,7 +145,7 @@ function buildMessages({ prompt, pageContext, pageDom, selections }) {
         "A scrollLock capability rule should target the page, feed, or main content area and may include options.preserveSelectors for the first item that should remain visible.",
         "Use only allowed style properties.",
         "Never use local filesystem paths in CSS."
-      ].join(" ")
+      ].filter(Boolean).join(" ")
     },
     {
       role: "user",
@@ -150,6 +155,7 @@ function buildMessages({ prompt, pageContext, pageDom, selections }) {
         pageContext,
         pageDom,
         selections,
+        domNavigation,
         availableAssets: [],
         allowedRuleTypes: ["css", "style", "visibility", "attribute", "capability"],
         allowedCapabilities: ["scrollLock"],

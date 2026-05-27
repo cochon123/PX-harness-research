@@ -46,6 +46,11 @@ function renderBrowserHtml(result, outputBase) {
   }).join("");
 
   const observations = result.observations.map((item) => `<li>${escaped(item)}</li>`).join("");
+  const recommendations = (result.recommendations || []).map((item) => `<li>${escaped(item)}</li>`).join("");
+  const domfsFacts = result.domfsFacts ? renderDomfsFacts(result.domfsFacts) : "";
+  const domfsRecommendations = recommendations
+    ? `<article class="card full"><h2>Where I Think We Should Go</h2><ul>${recommendations}</ul></article>`
+    : "";
 
   return baseHtml({
     title: "Perso XXL Browser Baseline",
@@ -72,6 +77,8 @@ function renderBrowserHtml(result, outputBase) {
             <h2>Observations</h2>
             <ul>${observations}</ul>
           </article>
+          ${domfsFacts}
+          ${domfsRecommendations}
           <article class="card full">
             <h2>Human Review Table</h2>
             <table class="review-table">
@@ -157,8 +164,16 @@ function renderReviewDetails(runTask) {
     executionMode: runTask.executionMode,
     immediate: runTask.grade?.actual?.notes || [],
     persistence: runTask.persistence?.notes || [],
-    diagnostics: runTask.diagnostics || {},
-    applyResult: runTask.applyResult || null,
+        diagnostics: runTask.diagnostics || {},
+        domNavigation: runTask.domNavigation ? {
+          version: runTask.domNavigation.version,
+          queries: runTask.domNavigation.queries,
+          selected: runTask.domNavigation.selected,
+          searchResults: runTask.domNavigation.searchResults,
+          inspections: runTask.domNavigation.inspections,
+          toolTrace: runTask.domNavigation.toolTrace
+        } : null,
+        applyResult: runTask.applyResult || null,
     validation: runTask.validation || null,
     rules: runTask.plan?.rules || [],
     targetMap: runTask.plan?.targetMap || {},
@@ -184,6 +199,7 @@ function renderTaskDetail({ task, runTask, outputDir, semanticFallback = null })
   const broad = runTask.diagnostics?.broadSelectors || [];
   const forbidden = runTask.diagnostics?.forbiddenChanged || [];
   const semantic = renderSemanticCandidates(runTask.diagnostics?.semanticCandidates || semanticFallback);
+  const domNavigation = renderDomNavigation(runTask.diagnostics?.domNavigation);
   const screenshot = runTask.screenshotPath
     ? `<img class="shot" src="${escapeHtml(relative(outputDir, runTask.screenshotPath))}" alt="Screenshot for ${escaped(task.id)}">`
     : "";
@@ -214,6 +230,7 @@ function renderTaskDetail({ task, runTask, outputDir, semanticFallback = null })
         </div>
       </div>
       ${semantic}
+      ${domNavigation}
       <h4>Selector Matches</h4>
       <table>
         <thead><tr><th>Target</th><th>Selectors</th><th>Count</th><th>Matched UIDs</th></tr></thead>
@@ -225,6 +242,54 @@ function renderTaskDetail({ task, runTask, outputDir, semanticFallback = null })
       <pre><code>${escaped(JSON.stringify(targetMap, null, 2))}</code></pre>
       ${consoleErrors ? `<h4>Console Errors</h4><ul>${consoleErrors}</ul>` : ""}
     </section>
+  `;
+}
+
+function renderDomfsFacts(facts) {
+  const escaped = (value) => escapeHtml(String(value ?? ""));
+  const limits = (facts.limits || []).map((item) => `<li>${escaped(item)}</li>`).join("");
+  const comparison = facts.comparison ? `
+    <p><strong>Comparison:</strong> ${escaped(facts.comparison.contextMode)} from <code>${escaped(facts.comparison.sourcePath)}</code> scored ${percent(facts.comparison.averageScore)} across ${escaped(facts.comparison.runCount)} run(s) and ${escaped(facts.comparison.executedTaskCount)} executed task(s).</p>
+  ` : "";
+  return `
+    <article class="card full">
+      <h2>DOMFS Experiment Facts</h2>
+      <div class="fact-grid">
+        <div><strong>${escaped(facts.executedTaskCount)}</strong><span>task runs</span></div>
+        <div><strong>${escaped(facts.tasksWithDomfsContext)}</strong><span>with DOMFS context</span></div>
+        <div><strong>${Number(facts.averageSearchResults || 0).toFixed(1)}</strong><span>avg find results</span></div>
+        <div><strong>${Number(facts.averageInspections || 0).toFixed(1)}</strong><span>avg inspections</span></div>
+        <div><strong>${escaped(facts.tasksUsingFixtureUidSelectors)}</strong><span>used fixture UID selectors</span></div>
+        <div><strong>${escaped(facts.selectorBlastRadiusFailures)}</strong><span>blast-radius failures</span></div>
+      </div>
+      <p>Fixture-only selectors blocked: <strong>${facts.blockFixtureSelectors ? "yes" : "no"}</strong>.</p>
+      <p>${escaped(facts.summary)}</p>
+      ${comparison}
+      <ul>${limits}</ul>
+    </article>
+  `;
+}
+
+function renderDomNavigation(domNavigation) {
+  const escaped = (value) => escapeHtml(String(value ?? ""));
+  if (!domNavigation) return "";
+  const rows = (domNavigation.topFindings || []).flatMap((search) => (search.top || []).map((result) => `
+    <tr>
+      <td>${escaped(search.query)}</td>
+      <td>${escaped(result.uid)}</td>
+      <td>${escaped(result.path)}</td>
+      <td>${escaped(result.text)}</td>
+      <td>${percent(result.score)}</td>
+      <td>${escaped((result.selectors || []).join(", "))}</td>
+    </tr>
+  `)).join("");
+  return `
+    <h4>DOMFS Navigation</h4>
+    <p>Version: <code>${escaped(domNavigation.version)}</code>; selected path: <code>${escaped(domNavigation.selectedPath || "n/a")}</code>; queries: ${escaped(domNavigation.queryCount)}; inspections: ${escaped(domNavigation.inspectionCount)}.</p>
+    <table>
+      <thead><tr><th>Query</th><th>UID</th><th>Path</th><th>Text</th><th>Score</th><th>Proposed selectors</th></tr></thead>
+      <tbody>${rows || "<tr><td colspan=\"6\">No DOMFS findings recorded.</td></tr>"}</tbody>
+    </table>
   `;
 }
 
@@ -355,6 +420,10 @@ function baseHtml({ title, body }) {
       .detail { border: 1px solid var(--line); border-radius: 8px; padding: 14px; background: #fbfaf7; }
       .mini-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
       .mini-grid > div { border: 1px solid var(--line); border-radius: 8px; background: white; padding: 10px; }
+      .fact-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; margin: 10px 0 12px; }
+      .fact-grid > div { border: 1px solid var(--line); border-radius: 8px; background: white; padding: 12px; }
+      .fact-grid strong { display: block; font-size: 1.5rem; color: var(--accent); line-height: 1; }
+      .fact-grid span { display: block; margin-top: 6px; color: var(--muted); font-size: 0.82rem; }
       .shot { display: block; width: 100%; max-height: 220px; object-fit: cover; object-position: top; border: 1px solid var(--line); border-radius: 8px; margin: 8px 0 12px; }
       .thumb { display: block; width: 180px; max-width: 22vw; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; border: 1px solid var(--line); border-radius: 6px; background: #fff; }
       .review-table td { min-width: 120px; }
@@ -364,7 +433,7 @@ function baseHtml({ title, body }) {
       .pill.pass { background: #dcfce7; color: #166534; }
       .pill.fail { background: #fee2e2; color: #991b1b; }
       .pill.neutral { background: #e5e7eb; color: #374151; }
-      @media (max-width: 900px) { .grid, .details-grid, .mini-grid { display: block; } .card, .detail, .mini-grid > div { margin: 14px 0; } }
+      @media (max-width: 900px) { .grid, .details-grid, .mini-grid, .fact-grid { display: block; } .card, .detail, .mini-grid > div, .fact-grid > div { margin: 14px 0; } }
     </style>
   </head>
   <body>${body}</body>

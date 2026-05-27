@@ -41,6 +41,20 @@ npm run baseline:browser -- --runs=10 --tags=youtube-focused
 npm run baseline:browser -- --tasks=medium-youtube-hide-creator-typo,medium-youtube-hide-creator-exact
 ```
 
+Run the experimental DOMFS context mode:
+
+```sh
+npm run baseline:browser -- --context-mode=domfs --output=reports/domfs-experiment --tags=youtube-focused
+```
+
+DOMFS v1 adds a terminal-like DOM navigation context to the planner: page
+outline, find results, local inspections, nearby family, and proposed selectors.
+It is intentionally behind a switch because it is not yet a true interactive
+tool loop; the runner precomputes the navigation trace before the model call.
+Use `--block-fixture-selectors=true` to remove benchmark-only `[data-uid]`
+selectors from generated plans and test whether the approach transfers better
+to real pages.
+
 Browser mode starts the local web-zoo app, launches Chromium or Chrome, runs low-reasoning
 tasks, applies plans to actual DOM pages, captures before/after screenshots, and
 writes `reports/browser-baseline.html` plus `reports/browser-baseline.json`. The

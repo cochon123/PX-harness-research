@@ -1,0 +1,3633 @@
+{
+  "generatedAt": "2026-05-27T06:00:43.333Z",
+  "model": "deepseek/deepseek-v4-flash",
+  "config": {
+    "mode": "browser",
+    "reasoningMode": "low",
+    "contextMode": "page-dom",
+    "executionMode": "extension-content-script",
+    "runCount": 1,
+    "taskCount": 10,
+    "allTaskCount": 19,
+    "executedTaskCount": 10,
+    "skippedTaskCount": 0,
+    "skippedTasks": [],
+    "skipPassRate": null,
+    "skipSource": "reports/browser-baseline.json",
+    "taskFilter": [],
+    "tagFilter": [
+      "semantic"
+    ],
+    "extensionPath": "/home/cochon/Documents/Perso-XXL"
+  },
+  "summary": {
+    "noThinkingRuns": 0,
+    "noThinkingAverage": 0,
+    "lowThinkingScore": 1,
+    "minScore": 1,
+    "maxScore": 1,
+    "variance": 0
+  },
+  "domfsFacts": null,
+  "recommendations": [],
+  "runs": [
+    {
+      "label": "browser-low-thinking-1",
+      "reasoningMode": "low",
+      "averageScore": 1,
+      "passedTasks": 10,
+      "totalTasks": 10,
+      "averageDurationMs": 18946.5
+    }
+  ],
+  "taskAverages": [
+    {
+      "id": "medium-dashboard-hide-warning",
+      "tier": "medium",
+      "what": "Semantic request to hide a warning card without a pasted element.",
+      "tags": [
+        "semantic",
+        "visibility"
+      ],
+      "skipped": false,
+      "noThinkingAverage": null,
+      "lowThinkingScore": 1,
+      "minScore": 1,
+      "maxScore": 1,
+      "variance": 0,
+      "passRate": 1,
+      "runCount": 1,
+      "commonFailureReasons": [
+        "generic selectors: .warning-card (1x)"
+      ],
+      "observation": "browser target is hidden browser forbidden nodes remain visible Persistence: browser target is hidden browser forbidden nodes remain visible"
+    },
+    {
+      "id": "medium-docs-remove-recent",
+      "tier": "medium",
+      "what": "Semantic request to remove a docs section identified by visible meaning.",
+      "tags": [
+        "semantic",
+        "visibility"
+      ],
+      "skipped": false,
+      "noThinkingAverage": null,
+      "lowThinkingScore": 1,
+      "minScore": 1,
+      "maxScore": 1,
+      "variance": 0,
+      "passRate": 1,
+      "runCount": 1,
+      "commonFailureReasons": [
+        "generic selectors: section.docs-recent-list (1x)"
+      ],
+      "observation": "browser target is hidden browser forbidden nodes remain visible Persistence: browser target is hidden browser forbidden nodes remain visible"
+    },
+    {
+      "id": "medium-docs-remove-gallery",
+      "tier": "medium",
+      "what": "Semantic request on a Google-Docs-like DOM where the useful label is text/ARIA, not a clean class.",
+      "tags": [
+        "semantic",
+        "visibility"
+      ],
+      "skipped": false,
+      "noThinkingAverage": null,
+      "lowThinkingScore": 1,
+      "minScore": 1,
+      "maxScore": 1,
+      "variance": 0,
+      "passRate": 1,
+      "runCount": 1,
+      "commonFailureReasons": [
+        "generic selectors: section.docs-template-gallery (1x)"
+      ],
+      "observation": "browser target is hidden browser forbidden nodes remain visible Persistence: browser target is hidden browser forbidden nodes remain visible"
+    },
+    {
+      "id": "medium-youtube-hide-creator-typo",
+      "tier": "medium",
+      "what": "Creator filtering with a typo in the requested channel name.",
+      "tags": [
+        "semantic",
+        "typo",
+        "youtube-focused",
+        "visibility"
+      ],
+      "skipped": false,
+      "noThinkingAverage": null,
+      "lowThinkingScore": 1,
+      "minScore": 1,
+      "maxScore": 1,
+      "variance": 0,
+      "passRate": 1,
+      "runCount": 1,
+      "commonFailureReasons": [],
+      "observation": "browser target is hidden browser forbidden nodes remain visible Persistence: browser target is hidden browser forbidden nodes remain visible"
+    },
+    {
+      "id": "medium-youtube-hide-rocket-title",
+      "tier": "medium",
+      "what": "Hide a video by title keyword while keeping unrelated videos visible.",
+      "tags": [
+        "semantic",
+        "text-match",
+        "youtube-focused",
+        "visibility"
+      ],
+      "skipped": false,
+      "noThinkingAverage": null,
+      "lowThinkingScore": 1,
+      "minScore": 1,
+      "maxScore": 1,
+      "variance": 0,
+      "passRate": 1,
+      "runCount": 1,
+      "commonFailureReasons": [],
+      "observation": "browser target is hidden browser forbidden nodes remain visible Persistence: browser target is hidden browser forbidden nodes remain visible"
+    },
+    {
+      "id": "medium-youtube-hide-sponsored",
+      "tier": "medium",
+      "what": "Hide sponsored content by semantic label/data attribute without hiding organic videos.",
+      "tags": [
+        "semantic",
+        "ads",
+        "youtube-focused",
+        "visibility"
+      ],
+      "skipped": false,
+      "noThinkingAverage": null,
+      "lowThinkingScore": 1,
+      "minScore": 1,
+      "maxScore": 1,
+      "variance": 0,
+      "passRate": 1,
+      "runCount": 1,
+      "commonFailureReasons": [],
+      "observation": "browser target is hidden browser forbidden nodes remain visible Persistence: browser target is hidden browser forbidden nodes remain visible"
+    },
+    {
+      "id": "medium-youtube-hide-creator-exact",
+      "tier": "medium",
+      "what": "Control task for creator filtering with the exact channel name.",
+      "tags": [
+        "semantic",
+        "youtube-focused",
+        "visibility"
+      ],
+      "skipped": false,
+      "noThinkingAverage": null,
+      "lowThinkingScore": 1,
+      "minScore": 1,
+      "maxScore": 1,
+      "variance": 0,
+      "passRate": 1,
+      "runCount": 1,
+      "commonFailureReasons": [],
+      "observation": "browser target is hidden browser forbidden nodes remain visible Persistence: browser target is hidden browser forbidden nodes remain visible"
+    },
+    {
+      "id": "medium-youtube-hide-creator-partial",
+      "tier": "medium",
+      "what": "Creator filtering from a partial channel name.",
+      "tags": [
+        "semantic",
+        "youtube-focused",
+        "visibility"
+      ],
+      "skipped": false,
+      "noThinkingAverage": null,
+      "lowThinkingScore": 1,
+      "minScore": 1,
+      "maxScore": 1,
+      "variance": 0,
+      "passRate": 1,
+      "runCount": 1,
+      "commonFailureReasons": [],
+      "observation": "browser target is hidden browser forbidden nodes remain visible Persistence: browser target is hidden browser forbidden nodes remain visible"
+    },
+    {
+      "id": "medium-youtube-hide-title-typo",
+      "tier": "medium",
+      "what": "Hide a video by a misspelled title keyword.",
+      "tags": [
+        "semantic",
+        "typo",
+        "youtube-focused",
+        "visibility"
+      ],
+      "skipped": false,
+      "noThinkingAverage": null,
+      "lowThinkingScore": 1,
+      "minScore": 1,
+      "maxScore": 1,
+      "variance": 0,
+      "passRate": 1,
+      "runCount": 1,
+      "commonFailureReasons": [],
+      "observation": "browser target is hidden browser forbidden nodes remain visible Persistence: browser target is hidden browser forbidden nodes remain visible"
+    },
+    {
+      "id": "medium-youtube-hide-ad-synonym",
+      "tier": "medium",
+      "what": "Hide sponsored content using an ad synonym instead of the visible badge text.",
+      "tags": [
+        "semantic",
+        "ads",
+        "youtube-focused",
+        "visibility"
+      ],
+      "skipped": false,
+      "noThinkingAverage": null,
+      "lowThinkingScore": 1,
+      "minScore": 1,
+      "maxScore": 1,
+      "variance": 0,
+      "passRate": 1,
+      "runCount": 1,
+      "commonFailureReasons": [
+        "generic selectors: .sponsored-card (1x)"
+      ],
+      "observation": "browser target is hidden browser forbidden nodes remain visible Persistence: browser target is hidden browser forbidden nodes remain visible"
+    }
+  ],
+  "observations": [
+    "Browser low-reasoning baseline averaged 100% across 1 run(s).",
+    "Run score range: 100% to 100%; variance 0.0000.",
+    "This run exercises Perso XXL content scripts, DOM context extraction, validation, and executor in a real browser on fixture pages.",
+    "medium-dashboard-hide-warning averaged 100% with 100% pass rate. generic selectors: .warning-card (1x)",
+    "medium-docs-remove-recent averaged 100% with 100% pass rate. generic selectors: section.docs-recent-list (1x)",
+    "medium-docs-remove-gallery averaged 100% with 100% pass rate. generic selectors: section.docs-template-gallery (1x)"
+  ],
+  "raw": [
+    {
+      "label": "browser-low-thinking-1",
+      "reasoningMode": "low",
+      "executionMode": "extension-content-script",
+      "averageScore": 1,
+      "passedTasks": 10,
+      "totalTasks": 10,
+      "averageDurationMs": 18946.5,
+      "tasks": [
+        {
+          "taskId": "medium-dashboard-hide-warning",
+          "tier": "medium",
+          "score": 1,
+          "passed": true,
+          "durationMs": 5736,
+          "grade": {
+            "score": 1,
+            "passed": true,
+            "planGrade": {
+              "score": 1,
+              "passed": true,
+              "validation": {
+                "ok": true,
+                "errors": []
+              },
+              "expectation": {
+                "score": 1,
+                "notes": [
+                  "matched intended target",
+                  "used a hide operation"
+                ],
+                "targetHit": true,
+                "forbiddenHit": false
+              },
+              "targetMatches": {
+                "sync_warning": {
+                  "selectors": [
+                    ".warning-card",
+                    "article[aria-label='Sync warning']"
+                  ],
+                  "usedFallback": false,
+                  "uids": [
+                    "warning-card"
+                  ],
+                  "sampleText": [
+                    "Warning Sync failures detected in the billing pipeline"
+                  ]
+                }
+              }
+            },
+            "actual": {
+              "score": 1,
+              "notes": [
+                "browser target is hidden",
+                "browser forbidden nodes remain visible"
+              ],
+              "targetHit": true,
+              "forbiddenHit": false,
+              "details": {
+                "targetVisibility": [
+                  {
+                    "uid": "warning-card",
+                    "exists": true,
+                    "hidden": true
+                  },
+                  {
+                    "uid": "warning-copy",
+                    "exists": true,
+                    "hidden": true
+                  }
+                ],
+                "forbiddenVisibility": [
+                  {
+                    "uid": "promo-banner",
+                    "exists": true,
+                    "hidden": false
+                  },
+                  {
+                    "uid": "revenue-card",
+                    "exists": true,
+                    "hidden": false
+                  },
+                  {
+                    "uid": "churn-card",
+                    "exists": true,
+                    "hidden": false
+                  },
+                  {
+                    "uid": "latency-card",
+                    "exists": true,
+                    "hidden": false
+                  }
+                ],
+                "changedForbiddenUids": []
+              }
+            }
+          },
+          "persistence": {
+            "score": 1,
+            "notes": [
+              "browser target is hidden",
+              "browser forbidden nodes remain visible"
+            ],
+            "targetHit": true,
+            "forbiddenHit": false,
+            "details": {
+              "targetVisibility": [
+                {
+                  "uid": "warning-card",
+                  "exists": true,
+                  "hidden": true
+                },
+                {
+                  "uid": "warning-copy",
+                  "exists": true,
+                  "hidden": true
+                }
+              ],
+              "forbiddenVisibility": [
+                {
+                  "uid": "promo-banner",
+                  "exists": true,
+                  "hidden": false
+                },
+                {
+                  "uid": "revenue-card",
+                  "exists": true,
+                  "hidden": false
+                },
+                {
+                  "uid": "churn-card",
+                  "exists": true,
+                  "hidden": false
+                },
+                {
+                  "uid": "latency-card",
+                  "exists": true,
+                  "hidden": false
+                }
+              ],
+              "changedForbiddenUids": []
+            }
+          },
+          "diagnostics": {
+            "targetMatches": {
+              "sync_warning": {
+                "selectors": [
+                  ".warning-card",
+                  "article[aria-label='Sync warning']"
+                ],
+                "usedFallback": false,
+                "uids": [
+                  "warning-card"
+                ],
+                "sampleText": [
+                  "Warning Sync failures detected in the billing pipeline"
+                ]
+              }
+            },
+            "broadSelectors": [],
+            "forbiddenChanged": [],
+            "semanticCandidates": null,
+            "domNavigation": null,
+            "phase": "ok-or-low-risk",
+            "usedSelectionHints": false,
+            "genericSelectors": [
+              ".warning-card"
+            ],
+            "failureReasons": [
+              "browser target is hidden",
+              "browser forbidden nodes remain visible",
+              "persistence: browser target is hidden",
+              "persistence: browser forbidden nodes remain visible",
+              "generic selectors: .warning-card"
+            ],
+            "taskKind": "visibility"
+          },
+          "plan": {
+            "version": "2.0",
+            "site": {
+              "hostname": "127.0.0.1",
+              "pathname": "/dashboard",
+              "urlPattern": "127.0.0.1/dashboard"
+            },
+            "sourcePrompt": "Hide the warning about sync failures.",
+            "selections": [],
+            "targetMap": {
+              "sync_warning": {
+                "source": "inferred",
+                "selectors": [
+                  ".warning-card",
+                  "article[aria-label='Sync warning']"
+                ],
+                "fallbackSelectors": [
+                  "article[aria-label='Sync warning']"
+                ]
+              }
+            },
+            "rules": [
+              {
+                "id": "hide-sync-warning",
+                "type": "visibility",
+                "targetRef": "sync_warning",
+                "action": "hide"
+              }
+            ]
+          },
+          "validation": {
+            "ok": true,
+            "errors": []
+          },
+          "applyResult": {
+            "totalMatched": 1,
+            "cssRuleCount": 0,
+            "targetCssRuleCount": 0
+          },
+          "selectionCount": 0,
+          "pageNodeCount": 19,
+          "domNavigation": null,
+          "beforeScreenshotPath": "reports/browser-screenshots/run-1-medium-dashboard-hide-warning-before.png",
+          "screenshotPath": "reports/browser-screenshots/run-1-medium-dashboard-hide-warning-after.png",
+          "consoleMessages": [
+            {
+              "type": "log",
+              "text": "[Perso XXL] content.loaded {version: 0.6.0-landing-ai-input, hasSavedPlan: false}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] panel.created {}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] storage.loaded {key: sitePlan:127.0.0.1:/dashboard, hasSavedPlan: false}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] panel.state.loaded {hasProfileNotes: false, hasSavedPlan: false, key: sitePlan:127.0.0.1:/dashboard}"
+            },
+            {
+              "type": "error",
+              "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.revert.started {}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.revert.finished {restoredCount: 0}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] openrouter.request.started {taskName: plan-generation, model: deepseek/deepseek-v4-flash, messageCount: 2, reasoning: Object}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] openrouter.response.received {ok: true, status: 200, durationMs: 4258, hasChoices: true, hasReasoning: false}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] openrouter.content.received {contentLength: 548, preview: {\n  \"version\": \"2.0\",\n  \"site\": {\n    \"hostname\": …      \"type\": \"visibility\",\n      \"targetRef\": \"s}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] plan.validation.started {site: Object, ruleCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] plan.validation.finished {ok: true, errors: Array(0)}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.rule.visibility {ruleId: hide-sync-warning, targetRef: sync_warning, action: hide, matchCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 0, totalMatched: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.rule.visibility {ruleId: hide-sync-warning, targetRef: sync_warning, action: hide, matchCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 0, totalMatched: 1}"
+            }
+          ]
+        },
+        {
+          "taskId": "medium-docs-remove-recent",
+          "tier": "medium",
+          "score": 1,
+          "passed": true,
+          "durationMs": 12890,
+          "grade": {
+            "score": 1,
+            "passed": true,
+            "planGrade": {
+              "score": 1,
+              "passed": true,
+              "validation": {
+                "ok": true,
+                "errors": []
+              },
+              "expectation": {
+                "score": 1,
+                "notes": [
+                  "matched intended target",
+                  "used a hide operation"
+                ],
+                "targetHit": true,
+                "forbiddenHit": false
+              },
+              "targetMatches": {
+                "recent_documents_section": {
+                  "selectors": [
+                    "section.docs-recent-list"
+                  ],
+                  "usedFallback": false,
+                  "uids": [
+                    "recent-docs-list"
+                  ],
+                  "sampleText": [
+                    "Recent documents Quarterly plan Team notes"
+                  ]
+                }
+              }
+            },
+            "actual": {
+              "score": 1,
+              "notes": [
+                "browser target is hidden",
+                "browser forbidden nodes remain visible"
+              ],
+              "targetHit": true,
+              "forbiddenHit": false,
+              "details": {
+                "targetVisibility": [
+                  {
+                    "uid": "recent-docs-list",
+                    "exists": true,
+                    "hidden": true
+                  }
+                ],
+                "forbiddenVisibility": [
+                  {
+                    "uid": "blank-document-button",
+                    "exists": true,
+                    "hidden": false
+                  },
+                  {
+                    "uid": "template-gallery",
+                    "exists": true,
+                    "hidden": false
+                  }
+                ],
+                "changedForbiddenUids": []
+              }
+            }
+          },
+          "persistence": {
+            "score": 1,
+            "notes": [
+              "browser target is hidden",
+              "browser forbidden nodes remain visible"
+            ],
+            "targetHit": true,
+            "forbiddenHit": false,
+            "details": {
+              "targetVisibility": [
+                {
+                  "uid": "recent-docs-list",
+                  "exists": true,
+                  "hidden": true
+                }
+              ],
+              "forbiddenVisibility": [
+                {
+                  "uid": "blank-document-button",
+                  "exists": true,
+                  "hidden": false
+                },
+                {
+                  "uid": "template-gallery",
+                  "exists": true,
+                  "hidden": false
+                }
+              ],
+              "changedForbiddenUids": []
+            }
+          },
+          "diagnostics": {
+            "targetMatches": {
+              "recent_documents_section": {
+                "selectors": [
+                  "section.docs-recent-list"
+                ],
+                "usedFallback": false,
+                "uids": [
+                  "recent-docs-list"
+                ],
+                "sampleText": [
+                  "Recent documents Quarterly plan Team notes"
+                ]
+              }
+            },
+            "broadSelectors": [],
+            "forbiddenChanged": [],
+            "semanticCandidates": null,
+            "domNavigation": null,
+            "phase": "ok-or-low-risk",
+            "usedSelectionHints": false,
+            "genericSelectors": [
+              "section.docs-recent-list"
+            ],
+            "failureReasons": [
+              "browser target is hidden",
+              "browser forbidden nodes remain visible",
+              "persistence: browser target is hidden",
+              "persistence: browser forbidden nodes remain visible",
+              "generic selectors: section.docs-recent-list"
+            ],
+            "taskKind": "visibility"
+          },
+          "plan": {
+            "version": "2.0",
+            "site": {
+              "hostname": "127.0.0.1",
+              "pathname": "/docs",
+              "urlPattern": "127.0.0.1/docs"
+            },
+            "sourcePrompt": "Remove the recent documents section. I only want the new document controls.",
+            "selections": [],
+            "targetMap": {
+              "recent_documents_section": {
+                "source": "inferred",
+                "selectors": [
+                  "section.docs-recent-list"
+                ],
+                "fallbackSelectors": []
+              }
+            },
+            "rules": [
+              {
+                "id": "hide-recent-documents",
+                "type": "style",
+                "targetRef": "recent_documents_section",
+                "styles": {
+                  "display": "none"
+                }
+              }
+            ]
+          },
+          "validation": {
+            "ok": true,
+            "errors": []
+          },
+          "applyResult": {
+            "totalMatched": 1,
+            "cssRuleCount": 0,
+            "targetCssRuleCount": 1
+          },
+          "selectionCount": 0,
+          "pageNodeCount": 8,
+          "domNavigation": null,
+          "beforeScreenshotPath": "reports/browser-screenshots/run-1-medium-docs-remove-recent-before.png",
+          "screenshotPath": "reports/browser-screenshots/run-1-medium-docs-remove-recent-after.png",
+          "consoleMessages": [
+            {
+              "type": "log",
+              "text": "[Perso XXL] content.loaded {version: 0.6.0-landing-ai-input, hasSavedPlan: false}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] panel.created {}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] storage.loaded {key: sitePlan:127.0.0.1:/docs, hasSavedPlan: false}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] panel.state.loaded {hasProfileNotes: false, hasSavedPlan: false, key: sitePlan:127.0.0.1:/docs}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.revert.started {}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.revert.finished {restoredCount: 0}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] openrouter.request.started {taskName: plan-generation, model: deepseek/deepseek-v4-flash, messageCount: 2, reasoning: Object}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] openrouter.response.received {ok: true, status: 200, durationMs: 11448, hasChoices: true, hasReasoning: false}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] openrouter.content.received {contentLength: 572, preview: {\n  \"version\": \"2.0\",\n  \"site\": {\n    \"hostname\": …: \"style\",\n      \"targetRef\": \"recent_documents_s}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] plan.validation.started {site: Object, ruleCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] plan.validation.finished {ok: true, errors: Array(0)}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.target_ref.css.generated {ruleId: hide-recent-documents, targetRef: recent_documents_section, selectorCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.rule.style {ruleId: hide-recent-documents, targetRef: recent_documents_section, matchCount: 1, matched: Array(1)}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 1, totalMatched: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.target_ref.css.generated {ruleId: hide-recent-documents, targetRef: recent_documents_section, selectorCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.rule.style {ruleId: hide-recent-documents, targetRef: recent_documents_section, matchCount: 1, matched: Array(1)}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 1, totalMatched: 1}"
+            }
+          ]
+        },
+        {
+          "taskId": "medium-docs-remove-gallery",
+          "tier": "medium",
+          "score": 1,
+          "passed": true,
+          "durationMs": 7677,
+          "grade": {
+            "score": 1,
+            "passed": true,
+            "planGrade": {
+              "score": 1,
+              "passed": true,
+              "validation": {
+                "ok": true,
+                "errors": []
+              },
+              "expectation": {
+                "score": 1,
+                "notes": [
+                  "matched intended target",
+                  "used a hide operation"
+                ],
+                "targetHit": true,
+                "forbiddenHit": false
+              },
+              "targetMatches": {
+                "template_gallery": {
+                  "selectors": [
+                    "section.docs-template-gallery"
+                  ],
+                  "usedFallback": false,
+                  "uids": [
+                    "template-gallery"
+                  ],
+                  "sampleText": [
+                    "Template gallery Blank Resume Project proposal"
+                  ]
+                }
+              }
+            },
+            "actual": {
+              "score": 1,
+              "notes": [
+                "browser target is hidden",
+                "browser forbidden nodes remain visible"
+              ],
+              "targetHit": true,
+              "forbiddenHit": false,
+              "details": {
+                "targetVisibility": [
+                  {
+                    "uid": "template-gallery",
+                    "exists": true,
+                    "hidden": true
+                  },
+                  {
+                    "uid": "template-gallery-list",
+                    "exists": true,
+                    "hidden": true
+                  }
+                ],
+                "forbiddenVisibility": [
+                  {
+                    "uid": "blank-document-button",
+                    "exists": true,
+                    "hidden": false
+                  },
+                  {
+                    "uid": "recent-docs-list",
+                    "exists": true,
+                    "hidden": false
+                  }
+                ],
+                "changedForbiddenUids": []
+              }
+            }
+          },
+          "persistence": {
+            "score": 1,
+            "notes": [
+              "browser target is hidden",
+              "browser forbidden nodes remain visible"
+            ],
+            "targetHit": true,
+            "forbiddenHit": false,
+            "details": {
+              "targetVisibility": [
+                {
+                  "uid": "template-gallery",
+                  "exists": true,
+                  "hidden": true
+                },
+                {
+                  "uid": "template-gallery-list",
+                  "exists": true,
+                  "hidden": true
+                }
+              ],
+              "forbiddenVisibility": [
+                {
+                  "uid": "blank-document-button",
+                  "exists": true,
+                  "hidden": false
+                },
+                {
+                  "uid": "recent-docs-list",
+                  "exists": true,
+                  "hidden": false
+                }
+              ],
+              "changedForbiddenUids": []
+            }
+          },
+          "diagnostics": {
+            "targetMatches": {
+              "template_gallery": {
+                "selectors": [
+                  "section.docs-template-gallery"
+                ],
+                "usedFallback": false,
+                "uids": [
+                  "template-gallery"
+                ],
+                "sampleText": [
+                  "Template gallery Blank Resume Project proposal"
+                ]
+              }
+            },
+            "broadSelectors": [],
+            "forbiddenChanged": [],
+            "semanticCandidates": null,
+            "domNavigation": null,
+            "phase": "ok-or-low-risk",
+            "usedSelectionHints": false,
+            "genericSelectors": [
+              "section.docs-template-gallery"
+            ],
+            "failureReasons": [
+              "browser target is hidden",
+              "browser forbidden nodes remain visible",
+              "persistence: browser target is hidden",
+              "persistence: browser forbidden nodes remain visible",
+              "generic selectors: section.docs-template-gallery"
+            ],
+            "taskKind": "visibility"
+          },
+          "plan": {
+            "version": "2.0",
+            "site": {
+              "hostname": "127.0.0.1",
+              "pathname": "/docs",
+              "urlPattern": "127.0.0.1/docs*"
+            },
+            "sourcePrompt": "Remove the model gallery, I never use it, I am always starting from a new document.",
+            "selections": [],
+            "targetMap": {
+              "template_gallery": {
+                "source": "inferred",
+                "selectors": [
+                  "section.docs-template-gallery"
+                ],
+                "fallbackSelectors": []
+              }
+            },
+            "rules": [
+              {
+                "id": "hide-template-gallery",
+                "type": "style",
+                "targetRef": "template_gallery",
+                "styles": {
+                  "display": "none"
+                }
+              }
+            ]
+          },
+          "validation": {
+            "ok": true,
+            "errors": []
+          },
+          "applyResult": {
+            "totalMatched": 1,
+            "cssRuleCount": 0,
+            "targetCssRuleCount": 1
+          },
+          "selectionCount": 0,
+          "pageNodeCount": 8,
+          "domNavigation": null,
+          "beforeScreenshotPath": "reports/browser-screenshots/run-1-medium-docs-remove-gallery-before.png",
+          "screenshotPath": "reports/browser-screenshots/run-1-medium-docs-remove-gallery-after.png",
+          "consoleMessages": [
+            {
+              "type": "log",
+              "text": "[Perso XXL] content.loaded {version: 0.6.0-landing-ai-input, hasSavedPlan: false}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] panel.created {}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] storage.loaded {key: sitePlan:127.0.0.1:/docs, hasSavedPlan: false}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] panel.state.loaded {hasProfileNotes: false, hasSavedPlan: false, key: sitePlan:127.0.0.1:/docs}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.revert.started {}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.revert.finished {restoredCount: 0}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] openrouter.request.started {taskName: plan-generation, model: deepseek/deepseek-v4-flash, messageCount: 2, reasoning: Object}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] openrouter.response.received {ok: true, status: 200, durationMs: 6254, hasChoices: true, hasReasoning: false}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] openrouter.content.received {contentLength: 570, preview: {\n  \"version\": \"2.0\",\n  \"site\": {\n    \"hostname\": …\"type\": \"style\",\n      \"targetRef\": \"template_gal}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] plan.validation.started {site: Object, ruleCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] plan.validation.finished {ok: true, errors: Array(0)}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.target_ref.css.generated {ruleId: hide-template-gallery, targetRef: template_gallery, selectorCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.rule.style {ruleId: hide-template-gallery, targetRef: template_gallery, matchCount: 1, matched: Array(1)}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 1, totalMatched: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.target_ref.css.generated {ruleId: hide-template-gallery, targetRef: template_gallery, selectorCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.rule.style {ruleId: hide-template-gallery, targetRef: template_gallery, matchCount: 1, matched: Array(1)}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 1, totalMatched: 1}"
+            }
+          ]
+        },
+        {
+          "taskId": "medium-youtube-hide-creator-typo",
+          "tier": "medium",
+          "score": 1,
+          "passed": true,
+          "durationMs": 16812,
+          "grade": {
+            "score": 1,
+            "passed": true,
+            "planGrade": {
+              "score": 1,
+              "passed": true,
+              "validation": {
+                "ok": true,
+                "errors": []
+              },
+              "expectation": {
+                "score": 1,
+                "notes": [
+                  "matched intended target",
+                  "used a hide operation"
+                ],
+                "targetHit": true,
+                "forbiddenHit": false
+              },
+              "targetMatches": {
+                "mark_rober_video": {
+                  "selectors": [
+                    "[data-uid=\"video-mark-rober-card\"]"
+                  ],
+                  "usedFallback": false,
+                  "uids": [
+                    "video-mark-rober-card"
+                  ],
+                  "sampleText": [
+                    "World's Smallest Nerf Gun Mark Rober"
+                  ]
+                }
+              }
+            },
+            "actual": {
+              "score": 1,
+              "notes": [
+                "browser target is hidden",
+                "browser forbidden nodes remain visible"
+              ],
+              "targetHit": true,
+              "forbiddenHit": false,
+              "details": {
+                "targetVisibility": [
+                  {
+                    "uid": "video-mark-rober-card",
+                    "exists": true,
+                    "hidden": true
+                  },
+                  {
+                    "uid": "video-mark-rober-link",
+                    "exists": true,
+                    "hidden": true
+                  },
+                  {
+                    "uid": "video-mark-rober-channel",
+                    "exists": true,
+                    "hidden": true
+                  }
+                ],
+                "forbiddenVisibility": [
+                  {
+                    "uid": "video-cooking-card",
+                    "exists": true,
+                    "hidden": false
+                  },
+                  {
+                    "uid": "video-rocket-card",
+                    "exists": true,
+                    "hidden": false
+                  },
+                  {
+                    "uid": "video-mkbhd-card",
+                    "exists": true,
+                    "hidden": false
+                  }
+                ],
+                "changedForbiddenUids": []
+              }
+            }
+          },
+          "persistence": {
+            "score": 1,
+            "notes": [
+              "browser target is hidden",
+              "browser forbidden nodes remain visible"
+            ],
+            "targetHit": true,
+            "forbiddenHit": false,
+            "details": {
+              "targetVisibility": [
+                {
+                  "uid": "video-mark-rober-card",
+                  "exists": true,
+                  "hidden": true
+                },
+                {
+                  "uid": "video-mark-rober-link",
+                  "exists": true,
+                  "hidden": true
+                },
+                {
+                  "uid": "video-mark-rober-channel",
+                  "exists": true,
+                  "hidden": true
+                }
+              ],
+              "forbiddenVisibility": [
+                {
+                  "uid": "video-cooking-card",
+                  "exists": true,
+                  "hidden": false
+                },
+                {
+                  "uid": "video-rocket-card",
+                  "exists": true,
+                  "hidden": false
+                },
+                {
+                  "uid": "video-mkbhd-card",
+                  "exists": true,
+                  "hidden": false
+                }
+              ],
+              "changedForbiddenUids": []
+            }
+          },
+          "diagnostics": {
+            "targetMatches": {
+              "mark_rober_video": {
+                "selectors": [
+                  "[data-uid=\"video-mark-rober-card\"]"
+                ],
+                "usedFallback": false,
+                "uids": [
+                  "video-mark-rober-card"
+                ],
+                "sampleText": [
+                  "World's Smallest Nerf Gun Mark Rober"
+                ]
+              }
+            },
+            "broadSelectors": [],
+            "forbiddenChanged": [],
+            "semanticCandidates": {
+              "query": "Mark Ruber",
+              "expected": "Mark Rober",
+              "candidateKind": "youtube-channel",
+              "expectedCandidateVisibleInContext": true,
+              "expectedCandidateSelectedByPlan": true,
+              "bestCandidate": {
+                "uid": "video-first-channel",
+                "tag": "a",
+                "text": "Nature Lab",
+                "ariaLabel": "",
+                "dataChannel": "",
+                "scoreToQuery": 0.217,
+                "scoreToExpected": 0.217,
+                "isExpected": false,
+                "selectedByPlan": false
+              },
+              "candidates": [
+                {
+                  "uid": "video-first-channel",
+                  "tag": "a",
+                  "text": "Nature Lab",
+                  "ariaLabel": "",
+                  "dataChannel": "",
+                  "scoreToQuery": 0.217,
+                  "scoreToExpected": 0.217,
+                  "isExpected": false,
+                  "selectedByPlan": false
+                },
+                {
+                  "uid": "video-mark-rober-channel",
+                  "tag": "a",
+                  "text": "Mark Rober",
+                  "ariaLabel": "Mark Rober channel",
+                  "dataChannel": "",
+                  "scoreToQuery": 0.214,
+                  "scoreToExpected": 1,
+                  "isExpected": true,
+                  "selectedByPlan": false
+                },
+                {
+                  "uid": "video-mkbhd-channel",
+                  "tag": "a",
+                  "text": "Marques Brownlee",
+                  "ariaLabel": "",
+                  "dataChannel": "",
+                  "scoreToQuery": 0.207,
+                  "scoreToExpected": 0.241,
+                  "isExpected": false,
+                  "selectedByPlan": false
+                },
+                {
+                  "uid": "video-rocket-channel",
+                  "tag": "a",
+                  "text": "Everyday Astronaut",
+                  "ariaLabel": "",
+                  "dataChannel": "",
+                  "scoreToQuery": 0.161,
+                  "scoreToExpected": 0.161,
+                  "isExpected": false,
+                  "selectedByPlan": false
+                },
+                {
+                  "uid": "video-sponsored-channel",
+                  "tag": "a",
+                  "text": "CloudDesk",
+                  "ariaLabel": "",
+                  "dataChannel": "",
+                  "scoreToQuery": 0.136,
+                  "scoreToExpected": 0.136,
+                  "isExpected": false,
+                  "selectedByPlan": false
+                },
+                {
+                  "uid": "video-cooking-channel",
+                  "tag": "a",
+                  "text": "Kitchen Daily",
+                  "ariaLabel": "",
+                  "dataChannel": "",
+                  "scoreToQuery": 0.115,
+                  "scoreToExpected": 0.115,
+                  "isExpected": false,
+                  "selectedByPlan": false
+                },
+                {
+                  "uid": "video-mkbhd-card",
+                  "tag": "article",
+                  "text": "Phone awards Marques Brownlee",
+                  "ariaLabel": "",
+                  "dataChannel": "Marques Brownlee",
+                  "scoreToQuery": 0.113,
+                  "scoreToExpected": 0.113,
+                  "isExpected": false,
+                  "selectedByPlan": false
+                },
+                {
+                  "uid": "video-mark-rober-card",
+                  "tag": "article",
+                  "text": "World's Smallest Nerf Gun Mark Rober",
+                  "ariaLabel": "",
+                  "dataChannel": "Mark Rober",
+                  "scoreToQuery": 0.111,
+                  "scoreToExpected": 1,
+                  "isExpected": true,
+                  "selectedByPlan": true
+                }
+              ]
+            },
+            "domNavigation": null,
+            "phase": "ok-or-low-risk",
+            "usedSelectionHints": false,
+            "genericSelectors": [],
+            "failureReasons": [
+              "browser target is hidden",
+              "browser forbidden nodes remain visible",
+              "persistence: browser target is hidden",
+              "persistence: browser forbidden nodes remain visible"
+            ],
+            "taskKind": "visibility"
+          },
+          "plan": {
+            "version": "2.0",
+            "site": {
+              "hostname": "127.0.0.1",
+              "pathname": "/youtube",
+              "urlPattern": "127.0.0.1/youtube*"
+            },
+            "sourcePrompt": "I don't want to see the video of Mark Ruber in my feed.",
+            "selections": [],
+            "targetMap": {
+              "mark_rober_video": {
+                "source": "inferred",
+                "selectors": [
+                  "[data-uid=\"video-mark-rober-card\"]"
+                ],
+                "fallbackSelectors": [
+                  "article.video-card a[ariaLabel='Mark Rober channel']"
+                ],
+                "repairReason": "semantic-broad-selector"
+              }
+            },
+            "rules": [
+              {
+                "id": "hide-mark-rober-video",
+                "type": "visibility",
+                "targetRef": "mark_rober_video",
+                "action": "hide",
+                "reason": "User wants to hide the video from Mark Rober (referred to as 'Mark Ruber') in their feed."
+              }
+            ]
+          },
+          "validation": {
+            "ok": true,
+            "errors": []
+          },
+          "applyResult": {
+            "totalMatched": 1,
+            "cssRuleCount": 0,
+            "targetCssRuleCount": 0
+          },
+          "selectionCount": 0,
+          "pageNodeCount": 19,
+          "domNavigation": null,
+          "beforeScreenshotPath": "reports/browser-screenshots/run-1-medium-youtube-hide-creator-typo-before.png",
+          "screenshotPath": "reports/browser-screenshots/run-1-medium-youtube-hide-creator-typo-after.png",
+          "consoleMessages": [
+            {
+              "type": "log",
+              "text": "[Perso XXL] content.loaded {version: 0.6.0-landing-ai-input, hasSavedPlan: false}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] panel.created {}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] storage.loaded {key: sitePlan:127.0.0.1:/youtube, hasSavedPlan: false}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] panel.state.loaded {hasProfileNotes: false, hasSavedPlan: false, key: sitePlan:127.0.0.1:/youtube}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.revert.started {}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.revert.finished {restoredCount: 0}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] openrouter.request.started {taskName: plan-generation, model: deepseek/deepseek-v4-flash, messageCount: 2, reasoning: Object}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] openrouter.response.received {ok: true, status: 200, durationMs: 15327, hasChoices: true, hasReasoning: false}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] openrouter.content.received {contentLength: 746, preview: {\n  \"version\": \"2.0\",\n  \"site\": {\n    \"hostname\": …ober channel'])\"]\n    }\n  },\n  \"rules\": [\n    {\n }"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] plan.validation.started {site: Object, ruleCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] plan.validation.finished {ok: true, errors: Array(0)}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.rule.visibility {ruleId: hide-mark-rober-video, targetRef: mark_rober_video, action: hide, matchCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 0, totalMatched: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.rule.visibility {ruleId: hide-mark-rober-video, targetRef: mark_rober_video, action: hide, matchCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 0, totalMatched: 1}"
+            }
+          ]
+        },
+        {
+          "taskId": "medium-youtube-hide-rocket-title",
+          "tier": "medium",
+          "score": 1,
+          "passed": true,
+          "durationMs": 52326,
+          "grade": {
+            "score": 1,
+            "passed": true,
+            "planGrade": {
+              "score": 1,
+              "passed": true,
+              "validation": {
+                "ok": true,
+                "errors": []
+              },
+              "expectation": {
+                "score": 1,
+                "notes": [
+                  "matched intended target",
+                  "used a hide operation"
+                ],
+                "targetHit": true,
+                "forbiddenHit": false
+              },
+              "targetMatches": {
+                "rocket_video_card": {
+                  "selectors": [
+                    "[data-uid=\"video-rocket-card\"]"
+                  ],
+                  "usedFallback": false,
+                  "uids": [
+                    "video-rocket-card"
+                  ],
+                  "sampleText": [
+                    "Engineering a rocket Everyday Astronaut"
+                  ]
+                }
+              }
+            },
+            "actual": {
+              "score": 1,
+              "notes": [
+                "browser target is hidden",
+                "browser forbidden nodes remain visible"
+              ],
+              "targetHit": true,
+              "forbiddenHit": false,
+              "details": {
+                "targetVisibility": [
+                  {
+                    "uid": "video-rocket-card",
+                    "exists": true,
+                    "hidden": true
+                  },
+                  {
+                    "uid": "video-rocket-link",
+                    "exists": true,
+                    "hidden": true
+                  }
+                ],
+                "forbiddenVisibility": [
+                  {
+                    "uid": "video-first-card",
+                    "exists": true,
+                    "hidden": false
+                  },
+                  {
+                    "uid": "video-mark-rober-card",
+                    "exists": true,
+                    "hidden": false
+                  },
+                  {
+                    "uid": "video-cooking-card",
+                    "exists": true,
+                    "hidden": false
+                  },
+                  {
+                    "uid": "video-mkbhd-card",
+                    "exists": true,
+                    "hidden": false
+                  },
+                  {
+                    "uid": "video-sponsored-card",
+                    "exists": true,
+                    "hidden": false
+                  }
+                ],
+                "changedForbiddenUids": []
+              }
+            }
+          },
+          "persistence": {
+            "score": 1,
+            "notes": [
+              "browser target is hidden",
+              "browser forbidden nodes remain visible"
+            ],
+            "targetHit": true,
+            "forbiddenHit": false,
+            "details": {
+              "targetVisibility": [
+                {
+                  "uid": "video-rocket-card",
+                  "exists": true,
+                  "hidden": true
+                },
+                {
+                  "uid": "video-rocket-link",
+                  "exists": true,
+                  "hidden": true
+                }
+              ],
+              "forbiddenVisibility": [
+                {
+                  "uid": "video-first-card",
+                  "exists": true,
+                  "hidden": false
+                },
+                {
+                  "uid": "video-mark-rober-card",
+                  "exists": true,
+                  "hidden": false
+                },
+                {
+                  "uid": "video-cooking-card",
+                  "exists": true,
+                  "hidden": false
+                },
+                {
+                  "uid": "video-mkbhd-card",
+                  "exists": true,
+                  "hidden": false
+                },
+                {
+                  "uid": "video-sponsored-card",
+                  "exists": true,
+                  "hidden": false
+                }
+              ],
+              "changedForbiddenUids": []
+            }
+          },
+          "diagnostics": {
+            "targetMatches": {
+              "rocket_video_card": {
+                "selectors": [
+                  "[data-uid=\"video-rocket-card\"]"
+                ],
+                "usedFallback": false,
+                "uids": [
+                  "video-rocket-card"
+                ],
+                "sampleText": [
+                  "Engineering a rocket Everyday Astronaut"
+                ]
+              }
+            },
+            "broadSelectors": [],
+            "forbiddenChanged": [],
+            "semanticCandidates": {
+              "query": "rockets",
+              "expected": "Engineering a rocket",
+              "candidateKind": "youtube-title",
+              "expectedCandidateVisibleInContext": true,
+              "expectedCandidateSelectedByPlan": false,
+              "bestCandidate": {
+                "uid": "video-rocket-link",
+                "tag": "a",
+                "text": "Engineering a rocket",
+                "ariaLabel": "",
+                "dataChannel": "",
+                "scoreToQuery": 0.121,
+                "scoreToExpected": 1,
+                "isExpected": true,
+                "selectedByPlan": false
+              },
+              "candidates": [
+                {
+                  "uid": "video-rocket-link",
+                  "tag": "a",
+                  "text": "Engineering a rocket",
+                  "ariaLabel": "",
+                  "dataChannel": "",
+                  "scoreToQuery": 0.121,
+                  "scoreToExpected": 1,
+                  "isExpected": true,
+                  "selectedByPlan": false
+                },
+                {
+                  "uid": "video-first-link",
+                  "tag": "a",
+                  "text": "Backyard Squirrel Maze",
+                  "ariaLabel": "",
+                  "dataChannel": "",
+                  "scoreToQuery": 0.094,
+                  "scoreToExpected": 0.151,
+                  "isExpected": false,
+                  "selectedByPlan": false
+                },
+                {
+                  "uid": "video-sponsored-link",
+                  "tag": "a",
+                  "text": "CloudDesk AI tool",
+                  "ariaLabel": "",
+                  "dataChannel": "",
+                  "scoreToQuery": 0.086,
+                  "scoreToExpected": 0.172,
+                  "isExpected": false,
+                  "selectedByPlan": false
+                },
+                {
+                  "uid": "video-mark-rober-link",
+                  "tag": "a",
+                  "text": "World's Smallest Nerf Gun",
+                  "ariaLabel": "",
+                  "dataChannel": "",
+                  "scoreToQuery": 0.082,
+                  "scoreToExpected": 0.197,
+                  "isExpected": false,
+                  "selectedByPlan": false
+                }
+              ]
+            },
+            "domNavigation": null,
+            "phase": "ok-or-low-risk",
+            "usedSelectionHints": false,
+            "genericSelectors": [],
+            "failureReasons": [
+              "browser target is hidden",
+              "browser forbidden nodes remain visible",
+              "persistence: browser target is hidden",
+              "persistence: browser forbidden nodes remain visible"
+            ],
+            "taskKind": "visibility"
+          },
+          "plan": {
+            "version": "2.0",
+            "site": {
+              "hostname": "127.0.0.1",
+              "pathname": "/youtube",
+              "urlPattern": "127.0.0.1/youtube*"
+            },
+            "sourcePrompt": "Hide videos about rockets from my feed.",
+            "selections": [],
+            "targetMap": {
+              "rocket_video_card": {
+                "source": "inferred",
+                "selectors": [
+                  "[data-uid=\"video-rocket-card\"]"
+                ],
+                "fallbackSelectors": [],
+                "repairReason": "semantic-safe-target"
+              }
+            },
+            "rules": [
+              {
+                "id": "hide-rocket-video",
+                "type": "visibility",
+                "targetRef": "rocket_video_card",
+                "action": "hide"
+              }
+            ]
+          },
+          "validation": {
+            "ok": true,
+            "errors": []
+          },
+          "applyResult": {
+            "totalMatched": 1,
+            "cssRuleCount": 0,
+            "targetCssRuleCount": 0
+          },
+          "selectionCount": 0,
+          "pageNodeCount": 19,
+          "domNavigation": null,
+          "beforeScreenshotPath": "reports/browser-screenshots/run-1-medium-youtube-hide-rocket-title-before.png",
+          "screenshotPath": "reports/browser-screenshots/run-1-medium-youtube-hide-rocket-title-after.png",
+          "consoleMessages": [
+            {
+              "type": "log",
+              "text": "[Perso XXL] content.loaded {version: 0.6.0-landing-ai-input, hasSavedPlan: false}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] panel.created {}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] storage.loaded {key: sitePlan:127.0.0.1:/youtube, hasSavedPlan: false}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] panel.state.loaded {hasProfileNotes: false, hasSavedPlan: false, key: sitePlan:127.0.0.1:/youtube}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.revert.started {}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.revert.finished {restoredCount: 0}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] openrouter.request.started {taskName: plan-generation, model: deepseek/deepseek-v4-flash, messageCount: 2, reasoning: Object}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] openrouter.response.received {ok: true, status: 200, durationMs: 50859, hasChoices: true, hasReasoning: false}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] openrouter.content.received {contentLength: 642, preview: {\n  \"version\": \"2.0\",\n  \"site\": {\n    \"hostname\": …ket-video-title)\"\n      ]\n    }\n  },\n  \"rules\": [}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] plan.validation.started {site: Object, ruleCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] plan.validation.finished {ok: true, errors: Array(0)}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.rule.visibility {ruleId: hide-rocket-video, targetRef: rocket_video_card, action: hide, matchCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 0, totalMatched: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.rule.visibility {ruleId: hide-rocket-video, targetRef: rocket_video_card, action: hide, matchCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 0, totalMatched: 1}"
+            }
+          ]
+        },
+        {
+          "taskId": "medium-youtube-hide-sponsored",
+          "tier": "medium",
+          "score": 1,
+          "passed": true,
+          "durationMs": 30731,
+          "grade": {
+            "score": 1,
+            "passed": true,
+            "planGrade": {
+              "score": 1,
+              "passed": true,
+              "validation": {
+                "ok": true,
+                "errors": []
+              },
+              "expectation": {
+                "score": 1,
+                "notes": [
+                  "matched intended target",
+                  "used a hide operation"
+                ],
+                "targetHit": true,
+                "forbiddenHit": false
+              },
+              "targetMatches": {
+                "sponsored_cards": {
+                  "selectors": [
+                    "[data-uid=\"video-sponsored-card\"]"
+                  ],
+                  "usedFallback": false,
+                  "uids": [
+                    "video-sponsored-card"
+                  ],
+                  "sampleText": [
+                    "Sponsored CloudDesk AI tool CloudDesk"
+                  ]
+                }
+              }
+            },
+            "actual": {
+              "score": 1,
+              "notes": [
+                "browser target is hidden",
+                "browser forbidden nodes remain visible"
+              ],
+              "targetHit": true,
+              "forbiddenHit": false,
+              "details": {
+                "targetVisibility": [
+                  {
+                    "uid": "video-sponsored-card",
+                    "exists": true,
+                    "hidden": true
+                  },
+                  {
+                    "uid": "video-sponsored-badge",
+                    "exists": true,
+                    "hidden": true
+                  }
+                ],
+                "forbiddenVisibility": [
+                  {
+                    "uid": "video-first-card",
+                    "exists": true,
+                    "hidden": false
+                  },
+                  {
+                    "uid": "video-mark-rober-card",
+                    "exists": true,
+                    "hidden": false
+                  },
+                  {
+                    "uid": "video-cooking-card",
+                    "exists": true,
+                    "hidden": false
+                  },
+                  {
+                    "uid": "video-rocket-card",
+                    "exists": true,
+                    "hidden": false
+                  },
+                  {
+                    "uid": "video-mkbhd-card",
+                    "exists": true,
+                    "hidden": false
+                  }
+                ],
+                "changedForbiddenUids": []
+              }
+            }
+          },
+          "persistence": {
+            "score": 1,
+            "notes": [
+              "browser target is hidden",
+              "browser forbidden nodes remain visible"
+            ],
+            "targetHit": true,
+            "forbiddenHit": false,
+            "details": {
+              "targetVisibility": [
+                {
+                  "uid": "video-sponsored-card",
+                  "exists": true,
+                  "hidden": true
+                },
+                {
+                  "uid": "video-sponsored-badge",
+                  "exists": true,
+                  "hidden": true
+                }
+              ],
+              "forbiddenVisibility": [
+                {
+                  "uid": "video-first-card",
+                  "exists": true,
+                  "hidden": false
+                },
+                {
+                  "uid": "video-mark-rober-card",
+                  "exists": true,
+                  "hidden": false
+                },
+                {
+                  "uid": "video-cooking-card",
+                  "exists": true,
+                  "hidden": false
+                },
+                {
+                  "uid": "video-rocket-card",
+                  "exists": true,
+                  "hidden": false
+                },
+                {
+                  "uid": "video-mkbhd-card",
+                  "exists": true,
+                  "hidden": false
+                }
+              ],
+              "changedForbiddenUids": []
+            }
+          },
+          "diagnostics": {
+            "targetMatches": {
+              "sponsored_cards": {
+                "selectors": [
+                  "[data-uid=\"video-sponsored-card\"]"
+                ],
+                "usedFallback": false,
+                "uids": [
+                  "video-sponsored-card"
+                ],
+                "sampleText": [
+                  "Sponsored CloudDesk AI tool CloudDesk"
+                ]
+              }
+            },
+            "broadSelectors": [],
+            "forbiddenChanged": [],
+            "semanticCandidates": {
+              "query": "sponsored",
+              "expected": "Sponsored",
+              "candidateKind": "youtube-badge",
+              "expectedCandidateVisibleInContext": true,
+              "expectedCandidateSelectedByPlan": true,
+              "bestCandidate": {
+                "uid": "video-sponsored-card",
+                "tag": "article",
+                "text": "Sponsored CloudDesk AI tool CloudDesk",
+                "ariaLabel": "Sponsored video from CloudDesk",
+                "dataChannel": "CloudDesk",
+                "scoreToQuery": 1,
+                "scoreToExpected": 1,
+                "isExpected": true,
+                "selectedByPlan": true
+              },
+              "candidates": [
+                {
+                  "uid": "video-sponsored-card",
+                  "tag": "article",
+                  "text": "Sponsored CloudDesk AI tool CloudDesk",
+                  "ariaLabel": "Sponsored video from CloudDesk",
+                  "dataChannel": "CloudDesk",
+                  "scoreToQuery": 1,
+                  "scoreToExpected": 1,
+                  "isExpected": true,
+                  "selectedByPlan": true
+                },
+                {
+                  "uid": "video-sponsored-badge",
+                  "tag": "span",
+                  "text": "Sponsored",
+                  "ariaLabel": "",
+                  "dataChannel": "",
+                  "scoreToQuery": 1,
+                  "scoreToExpected": 1,
+                  "isExpected": true,
+                  "selectedByPlan": false
+                }
+              ]
+            },
+            "domNavigation": null,
+            "phase": "ok-or-low-risk",
+            "usedSelectionHints": false,
+            "genericSelectors": [],
+            "failureReasons": [
+              "browser target is hidden",
+              "browser forbidden nodes remain visible",
+              "persistence: browser target is hidden",
+              "persistence: browser forbidden nodes remain visible"
+            ],
+            "taskKind": "visibility"
+          },
+          "plan": {
+            "version": "2.0",
+            "site": {
+              "hostname": "127.0.0.1",
+              "pathname": "/youtube",
+              "urlPattern": "127.0.0.1/youtube"
+            },
+            "sourcePrompt": "I don't want to see sponsored content anymore.",
+            "selections": [],
+            "targetMap": {
+              "sponsored_cards": {
+                "source": "inferred",
+                "selectors": [
+                  "[data-uid=\"video-sponsored-card\"]"
+                ],
+                "fallbackSelectors": [
+                  "article.video-card.sponsored-card",
+                  "article.ytd-rich-item-renderer.sponsored-card"
+                ],
+                "repairReason": "semantic-safe-target"
+              }
+            },
+            "rules": [
+              {
+                "id": "hide-sponsored-cards",
+                "type": "visibility",
+                "targetRef": "sponsored_cards",
+                "action": "hide"
+              }
+            ]
+          },
+          "validation": {
+            "ok": true,
+            "errors": []
+          },
+          "applyResult": {
+            "totalMatched": 1,
+            "cssRuleCount": 0,
+            "targetCssRuleCount": 0
+          },
+          "selectionCount": 0,
+          "pageNodeCount": 19,
+          "domNavigation": null,
+          "beforeScreenshotPath": "reports/browser-screenshots/run-1-medium-youtube-hide-sponsored-before.png",
+          "screenshotPath": "reports/browser-screenshots/run-1-medium-youtube-hide-sponsored-after.png",
+          "consoleMessages": [
+            {
+              "type": "log",
+              "text": "[Perso XXL] content.loaded {version: 0.6.0-landing-ai-input, hasSavedPlan: false}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] panel.created {}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] storage.loaded {key: sitePlan:127.0.0.1:/youtube, hasSavedPlan: false}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] panel.state.loaded {hasProfileNotes: false, hasSavedPlan: false, key: sitePlan:127.0.0.1:/youtube}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.revert.started {}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.revert.finished {restoredCount: 0}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] openrouter.request.started {taskName: plan-generation, model: deepseek/deepseek-v4-flash, messageCount: 2, reasoning: Object}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] openrouter.response.received {ok: true, status: 200, durationMs: 29261, hasChoices: true, hasReasoning: false}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] openrouter.content.received {contentLength: 593, preview: {\n  \"version\": \"2.0\",\n  \"site\": {\n    \"hostname\": …    {\n      \"id\": \"hide-sponsored-cards\",\n      \"}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] plan.validation.started {site: Object, ruleCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] plan.validation.finished {ok: true, errors: Array(0)}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.rule.visibility {ruleId: hide-sponsored-cards, targetRef: sponsored_cards, action: hide, matchCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 0, totalMatched: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.rule.visibility {ruleId: hide-sponsored-cards, targetRef: sponsored_cards, action: hide, matchCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 0, totalMatched: 1}"
+            }
+          ]
+        },
+        {
+          "taskId": "medium-youtube-hide-creator-exact",
+          "tier": "medium",
+          "score": 1,
+          "passed": true,
+          "durationMs": 23976,
+          "grade": {
+            "score": 1,
+            "passed": true,
+            "planGrade": {
+              "score": 1,
+              "passed": true,
+              "validation": {
+                "ok": true,
+                "errors": []
+              },
+              "expectation": {
+                "score": 1,
+                "notes": [
+                  "matched intended target",
+                  "used a hide operation"
+                ],
+                "targetHit": true,
+                "forbiddenHit": false
+              },
+              "targetMatches": {
+                "mark-rober-videos": {
+                  "selectors": [
+                    "[data-uid=\"video-mark-rober-card\"]"
+                  ],
+                  "usedFallback": false,
+                  "uids": [
+                    "video-mark-rober-card"
+                  ],
+                  "sampleText": [
+                    "World's Smallest Nerf Gun Mark Rober"
+                  ]
+                }
+              }
+            },
+            "actual": {
+              "score": 1,
+              "notes": [
+                "browser target is hidden",
+                "browser forbidden nodes remain visible"
+              ],
+              "targetHit": true,
+              "forbiddenHit": false,
+              "details": {
+                "targetVisibility": [
+                  {
+                    "uid": "video-mark-rober-card",
+                    "exists": true,
+                    "hidden": true
+                  },
+                  {
+                    "uid": "video-mark-rober-link",
+                    "exists": true,
+                    "hidden": true
+                  },
+                  {
+                    "uid": "video-mark-rober-channel",
+                    "exists": true,
+                    "hidden": true
+                  }
+                ],
+                "forbiddenVisibility": [
+                  {
+                    "uid": "video-cooking-card",
+                    "exists": true,
+                    "hidden": false
+                  },
+                  {
+                    "uid": "video-rocket-card",
+                    "exists": true,
+                    "hidden": false
+                  },
+                  {
+                    "uid": "video-mkbhd-card",
+                    "exists": true,
+                    "hidden": false
+                  },
+                  {
+                    "uid": "video-sponsored-card",
+                    "exists": true,
+                    "hidden": false
+                  }
+                ],
+                "changedForbiddenUids": []
+              }
+            }
+          },
+          "persistence": {
+            "score": 1,
+            "notes": [
+              "browser target is hidden",
+              "browser forbidden nodes remain visible"
+            ],
+            "targetHit": true,
+            "forbiddenHit": false,
+            "details": {
+              "targetVisibility": [
+                {
+                  "uid": "video-mark-rober-card",
+                  "exists": true,
+                  "hidden": true
+                },
+                {
+                  "uid": "video-mark-rober-link",
+                  "exists": true,
+                  "hidden": true
+                },
+                {
+                  "uid": "video-mark-rober-channel",
+                  "exists": true,
+                  "hidden": true
+                }
+              ],
+              "forbiddenVisibility": [
+                {
+                  "uid": "video-cooking-card",
+                  "exists": true,
+                  "hidden": false
+                },
+                {
+                  "uid": "video-rocket-card",
+                  "exists": true,
+                  "hidden": false
+                },
+                {
+                  "uid": "video-mkbhd-card",
+                  "exists": true,
+                  "hidden": false
+                },
+                {
+                  "uid": "video-sponsored-card",
+                  "exists": true,
+                  "hidden": false
+                }
+              ],
+              "changedForbiddenUids": []
+            }
+          },
+          "diagnostics": {
+            "targetMatches": {
+              "mark-rober-videos": {
+                "selectors": [
+                  "[data-uid=\"video-mark-rober-card\"]"
+                ],
+                "usedFallback": false,
+                "uids": [
+                  "video-mark-rober-card"
+                ],
+                "sampleText": [
+                  "World's Smallest Nerf Gun Mark Rober"
+                ]
+              }
+            },
+            "broadSelectors": [],
+            "forbiddenChanged": [],
+            "semanticCandidates": {
+              "query": "Mark Rober",
+              "expected": "Mark Rober",
+              "candidateKind": "youtube-channel",
+              "expectedCandidateVisibleInContext": true,
+              "expectedCandidateSelectedByPlan": true,
+              "bestCandidate": {
+                "uid": "video-mark-rober-card",
+                "tag": "article",
+                "text": "World's Smallest Nerf Gun Mark Rober",
+                "ariaLabel": "",
+                "dataChannel": "Mark Rober",
+                "scoreToQuery": 1,
+                "scoreToExpected": 1,
+                "isExpected": true,
+                "selectedByPlan": true
+              },
+              "candidates": [
+                {
+                  "uid": "video-mark-rober-card",
+                  "tag": "article",
+                  "text": "World's Smallest Nerf Gun Mark Rober",
+                  "ariaLabel": "",
+                  "dataChannel": "Mark Rober",
+                  "scoreToQuery": 1,
+                  "scoreToExpected": 1,
+                  "isExpected": true,
+                  "selectedByPlan": true
+                },
+                {
+                  "uid": "video-mark-rober-channel",
+                  "tag": "a",
+                  "text": "Mark Rober",
+                  "ariaLabel": "Mark Rober channel",
+                  "dataChannel": "",
+                  "scoreToQuery": 1,
+                  "scoreToExpected": 1,
+                  "isExpected": true,
+                  "selectedByPlan": false
+                },
+                {
+                  "uid": "video-mkbhd-channel",
+                  "tag": "a",
+                  "text": "Marques Brownlee",
+                  "ariaLabel": "",
+                  "dataChannel": "",
+                  "scoreToQuery": 0.241,
+                  "scoreToExpected": 0.241,
+                  "isExpected": false,
+                  "selectedByPlan": false
+                },
+                {
+                  "uid": "video-first-channel",
+                  "tag": "a",
+                  "text": "Nature Lab",
+                  "ariaLabel": "",
+                  "dataChannel": "",
+                  "scoreToQuery": 0.217,
+                  "scoreToExpected": 0.217,
+                  "isExpected": false,
+                  "selectedByPlan": false
+                },
+                {
+                  "uid": "video-rocket-channel",
+                  "tag": "a",
+                  "text": "Everyday Astronaut",
+                  "ariaLabel": "",
+                  "dataChannel": "",
+                  "scoreToQuery": 0.161,
+                  "scoreToExpected": 0.161,
+                  "isExpected": false,
+                  "selectedByPlan": false
+                },
+                {
+                  "uid": "video-sponsored-channel",
+                  "tag": "a",
+                  "text": "CloudDesk",
+                  "ariaLabel": "",
+                  "dataChannel": "",
+                  "scoreToQuery": 0.136,
+                  "scoreToExpected": 0.136,
+                  "isExpected": false,
+                  "selectedByPlan": false
+                },
+                {
+                  "uid": "video-cooking-channel",
+                  "tag": "a",
+                  "text": "Kitchen Daily",
+                  "ariaLabel": "",
+                  "dataChannel": "",
+                  "scoreToQuery": 0.115,
+                  "scoreToExpected": 0.115,
+                  "isExpected": false,
+                  "selectedByPlan": false
+                },
+                {
+                  "uid": "video-mkbhd-card",
+                  "tag": "article",
+                  "text": "Phone awards Marques Brownlee",
+                  "ariaLabel": "",
+                  "dataChannel": "Marques Brownlee",
+                  "scoreToQuery": 0.113,
+                  "scoreToExpected": 0.113,
+                  "isExpected": false,
+                  "selectedByPlan": false
+                }
+              ]
+            },
+            "domNavigation": null,
+            "phase": "ok-or-low-risk",
+            "usedSelectionHints": false,
+            "genericSelectors": [],
+            "failureReasons": [
+              "browser target is hidden",
+              "browser forbidden nodes remain visible",
+              "persistence: browser target is hidden",
+              "persistence: browser forbidden nodes remain visible"
+            ],
+            "taskKind": "visibility"
+          },
+          "plan": {
+            "version": "2.0",
+            "site": {
+              "hostname": "127.0.0.1",
+              "pathname": "/youtube",
+              "urlPattern": "127.0.0.1/youtube"
+            },
+            "sourcePrompt": "I don't want to see videos from Mark Rober in my feed.",
+            "selections": [],
+            "targetMap": {
+              "mark-rober-videos": {
+                "source": "inferred",
+                "selectors": [
+                  "[data-uid=\"video-mark-rober-card\"]"
+                ],
+                "fallbackSelectors": [],
+                "repairReason": "semantic-safe-target"
+              }
+            },
+            "rules": [
+              {
+                "id": "hide-mark-rober-videos",
+                "type": "visibility",
+                "targetRef": "mark-rober-videos",
+                "action": "hide"
+              }
+            ]
+          },
+          "validation": {
+            "ok": true,
+            "errors": []
+          },
+          "applyResult": {
+            "totalMatched": 1,
+            "cssRuleCount": 0,
+            "targetCssRuleCount": 0
+          },
+          "selectionCount": 0,
+          "pageNodeCount": 19,
+          "domNavigation": null,
+          "beforeScreenshotPath": "reports/browser-screenshots/run-1-medium-youtube-hide-creator-exact-before.png",
+          "screenshotPath": "reports/browser-screenshots/run-1-medium-youtube-hide-creator-exact-after.png",
+          "consoleMessages": [
+            {
+              "type": "log",
+              "text": "[Perso XXL] content.loaded {version: 0.6.0-landing-ai-input, hasSavedPlan: false}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] panel.created {}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] storage.loaded {key: sitePlan:127.0.0.1:/youtube, hasSavedPlan: false}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] panel.state.loaded {hasProfileNotes: false, hasSavedPlan: false, key: sitePlan:127.0.0.1:/youtube}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.revert.started {}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.revert.finished {restoredCount: 0}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] openrouter.request.started {taskName: plan-generation, model: deepseek/deepseek-v4-flash, messageCount: 2, reasoning: Object}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] openrouter.response.received {ok: true, status: 200, durationMs: 22489, hasChoices: true, hasReasoning: false}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] openrouter.content.received {contentLength: 683, preview: {\n  \"version\": \"2.0\",\n  \"site\": {\n    \"hostname\": …o-card:has(a.channel-name[aria-label='Mark Rober }"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] plan.validation.started {site: Object, ruleCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] plan.validation.finished {ok: true, errors: Array(0)}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.rule.visibility {ruleId: hide-mark-rober-videos, targetRef: mark-rober-videos, action: hide, matchCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 0, totalMatched: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.rule.visibility {ruleId: hide-mark-rober-videos, targetRef: mark-rober-videos, action: hide, matchCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 0, totalMatched: 1}"
+            }
+          ]
+        },
+        {
+          "taskId": "medium-youtube-hide-creator-partial",
+          "tier": "medium",
+          "score": 1,
+          "passed": true,
+          "durationMs": 13213,
+          "grade": {
+            "score": 1,
+            "passed": true,
+            "planGrade": {
+              "score": 1,
+              "passed": true,
+              "validation": {
+                "ok": true,
+                "errors": []
+              },
+              "expectation": {
+                "score": 1,
+                "notes": [
+                  "matched intended target",
+                  "used a hide operation"
+                ],
+                "targetHit": true,
+                "forbiddenHit": false
+              },
+              "targetMatches": {
+                "rober_video_card": {
+                  "selectors": [
+                    "[data-uid=\"video-mark-rober-card\"]"
+                  ],
+                  "usedFallback": false,
+                  "uids": [
+                    "video-mark-rober-card"
+                  ],
+                  "sampleText": [
+                    "World's Smallest Nerf Gun Mark Rober"
+                  ]
+                }
+              }
+            },
+            "actual": {
+              "score": 1,
+              "notes": [
+                "browser target is hidden",
+                "browser forbidden nodes remain visible"
+              ],
+              "targetHit": true,
+              "forbiddenHit": false,
+              "details": {
+                "targetVisibility": [
+                  {
+                    "uid": "video-mark-rober-card",
+                    "exists": true,
+                    "hidden": true
+                  },
+                  {
+                    "uid": "video-mark-rober-link",
+                    "exists": true,
+                    "hidden": true
+                  },
+                  {
+                    "uid": "video-mark-rober-channel",
+                    "exists": true,
+                    "hidden": true
+                  }
+                ],
+                "forbiddenVisibility": [
+                  {
+                    "uid": "video-cooking-card",
+                    "exists": true,
+                    "hidden": false
+                  },
+                  {
+                    "uid": "video-rocket-card",
+                    "exists": true,
+                    "hidden": false
+                  },
+                  {
+                    "uid": "video-mkbhd-card",
+                    "exists": true,
+                    "hidden": false
+                  },
+                  {
+                    "uid": "video-sponsored-card",
+                    "exists": true,
+                    "hidden": false
+                  }
+                ],
+                "changedForbiddenUids": []
+              }
+            }
+          },
+          "persistence": {
+            "score": 1,
+            "notes": [
+              "browser target is hidden",
+              "browser forbidden nodes remain visible"
+            ],
+            "targetHit": true,
+            "forbiddenHit": false,
+            "details": {
+              "targetVisibility": [
+                {
+                  "uid": "video-mark-rober-card",
+                  "exists": true,
+                  "hidden": true
+                },
+                {
+                  "uid": "video-mark-rober-link",
+                  "exists": true,
+                  "hidden": true
+                },
+                {
+                  "uid": "video-mark-rober-channel",
+                  "exists": true,
+                  "hidden": true
+                }
+              ],
+              "forbiddenVisibility": [
+                {
+                  "uid": "video-cooking-card",
+                  "exists": true,
+                  "hidden": false
+                },
+                {
+                  "uid": "video-rocket-card",
+                  "exists": true,
+                  "hidden": false
+                },
+                {
+                  "uid": "video-mkbhd-card",
+                  "exists": true,
+                  "hidden": false
+                },
+                {
+                  "uid": "video-sponsored-card",
+                  "exists": true,
+                  "hidden": false
+                }
+              ],
+              "changedForbiddenUids": []
+            }
+          },
+          "diagnostics": {
+            "targetMatches": {
+              "rober_video_card": {
+                "selectors": [
+                  "[data-uid=\"video-mark-rober-card\"]"
+                ],
+                "usedFallback": false,
+                "uids": [
+                  "video-mark-rober-card"
+                ],
+                "sampleText": [
+                  "World's Smallest Nerf Gun Mark Rober"
+                ]
+              }
+            },
+            "broadSelectors": [],
+            "forbiddenChanged": [],
+            "semanticCandidates": {
+              "query": "Rober",
+              "expected": "Mark Rober",
+              "candidateKind": "youtube-channel",
+              "expectedCandidateVisibleInContext": true,
+              "expectedCandidateSelectedByPlan": true,
+              "bestCandidate": {
+                "uid": "video-mark-rober-card",
+                "tag": "article",
+                "text": "World's Smallest Nerf Gun Mark Rober",
+                "ariaLabel": "",
+                "dataChannel": "Mark Rober",
+                "scoreToQuery": 1,
+                "scoreToExpected": 1,
+                "isExpected": true,
+                "selectedByPlan": true
+              },
+              "candidates": [
+                {
+                  "uid": "video-mark-rober-card",
+                  "tag": "article",
+                  "text": "World's Smallest Nerf Gun Mark Rober",
+                  "ariaLabel": "",
+                  "dataChannel": "Mark Rober",
+                  "scoreToQuery": 1,
+                  "scoreToExpected": 1,
+                  "isExpected": true,
+                  "selectedByPlan": true
+                },
+                {
+                  "uid": "video-mark-rober-channel",
+                  "tag": "a",
+                  "text": "Mark Rober",
+                  "ariaLabel": "Mark Rober channel",
+                  "dataChannel": "",
+                  "scoreToQuery": 1,
+                  "scoreToExpected": 1,
+                  "isExpected": true,
+                  "selectedByPlan": false
+                },
+                {
+                  "uid": "video-first-channel",
+                  "tag": "a",
+                  "text": "Nature Lab",
+                  "ariaLabel": "",
+                  "dataChannel": "",
+                  "scoreToQuery": 0.13,
+                  "scoreToExpected": 0.217,
+                  "isExpected": false,
+                  "selectedByPlan": false
+                },
+                {
+                  "uid": "video-mkbhd-channel",
+                  "tag": "a",
+                  "text": "Marques Brownlee",
+                  "ariaLabel": "",
+                  "dataChannel": "",
+                  "scoreToQuery": 0.103,
+                  "scoreToExpected": 0.241,
+                  "isExpected": false,
+                  "selectedByPlan": false
+                },
+                {
+                  "uid": "video-rocket-channel",
+                  "tag": "a",
+                  "text": "Everyday Astronaut",
+                  "ariaLabel": "",
+                  "dataChannel": "",
+                  "scoreToQuery": 0.097,
+                  "scoreToExpected": 0.161,
+                  "isExpected": false,
+                  "selectedByPlan": false
+                },
+                {
+                  "uid": "video-sponsored-channel",
+                  "tag": "a",
+                  "text": "CloudDesk",
+                  "ariaLabel": "",
+                  "dataChannel": "",
+                  "scoreToQuery": 0.091,
+                  "scoreToExpected": 0.136,
+                  "isExpected": false,
+                  "selectedByPlan": false
+                },
+                {
+                  "uid": "video-mkbhd-card",
+                  "tag": "article",
+                  "text": "Phone awards Marques Brownlee",
+                  "ariaLabel": "",
+                  "dataChannel": "Marques Brownlee",
+                  "scoreToQuery": 0.063,
+                  "scoreToExpected": 0.113,
+                  "isExpected": false,
+                  "selectedByPlan": false
+                },
+                {
+                  "uid": "video-first-card",
+                  "tag": "article",
+                  "text": "Backyard Squirrel Maze Nature Lab",
+                  "ariaLabel": "",
+                  "dataChannel": "Nature Lab",
+                  "scoreToQuery": 0.051,
+                  "scoreToExpected": 0.103,
+                  "isExpected": false,
+                  "selectedByPlan": false
+                }
+              ]
+            },
+            "domNavigation": null,
+            "phase": "ok-or-low-risk",
+            "usedSelectionHints": false,
+            "genericSelectors": [],
+            "failureReasons": [
+              "browser target is hidden",
+              "browser forbidden nodes remain visible",
+              "persistence: browser target is hidden",
+              "persistence: browser forbidden nodes remain visible"
+            ],
+            "taskKind": "visibility"
+          },
+          "plan": {
+            "version": "2.0",
+            "site": {
+              "hostname": "127.0.0.1",
+              "pathname": "/youtube",
+              "urlPattern": "127.0.0.1/youtube"
+            },
+            "sourcePrompt": "Hide the Rober video from my feed.",
+            "selections": [],
+            "targetMap": {
+              "rober_video_card": {
+                "source": "inferred",
+                "selectors": [
+                  "[data-uid=\"video-mark-rober-card\"]"
+                ],
+                "fallbackSelectors": [
+                  "article.video-card a[id=\"video-title-link\"][href*=\"Rober\"]"
+                ],
+                "repairReason": "semantic-broad-selector"
+              }
+            },
+            "rules": [
+              {
+                "id": "hide-mark-rober-video",
+                "type": "visibility",
+                "targetRef": "rober_video_card",
+                "action": "hide"
+              }
+            ]
+          },
+          "validation": {
+            "ok": true,
+            "errors": []
+          },
+          "applyResult": {
+            "totalMatched": 1,
+            "cssRuleCount": 0,
+            "targetCssRuleCount": 0
+          },
+          "selectionCount": 0,
+          "pageNodeCount": 19,
+          "domNavigation": null,
+          "beforeScreenshotPath": "reports/browser-screenshots/run-1-medium-youtube-hide-creator-partial-before.png",
+          "screenshotPath": "reports/browser-screenshots/run-1-medium-youtube-hide-creator-partial-after.png",
+          "consoleMessages": [
+            {
+              "type": "log",
+              "text": "[Perso XXL] content.loaded {version: 0.6.0-landing-ai-input, hasSavedPlan: false}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] panel.created {}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] storage.loaded {key: sitePlan:127.0.0.1:/youtube, hasSavedPlan: false}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] panel.state.loaded {hasProfileNotes: false, hasSavedPlan: false, key: sitePlan:127.0.0.1:/youtube}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.revert.started {}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.revert.finished {restoredCount: 0}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] openrouter.request.started {taskName: plan-generation, model: deepseek/deepseek-v4-flash, messageCount: 2, reasoning: Object}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] openrouter.response.received {ok: true, status: 200, durationMs: 11712, hasChoices: true, hasReasoning: false}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] openrouter.content.received {contentLength: 770, preview: {\n  \"version\": \"2.0\",\n  \"site\": {\n    \"hostname\": …nel\\\"])\"\n      ],\n      \"fallbackSelectors\": [\n  }"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] plan.validation.started {site: Object, ruleCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] plan.validation.finished {ok: true, errors: Array(0)}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.rule.visibility {ruleId: hide-mark-rober-video, targetRef: rober_video_card, action: hide, matchCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 0, totalMatched: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.rule.visibility {ruleId: hide-mark-rober-video, targetRef: rober_video_card, action: hide, matchCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 0, totalMatched: 1}"
+            }
+          ]
+        },
+        {
+          "taskId": "medium-youtube-hide-title-typo",
+          "tier": "medium",
+          "score": 1,
+          "passed": true,
+          "durationMs": 18730,
+          "grade": {
+            "score": 1,
+            "passed": true,
+            "planGrade": {
+              "score": 1,
+              "passed": true,
+              "validation": {
+                "ok": true,
+                "errors": []
+              },
+              "expectation": {
+                "score": 1,
+                "notes": [
+                  "matched intended target",
+                  "used a hide operation"
+                ],
+                "targetHit": true,
+                "forbiddenHit": false
+              },
+              "targetMatches": {
+                "rocket_video_card": {
+                  "selectors": [
+                    "[data-uid=\"video-rocket-card\"]"
+                  ],
+                  "usedFallback": false,
+                  "uids": [
+                    "video-rocket-card"
+                  ],
+                  "sampleText": [
+                    "Engineering a rocket Everyday Astronaut"
+                  ]
+                }
+              }
+            },
+            "actual": {
+              "score": 1,
+              "notes": [
+                "browser target is hidden",
+                "browser forbidden nodes remain visible"
+              ],
+              "targetHit": true,
+              "forbiddenHit": false,
+              "details": {
+                "targetVisibility": [
+                  {
+                    "uid": "video-rocket-card",
+                    "exists": true,
+                    "hidden": true
+                  },
+                  {
+                    "uid": "video-rocket-link",
+                    "exists": true,
+                    "hidden": true
+                  }
+                ],
+                "forbiddenVisibility": [
+                  {
+                    "uid": "video-first-card",
+                    "exists": true,
+                    "hidden": false
+                  },
+                  {
+                    "uid": "video-mark-rober-card",
+                    "exists": true,
+                    "hidden": false
+                  },
+                  {
+                    "uid": "video-cooking-card",
+                    "exists": true,
+                    "hidden": false
+                  },
+                  {
+                    "uid": "video-mkbhd-card",
+                    "exists": true,
+                    "hidden": false
+                  },
+                  {
+                    "uid": "video-sponsored-card",
+                    "exists": true,
+                    "hidden": false
+                  }
+                ],
+                "changedForbiddenUids": []
+              }
+            }
+          },
+          "persistence": {
+            "score": 1,
+            "notes": [
+              "browser target is hidden",
+              "browser forbidden nodes remain visible"
+            ],
+            "targetHit": true,
+            "forbiddenHit": false,
+            "details": {
+              "targetVisibility": [
+                {
+                  "uid": "video-rocket-card",
+                  "exists": true,
+                  "hidden": true
+                },
+                {
+                  "uid": "video-rocket-link",
+                  "exists": true,
+                  "hidden": true
+                }
+              ],
+              "forbiddenVisibility": [
+                {
+                  "uid": "video-first-card",
+                  "exists": true,
+                  "hidden": false
+                },
+                {
+                  "uid": "video-mark-rober-card",
+                  "exists": true,
+                  "hidden": false
+                },
+                {
+                  "uid": "video-cooking-card",
+                  "exists": true,
+                  "hidden": false
+                },
+                {
+                  "uid": "video-mkbhd-card",
+                  "exists": true,
+                  "hidden": false
+                },
+                {
+                  "uid": "video-sponsored-card",
+                  "exists": true,
+                  "hidden": false
+                }
+              ],
+              "changedForbiddenUids": []
+            }
+          },
+          "diagnostics": {
+            "targetMatches": {
+              "rocket_video_card": {
+                "selectors": [
+                  "[data-uid=\"video-rocket-card\"]"
+                ],
+                "usedFallback": false,
+                "uids": [
+                  "video-rocket-card"
+                ],
+                "sampleText": [
+                  "Engineering a rocket Everyday Astronaut"
+                ]
+              }
+            },
+            "broadSelectors": [],
+            "forbiddenChanged": [],
+            "semanticCandidates": {
+              "query": "rokcet engineering",
+              "expected": "Engineering a rocket",
+              "candidateKind": "youtube-title",
+              "expectedCandidateVisibleInContext": true,
+              "expectedCandidateSelectedByPlan": false,
+              "bestCandidate": {
+                "uid": "video-rocket-link",
+                "tag": "a",
+                "text": "Engineering a rocket",
+                "ariaLabel": "",
+                "dataChannel": "",
+                "scoreToQuery": 0.224,
+                "scoreToExpected": 1,
+                "isExpected": true,
+                "selectedByPlan": false
+              },
+              "candidates": [
+                {
+                  "uid": "video-rocket-link",
+                  "tag": "a",
+                  "text": "Engineering a rocket",
+                  "ariaLabel": "",
+                  "dataChannel": "",
+                  "scoreToQuery": 0.224,
+                  "scoreToExpected": 1,
+                  "isExpected": true,
+                  "selectedByPlan": false
+                },
+                {
+                  "uid": "video-mark-rober-link",
+                  "tag": "a",
+                  "text": "World's Smallest Nerf Gun",
+                  "ariaLabel": "",
+                  "dataChannel": "",
+                  "scoreToQuery": 0.197,
+                  "scoreToExpected": 0.197,
+                  "isExpected": false,
+                  "selectedByPlan": false
+                },
+                {
+                  "uid": "video-sponsored-link",
+                  "tag": "a",
+                  "text": "CloudDesk AI tool",
+                  "ariaLabel": "",
+                  "dataChannel": "",
+                  "scoreToQuery": 0.172,
+                  "scoreToExpected": 0.172,
+                  "isExpected": false,
+                  "selectedByPlan": false
+                },
+                {
+                  "uid": "video-first-link",
+                  "tag": "a",
+                  "text": "Backyard Squirrel Maze",
+                  "ariaLabel": "",
+                  "dataChannel": "",
+                  "scoreToQuery": 0.17,
+                  "scoreToExpected": 0.151,
+                  "isExpected": false,
+                  "selectedByPlan": false
+                }
+              ]
+            },
+            "domNavigation": null,
+            "phase": "ok-or-low-risk",
+            "usedSelectionHints": false,
+            "genericSelectors": [],
+            "failureReasons": [
+              "browser target is hidden",
+              "browser forbidden nodes remain visible",
+              "persistence: browser target is hidden",
+              "persistence: browser forbidden nodes remain visible"
+            ],
+            "taskKind": "visibility"
+          },
+          "plan": {
+            "version": "2.0",
+            "site": {
+              "hostname": "127.0.0.1",
+              "pathname": "/youtube",
+              "urlPattern": "127.0.0.1/youtube*"
+            },
+            "sourcePrompt": "Hide the rokcet engineering video.",
+            "selections": [],
+            "targetMap": {
+              "rocket_video_card": {
+                "source": "inferred",
+                "selectors": [
+                  "[data-uid=\"video-rocket-card\"]"
+                ],
+                "fallbackSelectors": [],
+                "repairReason": "semantic-safe-target"
+              }
+            },
+            "rules": [
+              {
+                "id": "hide-rocket-video",
+                "type": "visibility",
+                "targetRef": "rocket_video_card",
+                "action": "hide"
+              }
+            ]
+          },
+          "validation": {
+            "ok": true,
+            "errors": []
+          },
+          "applyResult": {
+            "totalMatched": 1,
+            "cssRuleCount": 0,
+            "targetCssRuleCount": 0
+          },
+          "selectionCount": 0,
+          "pageNodeCount": 19,
+          "domNavigation": null,
+          "beforeScreenshotPath": "reports/browser-screenshots/run-1-medium-youtube-hide-title-typo-before.png",
+          "screenshotPath": "reports/browser-screenshots/run-1-medium-youtube-hide-title-typo-after.png",
+          "consoleMessages": [
+            {
+              "type": "log",
+              "text": "[Perso XXL] content.loaded {version: 0.6.0-landing-ai-input, hasSavedPlan: false}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] panel.created {}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] storage.loaded {key: sitePlan:127.0.0.1:/youtube, hasSavedPlan: false}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] panel.state.loaded {hasProfileNotes: false, hasSavedPlan: false, key: sitePlan:127.0.0.1:/youtube}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.revert.started {}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.revert.finished {restoredCount: 0}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] openrouter.request.started {taskName: plan-generation, model: deepseek/deepseek-v4-flash, messageCount: 2, reasoning: Object}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] openrouter.response.received {ok: true, status: 200, durationMs: 17253, hasChoices: true, hasReasoning: false}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] openrouter.content.received {contentLength: 558, preview: {\n  \"version\": \"2.0\",\n  \"site\": {\n    \"hostname\": …eo\",\n      \"type\": \"visibility\",\n      \"targetRef}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] plan.validation.started {site: Object, ruleCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] plan.validation.finished {ok: true, errors: Array(0)}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.rule.visibility {ruleId: hide-rocket-video, targetRef: rocket_video_card, action: hide, matchCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 0, totalMatched: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.rule.visibility {ruleId: hide-rocket-video, targetRef: rocket_video_card, action: hide, matchCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 0, totalMatched: 1}"
+            }
+          ]
+        },
+        {
+          "taskId": "medium-youtube-hide-ad-synonym",
+          "tier": "medium",
+          "score": 1,
+          "passed": true,
+          "durationMs": 7374,
+          "grade": {
+            "score": 1,
+            "passed": true,
+            "planGrade": {
+              "score": 1,
+              "passed": true,
+              "validation": {
+                "ok": true,
+                "errors": []
+              },
+              "expectation": {
+                "score": 1,
+                "notes": [
+                  "matched intended target",
+                  "used a hide operation"
+                ],
+                "targetHit": true,
+                "forbiddenHit": false
+              },
+              "targetMatches": {
+                "sponsored_card": {
+                  "selectors": [
+                    "[data-uid=\"video-sponsored-card\"]"
+                  ],
+                  "usedFallback": false,
+                  "uids": [
+                    "video-sponsored-card"
+                  ],
+                  "sampleText": [
+                    "Sponsored CloudDesk AI tool CloudDesk"
+                  ]
+                }
+              }
+            },
+            "actual": {
+              "score": 1,
+              "notes": [
+                "browser target is hidden",
+                "browser forbidden nodes remain visible"
+              ],
+              "targetHit": true,
+              "forbiddenHit": false,
+              "details": {
+                "targetVisibility": [
+                  {
+                    "uid": "video-sponsored-card",
+                    "exists": true,
+                    "hidden": true
+                  },
+                  {
+                    "uid": "video-sponsored-badge",
+                    "exists": true,
+                    "hidden": true
+                  }
+                ],
+                "forbiddenVisibility": [
+                  {
+                    "uid": "video-first-card",
+                    "exists": true,
+                    "hidden": false
+                  },
+                  {
+                    "uid": "video-mark-rober-card",
+                    "exists": true,
+                    "hidden": false
+                  },
+                  {
+                    "uid": "video-cooking-card",
+                    "exists": true,
+                    "hidden": false
+                  },
+                  {
+                    "uid": "video-rocket-card",
+                    "exists": true,
+                    "hidden": false
+                  },
+                  {
+                    "uid": "video-mkbhd-card",
+                    "exists": true,
+                    "hidden": false
+                  }
+                ],
+                "changedForbiddenUids": []
+              }
+            }
+          },
+          "persistence": {
+            "score": 1,
+            "notes": [
+              "browser target is hidden",
+              "browser forbidden nodes remain visible"
+            ],
+            "targetHit": true,
+            "forbiddenHit": false,
+            "details": {
+              "targetVisibility": [
+                {
+                  "uid": "video-sponsored-card",
+                  "exists": true,
+                  "hidden": true
+                },
+                {
+                  "uid": "video-sponsored-badge",
+                  "exists": true,
+                  "hidden": true
+                }
+              ],
+              "forbiddenVisibility": [
+                {
+                  "uid": "video-first-card",
+                  "exists": true,
+                  "hidden": false
+                },
+                {
+                  "uid": "video-mark-rober-card",
+                  "exists": true,
+                  "hidden": false
+                },
+                {
+                  "uid": "video-cooking-card",
+                  "exists": true,
+                  "hidden": false
+                },
+                {
+                  "uid": "video-rocket-card",
+                  "exists": true,
+                  "hidden": false
+                },
+                {
+                  "uid": "video-mkbhd-card",
+                  "exists": true,
+                  "hidden": false
+                }
+              ],
+              "changedForbiddenUids": []
+            }
+          },
+          "diagnostics": {
+            "targetMatches": {
+              "sponsored_card": {
+                "selectors": [
+                  "[data-uid=\"video-sponsored-card\"]"
+                ],
+                "usedFallback": false,
+                "uids": [
+                  "video-sponsored-card"
+                ],
+                "sampleText": [
+                  "Sponsored CloudDesk AI tool CloudDesk"
+                ]
+              }
+            },
+            "broadSelectors": [],
+            "forbiddenChanged": [],
+            "semanticCandidates": {
+              "query": "ads",
+              "expected": "Sponsored",
+              "candidateKind": "youtube-badge",
+              "expectedCandidateVisibleInContext": true,
+              "expectedCandidateSelectedByPlan": true,
+              "bestCandidate": {
+                "uid": "video-sponsored-badge",
+                "tag": "span",
+                "text": "Sponsored",
+                "ariaLabel": "",
+                "dataChannel": "",
+                "scoreToQuery": 0.087,
+                "scoreToExpected": 1,
+                "isExpected": true,
+                "selectedByPlan": false
+              },
+              "candidates": [
+                {
+                  "uid": "video-sponsored-badge",
+                  "tag": "span",
+                  "text": "Sponsored",
+                  "ariaLabel": "",
+                  "dataChannel": "",
+                  "scoreToQuery": 0.087,
+                  "scoreToExpected": 1,
+                  "isExpected": true,
+                  "selectedByPlan": false
+                },
+                {
+                  "uid": "video-sponsored-card",
+                  "tag": "article",
+                  "text": "Sponsored CloudDesk AI tool CloudDesk",
+                  "ariaLabel": "Sponsored video from CloudDesk",
+                  "dataChannel": "CloudDesk",
+                  "scoreToQuery": 0.024,
+                  "scoreToExpected": 1,
+                  "isExpected": true,
+                  "selectedByPlan": true
+                }
+              ]
+            },
+            "domNavigation": null,
+            "phase": "ok-or-low-risk",
+            "usedSelectionHints": false,
+            "genericSelectors": [
+              ".sponsored-card"
+            ],
+            "failureReasons": [
+              "browser target is hidden",
+              "browser forbidden nodes remain visible",
+              "persistence: browser target is hidden",
+              "persistence: browser forbidden nodes remain visible",
+              "generic selectors: .sponsored-card"
+            ],
+            "taskKind": "visibility"
+          },
+          "plan": {
+            "version": "2.0",
+            "site": {
+              "hostname": "127.0.0.1",
+              "pathname": "/youtube",
+              "urlPattern": "127.0.0.1/youtube*"
+            },
+            "sourcePrompt": "Remove ads from my feed.",
+            "selections": [],
+            "targetMap": {
+              "sponsored_card": {
+                "source": "inferred",
+                "selectors": [
+                  "[data-uid=\"video-sponsored-card\"]"
+                ],
+                "fallbackSelectors": [
+                  ".sponsored-card"
+                ],
+                "repairReason": "semantic-safe-target"
+              }
+            },
+            "rules": [
+              {
+                "id": "hide-sponsored-cards",
+                "type": "style",
+                "targetRef": "sponsored_card",
+                "styles": {
+                  "display": "none"
+                }
+              }
+            ]
+          },
+          "validation": {
+            "ok": true,
+            "errors": []
+          },
+          "applyResult": {
+            "totalMatched": 1,
+            "cssRuleCount": 0,
+            "targetCssRuleCount": 1
+          },
+          "selectionCount": 0,
+          "pageNodeCount": 19,
+          "domNavigation": null,
+          "beforeScreenshotPath": "reports/browser-screenshots/run-1-medium-youtube-hide-ad-synonym-before.png",
+          "screenshotPath": "reports/browser-screenshots/run-1-medium-youtube-hide-ad-synonym-after.png",
+          "consoleMessages": [
+            {
+              "type": "log",
+              "text": "[Perso XXL] content.loaded {version: 0.6.0-landing-ai-input, hasSavedPlan: false}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] panel.created {}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] storage.loaded {key: sitePlan:127.0.0.1:/youtube, hasSavedPlan: false}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] panel.state.loaded {hasProfileNotes: false, hasSavedPlan: false, key: sitePlan:127.0.0.1:/youtube}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.revert.started {}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.revert.finished {restoredCount: 0}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] openrouter.request.started {taskName: plan-generation, model: deepseek/deepseek-v4-flash, messageCount: 2, reasoning: Object}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] openrouter.response.received {ok: true, status: 200, durationMs: 5877, hasChoices: true, hasReasoning: false}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] openrouter.content.received {contentLength: 498, preview: {\n  \"version\": \"2.0\",\n  \"site\": {\n    \"hostname\": …: {\n        \"display\": \"none\"\n      }\n    }\n  ]\n}}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] plan.validation.started {site: Object, ruleCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] plan.validation.finished {ok: true, errors: Array(0)}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.target_ref.css.generated {ruleId: hide-sponsored-cards, targetRef: sponsored_card, selectorCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.rule.style {ruleId: hide-sponsored-cards, targetRef: sponsored_card, matchCount: 1, matched: Array(1)}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 1, totalMatched: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.apply.started {ruleCount: 1, targetCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.target_ref.css.generated {ruleId: hide-sponsored-cards, targetRef: sponsored_card, selectorCount: 1}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.rule.style {ruleId: hide-sponsored-cards, targetRef: sponsored_card, matchCount: 1, matched: Array(1)}"
+            },
+            {
+              "type": "log",
+              "text": "[Perso XXL] executor.apply.finished {cssRuleCount: 0, targetCssRuleCount: 1, totalMatched: 1}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

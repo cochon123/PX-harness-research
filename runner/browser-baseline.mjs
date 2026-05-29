@@ -243,6 +243,7 @@ async function findPersoContext(cdp, contextIds) {
 
 async function runPersoInContentContext(cdp, contextId, task) {
   const expression = `(() => {
+    const BLOCK_FIXTURE_SELECTORS = ${JSON.stringify(BLOCK_FIXTURE_SELECTORS)};
     const repairPlanForHarnessTask = ${repairPlanForHarnessTask.toString()};
     const repairHarnessRule = ${repairHarnessRule.toString()};
     const parseHarnessCssDeclarations = ${parseHarnessCssDeclarations.toString()};

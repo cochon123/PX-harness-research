@@ -18,15 +18,21 @@ export function buildCaseContext(task) {
     ...pageContext,
     nodeCount: page.nodes.length,
     nodes: page.nodes.slice(0, 220).map((node) => ({
+      uid: node.uid,
       depth: node.depth,
       tag: node.tag,
       id: node.id,
       classes: node.classes.slice(0, 4),
       role: node.role,
       ariaLabel: node.attrs?.["aria-label"] || null,
+      dataTestId: node.attrs?.["data-testid"] || null,
+      dataChannel: node.attrs?.["data-channel"] || null,
+      dataSponsored: node.attrs?.["data-sponsored"] || null,
       text: normalizeText(node.text).slice(0, 80),
       childCount: node.children?.length || 0,
-      bounds: node.bounds || { width: 120, height: 32 }
+      bounds: node.bounds || { width: 120, height: 32 },
+      selectorHints: buildSelectorHints(node).slice(0, 5),
+      semanticContainer: summarizeSemanticContainer(node)
     }))
   };
 
@@ -159,10 +165,47 @@ function buildSelectorHints(node) {
   if (node.id && !/^\d/.test(node.id)) hints.push(`#${cssEscape(node.id)}`);
   if (node.attrs?.["aria-label"]) hints.push(`${node.tag}[aria-label="${node.attrs["aria-label"].replace(/"/g, '\\"')}"]`);
   if (node.attrs?.["data-testid"]) hints.push(`[data-testid="${node.attrs["data-testid"].replace(/"/g, '\\"')}"]`);
+  if (node.attrs?.["data-channel"]) hints.push(`${node.tag}[data-channel="${node.attrs["data-channel"].replace(/"/g, '\\"')}"]`);
+  if (node.attrs?.["data-sponsored"]) hints.push(`${node.tag}[data-sponsored="${node.attrs["data-sponsored"].replace(/"/g, '\\"')}"]`);
   for (const className of node.classes.slice(0, 3)) {
     if (className.length > 2) hints.push(`${node.tag}.${cssEscape(className)}`);
   }
+  const classSelector = node.classes.filter((className) => className.length > 2).slice(0, 2).map((className) => `.${cssEscape(className)}`).join("");
+  if (classSelector) hints.push(`${node.tag}${classSelector}`);
   return Array.from(new Set(hints)).slice(0, 8);
+}
+
+function summarizeSemanticContainer(node) {
+  const container = findSemanticContainer(node);
+  if (!container || container.uid === node.uid) return null;
+  return {
+    uid: container.uid,
+    tag: container.tag,
+    classes: container.classes.slice(0, 4),
+    role: container.role,
+    ariaLabel: container.attrs?.["aria-label"] || null,
+    dataChannel: container.attrs?.["data-channel"] || null,
+    dataSponsored: container.attrs?.["data-sponsored"] || null,
+    text: normalizeText(container.text).slice(0, 120),
+    selectorHints: buildSelectorHints(container).slice(0, 5),
+    reason: "Nearest content/card ancestor. For feed filtering or hiding matching content, target this container instead of only the inner label."
+  };
+}
+
+function findSemanticContainer(node) {
+  let current = node?.parent;
+  while (current) {
+    if (isSemanticContainer(current)) return current;
+    current = current.parent;
+  }
+  return null;
+}
+
+function isSemanticContainer(node) {
+  const classes = node.classes || [];
+  return ["article", "li", "section"].includes(node.tag) ||
+    classes.some((className) => /card|item|result|row|tile|entry/i.test(className)) ||
+    Boolean(node.attrs?.["data-channel"] || node.attrs?.["data-sponsored"] || node.attrs?.["data-testid"]);
 }
 
 function summarizeHtml(node) {
@@ -181,4 +224,3 @@ function cssEscape(value) {
 function normalizeText(value) {
   return String(value || "").replace(/\s+/g, " ").trim();
 }
-

@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 
 const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions";
 const DEFAULT_MODEL = "deepseek/deepseek-v4-flash";
+const OPENROUTER_TIMEOUT_MS = Number(process.env.OPENROUTER_TIMEOUT_MS || 120000);
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export const ALLOWED_STYLE_KEYS = [
@@ -92,6 +93,7 @@ export async function generateTransformPlan({
       "HTTP-Referer": "https://fixture.local/px-harness",
       "X-Title": "PX Harness"
     },
+    signal: AbortSignal.timeout(OPENROUTER_TIMEOUT_MS),
     body: JSON.stringify(body)
   });
 
@@ -132,6 +134,8 @@ function buildMessages({ prompt, pageContext, pageDom, selections, domNavigation
         "For text styling, target the element that actually owns the visible text, or a parent wrapper whose children include that text.",
         "Prefer specific scoped selectors from hierarchyCandidates or selectorHints over broad shared classes that match many unrelated elements.",
         "User selections mark what the user pointed at. Infer broader targets when the prompt implies a class of elements, such as all video titles.",
+        "For feed filtering, ad filtering, creator/channel filtering, or requests to stop seeing a type of content, target the nearest content/card/list-item ancestor from semanticContainer or selectorHints, not just the matching badge, label, title, or channel link.",
+        "When a node exposes stable attributes such as data-testid, data-channel, data-sponsored, id, or aria-label, prefer those selectors over positional selectors.",
         "Build targetMap entries with CSS selectors that match the intended elements on this page.",
         "Use browser-standard CSS selectors only. Never use Playwright-only selectors or pseudo-classes such as :has-text(), :text(), or :contains(). Avoid :has() unless there is no simpler selector.",
         "Each targetMap entry must include selectors and may include fallbackSelectors.",
@@ -206,6 +210,20 @@ function normalizeRule(rule) {
     normalized.type = "style";
     normalized.styles = normalized.css;
     delete normalized.css;
+  }
+  if (normalized.type === "visibility" && !normalized.action && typeof normalized.visibility === "string") {
+    const visibility = normalized.visibility.trim().toLowerCase();
+    if (["hidden", "collapse", "none"].includes(visibility)) normalized.action = "hide";
+    if (visibility === "visible") normalized.action = "show";
+    delete normalized.visibility;
+  }
+  if (normalized.type === "visibility" && !normalized.action && typeof normalized.visible === "boolean") {
+    normalized.action = normalized.visible ? "show" : "hide";
+    delete normalized.visible;
+  }
+  if (normalized.type === "visibility" && !normalized.action && String(normalized.styles?.display || "").toLowerCase() === "none") {
+    normalized.action = "hide";
+    delete normalized.styles;
   }
   return normalized;
 }

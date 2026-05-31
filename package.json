@@ -6,9 +6,12 @@
   "scripts": {
     "baseline": "node runner/baseline.mjs",
     "baseline:quick": "node runner/baseline.mjs --runs-no-thinking=1 --run-low-thinking=false",
-    "baseline:browser": "node runner/browser-baseline.mjs"
+    "baseline:browser": "node runner/browser-baseline.mjs",
+    "test": "vitest run"
   },
   "devDependencies": {
-    "playwright": "^1.60.0"
+    "happy-dom": "^20.9.0",
+    "playwright": "^1.60.0",
+    "vitest": "^4.1.7"
   }
 }

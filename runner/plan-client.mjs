@@ -1,7 +1,10 @@
 import { readFileSync, existsSync } from "node:fs";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 
 const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions";
 const DEFAULT_MODEL = "deepseek/deepseek-v4-flash";
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export const ALLOWED_STYLE_KEYS = [
   "background",
@@ -208,24 +211,40 @@ function normalizeRule(rule) {
 }
 
 function loadOpenRouterKey() {
-  const envJsPath = "/home/cochon/Documents/Perso-XXL/config/env.js";
-  const envPath = "/home/cochon/Documents/Perso-XXL/.env";
-
   if (process.env.OPENROUTER_API_KEY) return process.env.OPENROUTER_API_KEY;
 
-  if (existsSync(envJsPath)) {
+  for (const envJsPath of candidateEnvJsPaths()) {
+    if (!existsSync(envJsPath)) continue;
     const envJs = readFileSync(envJsPath, "utf8");
     const match = envJs.match(/OPENROUTER_API_KEY:\s*["']([^"']+)["']/);
     if (match?.[1]) return match[1];
   }
 
-  if (existsSync(envPath)) {
+  for (const envPath of candidateDotEnvPaths()) {
+    if (!existsSync(envPath)) continue;
     const envText = readFileSync(envPath, "utf8");
     const match = envText.match(/^OPENROUTER_API_KEY=(.+)$/m);
     if (match?.[1]) return match[1].trim().replace(/^["']|["']$/g, "");
   }
 
-  throw new Error("Missing OpenRouter key. Set OPENROUTER_API_KEY or configure Perso-XXL/config/env.js.");
+  throw new Error("Missing OpenRouter key. Set OPENROUTER_API_KEY, PERSO_XXL_DIR, or configure Perso-XXL/config/env.js.");
+}
+
+function candidatePersoRoots() {
+  return [
+    process.env.PERSO_XXL_DIR,
+    resolve(__dirname, "../../Perso-XXL"),
+    "/home/cochonhome/Documents/Perso-XXL",
+    "/home/cochon/Documents/Perso-XXL"
+  ].filter(Boolean);
+}
+
+function candidateEnvJsPaths() {
+  return candidatePersoRoots().map((root) => resolve(root, "config/env.js"));
+}
+
+function candidateDotEnvPaths() {
+  return candidatePersoRoots().map((root) => resolve(root, ".env"));
 }
 
 function extractContent(message) {

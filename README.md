@@ -68,5 +68,5 @@ falls back to injecting Perso's DOM/executor scripts into the fixture pages and
 using the Node OpenRouter planner. That fallback still tests real browser DOM
 execution, but not extension loading.
 
-The runner reads the OpenRouter key from `/home/cochon/Documents/Perso-XXL/config/env.js`
-or `/home/cochon/Documents/Perso-XXL/.env`.
+The runner reads the OpenRouter key from `OPENROUTER_API_KEY`, `PERSO_XXL_DIR`,
+the sibling `../Perso-XXL/config/env.js`, or `../Perso-XXL/.env`.

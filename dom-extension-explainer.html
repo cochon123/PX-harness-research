@@ -1,0 +1,956 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>DOM, Extensions, and Perso XXL Agent Tools</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f6f7f4;
+        --ink: #20231f;
+        --muted: #60675d;
+        --panel: #ffffff;
+        --soft: #eef3ed;
+        --line: #cbd6ca;
+        --accent: #0f766e;
+        --accent-dark: #164e63;
+        --gold: #b45309;
+        --red: #b91c1c;
+        --blue: #2563eb;
+        --green: #15803d;
+        --code: #112f3a;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: var(--bg);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        line-height: 1.5;
+      }
+
+      header {
+        background: #113c39;
+        color: #f8fbf8;
+        padding: 38px 24px 30px;
+      }
+
+      .wrap {
+        width: min(1160px, calc(100vw - 32px));
+        margin: 0 auto;
+      }
+
+      .eyebrow {
+        margin: 0 0 10px;
+        color: #a9dcd6;
+        font-size: 0.82rem;
+        font-weight: 800;
+        letter-spacing: 0;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        max-width: 960px;
+        margin: 0;
+        font-size: clamp(2rem, 4.6vw, 4.8rem);
+        line-height: 1.02;
+        letter-spacing: 0;
+      }
+
+      .lead {
+        max-width: 920px;
+        margin: 18px 0 0;
+        color: #dff1ed;
+        font-size: 1.08rem;
+      }
+
+      main {
+        padding: 26px 0 56px;
+      }
+
+      section {
+        margin: 20px 0;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 16px;
+      }
+
+      .card {
+        grid-column: span 6;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 20px;
+      }
+
+      .card.full {
+        grid-column: 1 / -1;
+      }
+
+      .card.third {
+        grid-column: span 4;
+      }
+
+      h2 {
+        margin: 0 0 12px;
+        font-size: 1.42rem;
+        line-height: 1.18;
+        letter-spacing: 0;
+      }
+
+      h3 {
+        margin: 18px 0 8px;
+        font-size: 1rem;
+        letter-spacing: 0;
+      }
+
+      p {
+        margin: 0 0 12px;
+      }
+
+      ul,
+      ol {
+        margin: 10px 0 0;
+        padding-left: 20px;
+      }
+
+      li {
+        margin: 7px 0;
+      }
+
+      code,
+      pre {
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      }
+
+      code {
+        color: var(--code);
+        background: #e8f0ef;
+        border-radius: 4px;
+        padding: 0.12rem 0.28rem;
+      }
+
+      pre {
+        overflow-x: auto;
+        margin: 12px 0 0;
+        background: #102726;
+        color: #eef7f4;
+        border-radius: 8px;
+        padding: 16px;
+        font-size: 0.86rem;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 12px;
+        font-size: 0.92rem;
+      }
+
+      th,
+      td {
+        text-align: left;
+        vertical-align: top;
+        border: 1px solid var(--line);
+        padding: 10px;
+      }
+
+      th {
+        background: var(--soft);
+      }
+
+      .diagram {
+        margin-top: 16px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fbfcfa;
+        padding: 16px;
+      }
+
+      .diagram-title {
+        margin: 0 0 12px;
+        color: var(--muted);
+        font-size: 0.82rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0;
+      }
+
+      .flow {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .node {
+        position: relative;
+        min-height: 96px;
+        border: 1px solid #bdd5d1;
+        border-radius: 8px;
+        background: #eef8f6;
+        padding: 12px;
+      }
+
+      .node strong {
+        display: block;
+        margin-bottom: 5px;
+        line-height: 1.2;
+      }
+
+      .node span {
+        display: block;
+        color: var(--muted);
+        font-size: 0.84rem;
+        line-height: 1.35;
+      }
+
+      .node:not(:last-child)::after {
+        content: ">";
+        position: absolute;
+        top: 50%;
+        right: -9px;
+        z-index: 1;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        color: #ffffff;
+        background: #113c39;
+        font-size: 0.72rem;
+        font-weight: 800;
+        line-height: 18px;
+        text-align: center;
+        transform: translateY(-50%);
+      }
+
+      .browser-map {
+        display: grid;
+        grid-template-columns: 1fr 1.3fr 1fr;
+        gap: 12px;
+        align-items: stretch;
+      }
+
+      .boundary {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #ffffff;
+        padding: 14px;
+      }
+
+      .boundary h3 {
+        margin-top: 0;
+      }
+
+      .wall {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        background: repeating-linear-gradient(45deg, #123d3a, #123d3a 8px, #245c56 8px, #245c56 16px);
+        color: #ffffff;
+        font-weight: 800;
+        writing-mode: vertical-rl;
+        text-transform: uppercase;
+        font-size: 0.72rem;
+        letter-spacing: 0;
+      }
+
+      .dom-tree {
+        list-style: none;
+        margin: 0;
+        padding-left: 0;
+      }
+
+      .dom-tree ul {
+        list-style: none;
+        margin: 5px 0 0 18px;
+        padding-left: 12px;
+        border-left: 2px solid #d9e3d7;
+      }
+
+      .dom-tree li {
+        margin: 6px 0;
+      }
+
+      .tag {
+        display: inline-flex;
+        align-items: center;
+        min-height: 26px;
+        border: 1px solid #b7cbc6;
+        border-radius: 6px;
+        background: #f7fbfa;
+        padding: 2px 7px;
+        color: #153c39;
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+        font-size: 0.83rem;
+      }
+
+      .tag.hot {
+        border-color: #f3b66f;
+        background: #fff7ed;
+        color: #7c2d12;
+      }
+
+      .demo-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+
+      .mock-page {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fdfdfb;
+        padding: 14px;
+      }
+
+      .mock-toolbar {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        border-bottom: 1px solid #d9e0d6;
+        padding-bottom: 10px;
+        margin-bottom: 12px;
+      }
+
+      .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #cbd5e1;
+      }
+
+      .mock-card {
+        border: 1px solid #cfd8cc;
+        border-radius: 8px;
+        padding: 12px;
+        margin-top: 10px;
+        background: #ffffff;
+      }
+
+      .mock-card.target {
+        border-color: #e59f31;
+        box-shadow: 0 0 0 3px #fff2d6;
+      }
+
+      .mock-card.hidden-by-agent {
+        display: none;
+      }
+
+      .mock-card h4 {
+        margin: 0 0 6px;
+        font-size: 1rem;
+      }
+
+      .mock-card p {
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      .button-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 12px;
+      }
+
+      button {
+        min-height: 36px;
+        border: 1px solid #9bb8b3;
+        border-radius: 6px;
+        background: #ffffff;
+        color: #123d3a;
+        padding: 7px 10px;
+        font: inherit;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      button.primary {
+        border-color: var(--accent);
+        background: var(--accent);
+        color: #ffffff;
+      }
+
+      .inspector {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #102726;
+        color: #eef7f4;
+        padding: 14px;
+        min-height: 280px;
+      }
+
+      .inspector h3 {
+        margin-top: 0;
+        color: #ffffff;
+      }
+
+      .inspector code {
+        color: #dffcf6;
+        background: #1f403d;
+      }
+
+      .pill-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 12px;
+      }
+
+      .pill {
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 4px 10px;
+        background: var(--soft);
+        color: var(--muted);
+        font-size: 0.85rem;
+      }
+
+      .ok {
+        color: var(--green);
+        font-weight: 800;
+      }
+
+      .warn {
+        color: var(--gold);
+        font-weight: 800;
+      }
+
+      .bad {
+        color: var(--red);
+        font-weight: 800;
+      }
+
+      .callout {
+        border-left: 4px solid var(--accent);
+        border-radius: 6px;
+        background: #e7f4f1;
+        padding: 14px 16px;
+      }
+
+      .tool-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .tool {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #ffffff;
+        padding: 14px;
+      }
+
+      .tool strong {
+        display: block;
+        color: #123d3a;
+      }
+
+      .tool span {
+        display: block;
+        margin-top: 6px;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      footer {
+        border-top: 1px solid var(--line);
+        padding: 22px 0 36px;
+        color: var(--muted);
+      }
+
+      @media (max-width: 900px) {
+        .grid,
+        .flow,
+        .browser-map,
+        .demo-layout,
+        .tool-grid {
+          display: block;
+        }
+
+        .card,
+        .tool,
+        .boundary {
+          margin: 14px 0;
+        }
+
+        .node {
+          margin: 10px 0;
+        }
+
+        .node:not(:last-child)::after {
+          top: auto;
+          right: 50%;
+          bottom: -9px;
+          transform: translateX(50%) rotate(90deg);
+        }
+
+        .wall {
+          min-height: 42px;
+          writing-mode: horizontal-tb;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="wrap">
+        <p class="eyebrow">Perso XXL webpage customization primer</p>
+        <h1>The DOM is the page API your extension has to understand.</h1>
+        <p class="lead">
+          A browser shows pixels, but a content script edits a live object tree. Reliable AI customization
+          depends on giving the agent tools that can inspect that tree, ground the right target, apply a
+          constrained change, and verify what actually happened.
+        </p>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <section class="grid">
+        <article class="card full">
+          <h2>What The DOM Is</h2>
+          <p>
+            The Document Object Model is the browser's live representation of an HTML page. HTML text becomes
+            a tree of nodes: <code>document</code>, <code>html</code>, <code>body</code>, elements, text nodes,
+            attributes, and event listeners. JavaScript reads and changes this tree; the browser then recalculates
+            style, layout, paint, and interaction.
+          </p>
+          <div class="diagram">
+            <p class="diagram-title">Same page, three views</p>
+            <div class="flow">
+              <div class="node">
+                <strong>HTML source</strong>
+                <span>Initial text sent by server or generated by app code.</span>
+              </div>
+              <div class="node">
+                <strong>DOM tree</strong>
+                <span>Live nodes with attributes, text, children, state, and listeners.</span>
+              </div>
+              <div class="node">
+                <strong>CSSOM</strong>
+                <span>Stylesheets and inline styles resolve into computed styles.</span>
+              </div>
+              <div class="node">
+                <strong>Layout tree</strong>
+                <span>Visible boxes get positions, sizes, stacking, and overflow.</span>
+              </div>
+              <div class="node">
+                <strong>Pixels</strong>
+                <span>The final visual result the user sees and clicks.</span>
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="grid">
+        <article class="card">
+          <h2>DOM Tree Example</h2>
+          <ul class="dom-tree">
+            <li><span class="tag">&lt;html&gt;</span>
+              <ul>
+                <li><span class="tag">&lt;body&gt;</span>
+                  <ul>
+                    <li><span class="tag">&lt;main data-testid="feed"&gt;</span>
+                      <ul>
+                        <li><span class="tag hot">&lt;article class="video-card"&gt;</span>
+                          <ul>
+                            <li><span class="tag">&lt;a class="title"&gt;Engineering a rocket&lt;/a&gt;</span></li>
+                            <li><span class="tag">&lt;span class="channel"&gt;Mark Rober&lt;/span&gt;</span></li>
+                            <li><span class="tag">&lt;button aria-label="More actions"&gt;</span></li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h2>What An Agent Must Infer</h2>
+          <p>
+            A user says "hide the Mark Ruber video." The browser does not know what that means. The agent must
+            connect the misspelled human phrase to a DOM target, choose the correct ancestor to hide, and avoid
+            changing other video cards that share the same classes.
+          </p>
+          <pre><code>const title = document.querySelector(".title");
+const card = title.closest(".video-card");
+card.style.display = "none";</code></pre>
+          <p>
+            That code is simple only after the target is known. Most failures in this project are grounding
+            failures: wrong element, too broad selector, hidden target missing from context, or a selector that
+            breaks after rerender.
+          </p>
+        </article>
+      </section>
+
+      <section class="grid">
+        <article class="card full">
+          <h2>Try The Mini Inspector</h2>
+          <div class="demo-layout">
+            <div class="mock-page" id="mockPage">
+              <div class="mock-toolbar">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <strong>Mock video feed</strong>
+              </div>
+              <article class="mock-card" data-channel="Cooking Lab" data-kind="video-card">
+                <h4>Ten-minute pasta science</h4>
+                <p>Cooking Lab</p>
+              </article>
+              <article class="mock-card target" data-channel="Mark Rober" data-kind="video-card">
+                <h4>Engineering a rocket-powered skateboard</h4>
+                <p>Mark Rober</p>
+              </article>
+              <article class="mock-card" data-channel="MKBHD" data-kind="video-card">
+                <h4>Reviewing a transparent laptop</h4>
+                <p>MKBHD</p>
+              </article>
+              <div class="button-row">
+                <button type="button" id="inspectButton" class="primary">Inspect target</button>
+                <button type="button" id="hideButton">Apply hide rule</button>
+                <button type="button" id="resetButton">Reset</button>
+              </div>
+            </div>
+            <div class="inspector">
+              <h3>Agent Observation</h3>
+              <p id="inspectorText">Click <code>Inspect target</code> to see the kind of structured context Perso XXL should give the planner.</p>
+              <pre id="inspectorCode"><code>{
+  "status": "waiting"
+}</code></pre>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="grid">
+        <article class="card full">
+          <h2>How Extensions Usually Interact With The DOM</h2>
+          <div class="diagram">
+            <p class="diagram-title">Chrome extension mental model</p>
+            <div class="browser-map">
+              <div class="boundary">
+                <h3>Web Page</h3>
+                <ul>
+                  <li>Owns app JavaScript and DOM</li>
+                  <li>Rerenders with React, Vue, or server updates</li>
+                  <li>Can change classes, layout, and text after load</li>
+                </ul>
+              </div>
+              <div class="wall">isolated world</div>
+              <div class="boundary">
+                <h3>Content Script</h3>
+                <ul>
+                  <li>Can read and mutate page DOM</li>
+                  <li>Can add CSS and event listeners</li>
+                  <li>Cannot directly call page functions unless bridged</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="diagram">
+            <p class="diagram-title">Extension pipeline</p>
+            <div class="flow">
+              <div class="node">
+                <strong>User intent</strong>
+                <span>Prompt, clicked element, or persistent preference.</span>
+              </div>
+              <div class="node">
+                <strong>Observe</strong>
+                <span>DOM summary, selected node, accessibility, layout, screenshot crop.</span>
+              </div>
+              <div class="node">
+                <strong>Plan</strong>
+                <span>Model returns declarative targets and rules, not arbitrary scripts.</span>
+              </div>
+              <div class="node">
+                <strong>Execute</strong>
+                <span>Trusted code applies CSS, hides nodes, inserts assets, or runs approved capability.</span>
+              </div>
+              <div class="node">
+                <strong>Verify</strong>
+                <span>Check match count, target correctness, blast radius, persistence, and UI safety.</span>
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="grid">
+        <article class="card">
+          <h2>What Perso XXL Can Do Well</h2>
+          <ul>
+            <li>Read the live DOM through a content script.</li>
+            <li>Use selected-element context when the user clicks a target.</li>
+            <li>Generate a declarative transform plan with target selectors and typed rules.</li>
+            <li>Apply style and visibility changes through trusted executor code.</li>
+            <li>Reapply a plan after mutations when the page rerenders.</li>
+            <li>Log matched elements so the harness can diagnose selector quality.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h2>What Perso XXL Should Avoid</h2>
+          <ul>
+            <li>Running arbitrary model-written JavaScript by default.</li>
+            <li>Trusting <code>totalMatched &gt; 0</code> as proof of success.</li>
+            <li>Using benchmark-only handles like <code>data-uid</code> on real websites.</li>
+            <li>Hiding broad classes such as every <code>.video-card</code> when the user meant one creator.</li>
+            <li>Assuming visible text is enough; ARIA, layout, and nearby family often matter.</li>
+            <li>Changing cross-origin iframes, browser UI, or extension-protected pages without host permissions.</li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="grid">
+        <article class="card full">
+          <h2>Can And Cannot Do</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Capability</th>
+                <th>Status</th>
+                <th>Reliability note</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Change colors, spacing, fonts, borders, and backgrounds</td>
+                <td><span class="ok">Good fit</span></td>
+                <td>Use scoped CSS rules and computed-style verification.</td>
+              </tr>
+              <tr>
+                <td>Hide or remove cards, banners, feeds, and panels</td>
+                <td><span class="ok">Good fit</span></td>
+                <td>Choose the semantic container, then check forbidden siblings still exist.</td>
+              </tr>
+              <tr>
+                <td>Insert icons, labels, or helper UI</td>
+                <td><span class="warn">Needs trusted asset tools</span></td>
+                <td>Use approved icon libraries, accessibility labels, and collision checks.</td>
+              </tr>
+              <tr>
+                <td>Filter YouTube-like content by creator, title, or sponsored badge</td>
+                <td><span class="warn">Needs DOM search and repair</span></td>
+                <td>Robust tools must handle typos, lazy-loaded cards, and rerenders.</td>
+              </tr>
+              <tr>
+                <td>Stop scrolling or change page behavior</td>
+                <td><span class="warn">Capability module</span></td>
+                <td>Provide a named scroll-lock tool instead of free-form script.</td>
+              </tr>
+              <tr>
+                <td>Theme a whole page from a broad idea</td>
+                <td><span class="warn">Hard</span></td>
+                <td>Needs style inventory, asset generation or lookup, visual checks, and rollback.</td>
+              </tr>
+              <tr>
+                <td>Edit server data, bypass site security, or access unavailable account content</td>
+                <td><span class="bad">Cannot rely on it</span></td>
+                <td>A content script changes what the browser displays; it does not own the server.</td>
+              </tr>
+              <tr>
+                <td>Read or modify cross-origin iframe contents</td>
+                <td><span class="bad">Usually blocked</span></td>
+                <td>Browser security boundaries apply unless the extension has matching permissions and frame access.</td>
+              </tr>
+            </tbody>
+          </table>
+        </article>
+      </section>
+
+      <section class="grid">
+        <article class="card full">
+          <h2>Tools To Give The Agent</h2>
+          <p>
+            The repo's DOMFS experiment already points in the right direction: expose an outline, find results,
+            local inspections, nearby family, and proposed selectors. The next step is making these real interactive
+            tools inside the Perso XXL extension, with verification after every important action.
+          </p>
+          <div class="tool-grid">
+            <div class="tool">
+              <strong><code>dom.outline()</code></strong>
+              <span>Page landmarks, regions, headings, forms, cards, and node counts.</span>
+            </div>
+            <div class="tool">
+              <strong><code>dom.find(query)</code></strong>
+              <span>Semantic and fuzzy search over visible text, ARIA names, ids, test ids, and nearby labels.</span>
+            </div>
+            <div class="tool">
+              <strong><code>dom.inspect(target)</code></strong>
+              <span>Tag, role, text, attributes, parents, siblings, children, proposed selectors, and event hints.</span>
+            </div>
+            <div class="tool">
+              <strong><code>selector.probe(selector)</code></strong>
+              <span>Match count, sample nodes, bounds, styles, visibility, and whether matches are related.</span>
+            </div>
+            <div class="tool">
+              <strong><code>layout.snapshot()</code></strong>
+              <span>Bounding boxes, viewport position, overlap, z-index, overflow, and clickability.</span>
+            </div>
+            <div class="tool">
+              <strong><code>a11y.snapshot()</code></strong>
+              <span>Role/name tree, tab stops, hidden controls, and whether important actions remain accessible.</span>
+            </div>
+            <div class="tool">
+              <strong><code>screenshot.crop(target)</code></strong>
+              <span>Optional visual grounding around selected or candidate nodes for models that can see images.</span>
+            </div>
+            <div class="tool">
+              <strong><code>plan.apply(plan)</code></strong>
+              <span>Only accepts validated declarative operations and returns exact changed-node diagnostics.</span>
+            </div>
+            <div class="tool">
+              <strong><code>plan.verify(goal)</code></strong>
+              <span>Checks target success, forbidden changes, rerender persistence, and layout integrity.</span>
+            </div>
+            <div class="tool">
+              <strong><code>selector.repair(goal)</code></strong>
+              <span>When a selector is empty or too broad, search by text fingerprint, family, and stable attributes.</span>
+            </div>
+            <div class="tool">
+              <strong><code>capability.run(name)</code></strong>
+              <span>Trusted modules for scroll lock, icon insertion, theme application, physics, and focus helpers.</span>
+            </div>
+            <div class="tool">
+              <strong><code>clarify.question()</code></strong>
+              <span>For ambiguous requests, low-confidence lookup, risky broad changes, or missing permissions.</span>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="grid">
+        <article class="card">
+          <h2>Selector Strategy</h2>
+          <ol>
+            <li>Prefer user-selected node when available.</li>
+            <li>Prefer stable semantic anchors: role, accessible name, visible text, <code>id</code>, <code>data-testid</code>, and meaningful attributes.</li>
+            <li>Scope selectors to a parent region before using common classes.</li>
+            <li>Probe every selector before applying the plan.</li>
+            <li>Reject broad matches unless the task explicitly asks for a broad change.</li>
+            <li>Store a fallback fingerprint for rerender repair: text, role, parent text, and relative family.</li>
+          </ol>
+        </article>
+
+        <article class="card">
+          <h2>Execution Strategy</h2>
+          <ol>
+            <li>Model proposes <code>targetMap</code> plus typed rules.</li>
+            <li>Validator checks schema, CSS allowlist, selector syntax, and permission scope.</li>
+            <li>Executor applies changes using deterministic code.</li>
+            <li>Verifier checks intended targets and forbidden nodes.</li>
+            <li>Mutation observer reapplies or repairs after SPA rerenders.</li>
+            <li>Rollback if verification fails or blast radius is too large.</li>
+          </ol>
+        </article>
+      </section>
+
+      <section class="grid">
+        <article class="card full">
+          <h2>Why The Harness Matters</h2>
+          <p>
+            The current research harness already creates a local web zoo, runs browser tasks, captures screenshots,
+            grades DOM outcomes, and compares normal context against DOMFS context. That is exactly the right
+            environment for improving an extension agent, because it separates real improvement from lucky demos.
+          </p>
+          <div class="callout">
+            <strong>Practical target:</strong> make every new Perso XXL tool prove itself on tasks like selected
+            card color, hidden warning panel, typo-based creator filtering, sponsored content removal, scroll lock,
+            and broad theme changes. Keep deterministic DOM/style/accessibility graders as the default, then add
+            visual or model judges only when the task genuinely needs them.
+          </div>
+          <div class="pill-row">
+            <span class="pill">DOM grounding</span>
+            <span class="pill">selector diagnostics</span>
+            <span class="pill">blast-radius checks</span>
+            <span class="pill">rerender persistence</span>
+            <span class="pill">trusted capabilities</span>
+            <span class="pill">human-readable traces</span>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap">
+        <p>
+          Built for the PX Harness Research project. Open this file locally beside <code>index.html</code>;
+          no server or build step is required.
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      const target = document.querySelector(".mock-card.target");
+      const inspectorText = document.getElementById("inspectorText");
+      const inspectorCode = document.getElementById("inspectorCode");
+      const inspectButton = document.getElementById("inspectButton");
+      const hideButton = document.getElementById("hideButton");
+      const resetButton = document.getElementById("resetButton");
+
+      function renderObservation(status) {
+        const rect = target.getBoundingClientRect();
+        const observation = {
+          status,
+          tool: "dom.inspect",
+          target: {
+            tag: "article",
+            classes: ["mock-card", "target"],
+            attributes: {
+              "data-channel": target.dataset.channel,
+              "data-kind": target.dataset.kind
+            },
+            text: target.innerText.replace(/\s+/g, " ").trim(),
+            proposedSelectors: [
+              "[data-channel=\"Mark Rober\"]",
+              "[data-kind=\"video-card\"]:has(h4)",
+              ".mock-card.target"
+            ],
+            bounds: {
+              x: Math.round(rect.x),
+              y: Math.round(rect.y),
+              width: Math.round(rect.width),
+              height: Math.round(rect.height)
+            },
+            family: {
+              parent: "#mockPage",
+              siblings: ["Cooking Lab card", "MKBHD card"]
+            }
+          },
+          warning: "Use the channel selector or scoped family selector; .mock-card alone is too broad."
+        };
+        inspectorCode.innerHTML = `<code>${JSON.stringify(observation, null, 2)}</code>`;
+      }
+
+      inspectButton.addEventListener("click", () => {
+        inspectorText.innerHTML = "The agent sees structured facts, not just pixels. Good tools expose selectors, nearby family, bounds, and risk signals.";
+        renderObservation("inspected");
+      });
+
+      hideButton.addEventListener("click", () => {
+        target.classList.add("hidden-by-agent");
+        inspectorText.innerHTML = "The trusted executor applied a visibility rule to one semantic target, then the verifier would check that sibling cards remain visible.";
+        renderObservation("hidden");
+      });
+
+      resetButton.addEventListener("click", () => {
+        target.classList.remove("hidden-by-agent");
+        inspectorText.innerHTML = "Reset complete. Inspect again or apply the hide rule.";
+        renderObservation("reset");
+      });
+    </script>
+  </body>
+</html>

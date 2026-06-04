@@ -11,7 +11,11 @@ import { startWebZooServer } from "./web-zoo-server.mjs";
 import { buildDomfsContext } from "./domfs-tools.mjs";
 import { querySelectorAllSubset } from "./selector-engine.mjs";
 
-const EXTENSION_PATH = "/home/cochon/Documents/Perso-XXL";
+const EXTENSION_PATH = process.env.PERSO_XXL_DIR || (
+  existsSync("/home/cochonhome/Documents/Perso-XXL")
+    ? "/home/cochonhome/Documents/Perso-XXL"
+    : "/home/cochon/Documents/Perso-XXL"
+);
 const BROWSER_CANDIDATES = [
   process.env.PX_HARNESS_BROWSER,
   "/snap/bin/chromium",
@@ -19,9 +23,9 @@ const BROWSER_CANDIDATES = [
   "/usr/bin/chromium-browser",
   "/usr/bin/google-chrome"
 ].filter(Boolean);
-const MODEL = "deepseek/deepseek-v4-flash";
 const BROWSER_PATH = findBrowserPath();
 const args = parseArgs(process.argv.slice(2));
+const MODEL = args.model || "deepseek/deepseek-v4-flash";
 const RUN_COUNT = Number(args.runs || 1);
 const SCREENSHOT_DIR = "reports/browser-screenshots";
 const SKIP_PASS_RATE = args["skip-pass-rate"] ? Number(args["skip-pass-rate"]) : null;
@@ -32,6 +36,7 @@ const CONTEXT_MODE = args["context-mode"] || "page-dom";
 const OUTPUT_BASE = args.output || (CONTEXT_MODE === "domfs" ? "reports/domfs-experiment" : "reports/browser-baseline");
 const COMPARE_SOURCE = args["compare-source"] || null;
 const BLOCK_FIXTURE_SELECTORS = Boolean(args["block-fixture-selectors"]);
+const HEADLESS = args.headless === "true";
 
 const routesByPageId = {
   dashboard: "/dashboard",
@@ -58,7 +63,7 @@ let context;
 try {
   context = await chromium.launchPersistentContext(userDataDir, {
     executablePath: BROWSER_PATH,
-    headless: false,
+    headless: HEADLESS,
     args: [
       `--disable-extensions-except=${EXTENSION_PATH}`,
       `--load-extension=${EXTENSION_PATH}`,
@@ -143,6 +148,8 @@ async function runBrowserSuite(browserContext, origin, { extensionAvailable, run
         diagnostics,
         plan: generation.plan,
         validation: generation.validation,
+        usage: generation.usage || null,
+        generationDurationMs: generation.durationMs || null,
         applyResult: generation.applyResult,
         selectionCount: generation.selectionCount,
         pageNodeCount: generation.pageNodeCount,
@@ -315,7 +322,9 @@ async function runWithInjectedPersoScripts(page, task) {
     applyResult,
     selectionCount: browserContext.selectionCount,
     pageNodeCount: browserContext.pageNodeCount,
-    executionMode: "injected-perso-scripts"
+    executionMode: "injected-perso-scripts",
+    usage: generation.usage || null,
+    durationMs: generation.durationMs || null
   };
 }
 
@@ -368,6 +377,8 @@ async function runWithDomfsContext(page, task, fixturePage) {
     selectionCount: browserContext.selectionCount,
     pageNodeCount: browserContext.pageNodeCount,
     executionMode: "domfs-injected-perso-scripts",
+    usage: generation.usage || null,
+    durationMs: generation.durationMs || null,
     domNavigation
   };
 }

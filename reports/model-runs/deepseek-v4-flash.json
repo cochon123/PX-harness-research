@@ -1,0 +1,903 @@
+{
+  "generatedAt": "2026-06-03T13:37:32.371Z",
+  "model": "deepseek/deepseek-v4-flash",
+  "config": {
+    "mode": "browser",
+    "reasoningMode": "low",
+    "contextMode": "domfs",
+    "blockFixtureSelectors": false,
+    "executionMode": "injected-perso-scripts",
+    "runCount": 1,
+    "taskCount": 7,
+    "allTaskCount": 19,
+    "executedTaskCount": 7,
+    "skippedTaskCount": 0,
+    "skippedTasks": [],
+    "skipPassRate": null,
+    "skipSource": "reports/browser-baseline.json",
+    "compareSource": null,
+    "taskFilter": [],
+    "tagFilter": [
+      "youtube-focused"
+    ],
+    "extensionPath": "/home/cochonhome/Documents/Perso-XXL"
+  },
+  "summary": {
+    "noThinkingRuns": 0,
+    "noThinkingAverage": 0,
+    "lowThinkingScore": 0,
+    "minScore": 0,
+    "maxScore": 0,
+    "variance": 0
+  },
+  "domfsFacts": {
+    "summary": "DOMFS v1 is an experimental context mode, not yet an interactive agent loop.",
+    "executedTaskCount": 7,
+    "taskAverageCount": 7,
+    "tasksWithDomfsContext": 0,
+    "averageSearchResults": 0,
+    "averageInspections": 0,
+    "tasksUsingFixtureUidSelectors": 0,
+    "blockFixtureSelectors": false,
+    "selectorBlastRadiusFailures": 0,
+    "failedTaskRuns": 7,
+    "comparison": null,
+    "limits": [
+      "The current v1 precomputes outline/find/inspect context before the model call; the model is not yet choosing tools step by step.",
+      "The fixture exposes data-uid selectors, so high scores can overstate real-page reliability unless we separately test without fixture-only selectors.",
+      "This measures whether navigable context helps planning, not whether a production DOMFS API is complete."
+    ]
+  },
+  "recommendations": [
+    "Keep DOMFS as an experiment behind a context-mode switch until it beats the existing baseline on repeated medium/hard tasks.",
+    "Next, make the model call actual tools in a loop: outline, find, inspect, proposeSelector, apply, diff, verify. The current implementation only simulates that trace.",
+    "Add a no-fixture-selector run that blocks [data-uid] so we can tell whether the idea transfers to real websites.",
+    "Use DOMFS selectively for ambiguous or semantic requests; direct selected-element edits should stay fast and simple.",
+    "Use the next run to study the weakest tasks: medium-youtube-hide-creator-typo: 0% average, 0% pass rate; medium-youtube-hide-rocket-title: 0% average, 0% pass rate; medium-youtube-hide-sponsored: 0% average, 0% pass rate."
+  ],
+  "runs": [
+    {
+      "label": "browser-low-thinking-1",
+      "reasoningMode": "low",
+      "averageScore": 0,
+      "passedTasks": 0,
+      "totalTasks": 7,
+      "averageDurationMs": 995.7142857142857
+    }
+  ],
+  "taskAverages": [
+    {
+      "id": "medium-youtube-hide-creator-typo",
+      "tier": "medium",
+      "what": "Creator filtering with a typo in the requested channel name.",
+      "tags": [
+        "semantic",
+        "typo",
+        "youtube-focused",
+        "visibility"
+      ],
+      "skipped": false,
+      "noThinkingAverage": null,
+      "lowThinkingScore": 0,
+      "minScore": 0,
+      "maxScore": 0,
+      "variance": 0,
+      "passRate": 0,
+      "runCount": 1,
+      "commonFailureReasons": [
+        "Missing OpenRouter key. Set OPENROUTER_API_KEY, PERSO_XXL_DIR, or configure Perso-XXL/config/env.js. (1x)"
+      ],
+      "observation": "Missing OpenRouter key. Set OPENROUTER_API_KEY, PERSO_XXL_DIR, or configure Perso-XXL/config/env.js."
+    },
+    {
+      "id": "medium-youtube-hide-rocket-title",
+      "tier": "medium",
+      "what": "Hide a video by title keyword while keeping unrelated videos visible.",
+      "tags": [
+        "semantic",
+        "text-match",
+        "youtube-focused",
+        "visibility"
+      ],
+      "skipped": false,
+      "noThinkingAverage": null,
+      "lowThinkingScore": 0,
+      "minScore": 0,
+      "maxScore": 0,
+      "variance": 0,
+      "passRate": 0,
+      "runCount": 1,
+      "commonFailureReasons": [
+        "Missing OpenRouter key. Set OPENROUTER_API_KEY, PERSO_XXL_DIR, or configure Perso-XXL/config/env.js. (1x)"
+      ],
+      "observation": "Missing OpenRouter key. Set OPENROUTER_API_KEY, PERSO_XXL_DIR, or configure Perso-XXL/config/env.js."
+    },
+    {
+      "id": "medium-youtube-hide-sponsored",
+      "tier": "medium",
+      "what": "Hide sponsored content by semantic label/data attribute without hiding organic videos.",
+      "tags": [
+        "semantic",
+        "ads",
+        "youtube-focused",
+        "visibility"
+      ],
+      "skipped": false,
+      "noThinkingAverage": null,
+      "lowThinkingScore": 0,
+      "minScore": 0,
+      "maxScore": 0,
+      "variance": 0,
+      "passRate": 0,
+      "runCount": 1,
+      "commonFailureReasons": [
+        "Missing OpenRouter key. Set OPENROUTER_API_KEY, PERSO_XXL_DIR, or configure Perso-XXL/config/env.js. (1x)"
+      ],
+      "observation": "Missing OpenRouter key. Set OPENROUTER_API_KEY, PERSO_XXL_DIR, or configure Perso-XXL/config/env.js."
+    },
+    {
+      "id": "medium-youtube-hide-creator-exact",
+      "tier": "medium",
+      "what": "Control task for creator filtering with the exact channel name.",
+      "tags": [
+        "semantic",
+        "youtube-focused",
+        "visibility"
+      ],
+      "skipped": false,
+      "noThinkingAverage": null,
+      "lowThinkingScore": 0,
+      "minScore": 0,
+      "maxScore": 0,
+      "variance": 0,
+      "passRate": 0,
+      "runCount": 1,
+      "commonFailureReasons": [
+        "Missing OpenRouter key. Set OPENROUTER_API_KEY, PERSO_XXL_DIR, or configure Perso-XXL/config/env.js. (1x)"
+      ],
+      "observation": "Missing OpenRouter key. Set OPENROUTER_API_KEY, PERSO_XXL_DIR, or configure Perso-XXL/config/env.js."
+    },
+    {
+      "id": "medium-youtube-hide-creator-partial",
+      "tier": "medium",
+      "what": "Creator filtering from a partial channel name.",
+      "tags": [
+        "semantic",
+        "youtube-focused",
+        "visibility"
+      ],
+      "skipped": false,
+      "noThinkingAverage": null,
+      "lowThinkingScore": 0,
+      "minScore": 0,
+      "maxScore": 0,
+      "variance": 0,
+      "passRate": 0,
+      "runCount": 1,
+      "commonFailureReasons": [
+        "Missing OpenRouter key. Set OPENROUTER_API_KEY, PERSO_XXL_DIR, or configure Perso-XXL/config/env.js. (1x)"
+      ],
+      "observation": "Missing OpenRouter key. Set OPENROUTER_API_KEY, PERSO_XXL_DIR, or configure Perso-XXL/config/env.js."
+    },
+    {
+      "id": "medium-youtube-hide-title-typo",
+      "tier": "medium",
+      "what": "Hide a video by a misspelled title keyword.",
+      "tags": [
+        "semantic",
+        "typo",
+        "youtube-focused",
+        "visibility"
+      ],
+      "skipped": false,
+      "noThinkingAverage": null,
+      "lowThinkingScore": 0,
+      "minScore": 0,
+      "maxScore": 0,
+      "variance": 0,
+      "passRate": 0,
+      "runCount": 1,
+      "commonFailureReasons": [
+        "Missing OpenRouter key. Set OPENROUTER_API_KEY, PERSO_XXL_DIR, or configure Perso-XXL/config/env.js. (1x)"
+      ],
+      "observation": "Missing OpenRouter key. Set OPENROUTER_API_KEY, PERSO_XXL_DIR, or configure Perso-XXL/config/env.js."
+    },
+    {
+      "id": "medium-youtube-hide-ad-synonym",
+      "tier": "medium",
+      "what": "Hide sponsored content using an ad synonym instead of the visible badge text.",
+      "tags": [
+        "semantic",
+        "ads",
+        "youtube-focused",
+        "visibility"
+      ],
+      "skipped": false,
+      "noThinkingAverage": null,
+      "lowThinkingScore": 0,
+      "minScore": 0,
+      "maxScore": 0,
+      "variance": 0,
+      "passRate": 0,
+      "runCount": 1,
+      "commonFailureReasons": [
+        "Missing OpenRouter key. Set OPENROUTER_API_KEY, PERSO_XXL_DIR, or configure Perso-XXL/config/env.js. (1x)"
+      ],
+      "observation": "Missing OpenRouter key. Set OPENROUTER_API_KEY, PERSO_XXL_DIR, or configure Perso-XXL/config/env.js."
+    }
+  ],
+  "observations": [
+    "Browser low-reasoning baseline averaged 0% across 1 run(s).",
+    "Run score range: 0% to 0%; variance 0.0000.",
+    "Chrome did not load unpacked extensions in this environment, so this run injects Perso DOM/executor scripts into Chrome pages and uses the Node planner. It tests real browser DOM execution, but not extension loading.",
+    "medium-youtube-hide-creator-typo averaged 0% with 0% pass rate. Missing OpenRouter key. Set OPENROUTER_API_KEY, PERSO_XXL_DIR, or configure Perso-XXL/config/env.js. (1x)",
+    "medium-youtube-hide-rocket-title averaged 0% with 0% pass rate. Missing OpenRouter key. Set OPENROUTER_API_KEY, PERSO_XXL_DIR, or configure Perso-XXL/config/env.js. (1x)",
+    "medium-youtube-hide-sponsored averaged 0% with 0% pass rate. Missing OpenRouter key. Set OPENROUTER_API_KEY, PERSO_XXL_DIR, or configure Perso-XXL/config/env.js. (1x)"
+  ],
+  "raw": [
+    {
+      "label": "browser-low-thinking-1",
+      "reasoningMode": "low",
+      "executionMode": "injected-perso-scripts",
+      "averageScore": 0,
+      "passedTasks": 0,
+      "totalTasks": 7,
+      "averageDurationMs": 995.7142857142857,
+      "tasks": [
+        {
+          "taskId": "medium-youtube-hide-creator-typo",
+          "tier": "medium",
+          "score": 0,
+          "passed": false,
+          "durationMs": 1353,
+          "error": "Missing OpenRouter key. Set OPENROUTER_API_KEY, PERSO_XXL_DIR, or configure Perso-XXL/config/env.js.",
+          "diagnostics": {
+            "phase": "generation-or-validation",
+            "semanticCandidates": {
+              "query": "Mark Ruber",
+              "expected": "Mark Rober",
+              "candidateKind": "youtube-channel",
+              "expectedCandidateVisibleInContext": true,
+              "expectedCandidateSelectedByPlan": false,
+              "bestCandidate": {
+                "uid": "video-first-channel",
+                "tag": "a",
+                "text": "Nature Lab",
+                "ariaLabel": "",
+                "dataChannel": "",
+                "scoreToQuery": 0.217,
+                "scoreToExpected": 0.217,
+                "isExpected": false,
+                "selectedByPlan": false
+              },
+              "candidates": [
+                {
+                  "uid": "video-first-channel",
+                  "tag": "a",
+                  "text": "Nature Lab",
+                  "ariaLabel": "",
+                  "dataChannel": "",
+                  "scoreToQuery": 0.217,
+                  "scoreToExpected": 0.217,
+                  "isExpected": false,
+                  "selectedByPlan": false
+                },
+                {
+                  "uid": "video-mark-rober-channel",
+                  "tag": "a",
+                  "text": "Mark Rober",
+                  "ariaLabel": "Mark Rober channel",
+                  "dataChannel": "",
+                  "scoreToQuery": 0.214,
+                  "scoreToExpected": 1,
+                  "isExpected": true,
+                  "selectedByPlan": false
+                },
+                {
+                  "uid": "video-mkbhd-channel",
+                  "tag": "a",
+                  "text": "Marques Brownlee",
+                  "ariaLabel": "",
+                  "dataChannel": "",
+                  "scoreToQuery": 0.207,
+                  "scoreToExpected": 0.241,
+                  "isExpected": false,
+                  "selectedByPlan": false
+                },
+                {
+                  "uid": "video-rocket-channel",
+                  "tag": "a",
+                  "text": "Everyday Astronaut",
+                  "ariaLabel": "",
+                  "dataChannel": "",
+                  "scoreToQuery": 0.161,
+                  "scoreToExpected": 0.161,
+                  "isExpected": false,
+                  "selectedByPlan": false
+                },
+                {
+                  "uid": "video-sponsored-channel",
+                  "tag": "a",
+                  "text": "CloudDesk",
+                  "ariaLabel": "",
+                  "dataChannel": "",
+                  "scoreToQuery": 0.136,
+                  "scoreToExpected": 0.136,
+                  "isExpected": false,
+                  "selectedByPlan": false
+                },
+                {
+                  "uid": "video-cooking-channel",
+                  "tag": "a",
+                  "text": "Kitchen Daily",
+                  "ariaLabel": "",
+                  "dataChannel": "",
+                  "scoreToQuery": 0.115,
+                  "scoreToExpected": 0.115,
+                  "isExpected": false,
+                  "selectedByPlan": false
+                },
+                {
+                  "uid": "video-mkbhd-card",
+                  "tag": "article",
+                  "text": "Phone awards Marques Brownlee",
+                  "ariaLabel": "",
+                  "dataChannel": "Marques Brownlee",
+                  "scoreToQuery": 0.113,
+                  "scoreToExpected": 0.113,
+                  "isExpected": false,
+                  "selectedByPlan": false
+                },
+                {
+                  "uid": "video-mark-rober-card",
+                  "tag": "article",
+                  "text": "World's Smallest Nerf Gun Mark Rober",
+                  "ariaLabel": "",
+                  "dataChannel": "Mark Rober",
+                  "scoreToQuery": 0.111,
+                  "scoreToExpected": 1,
+                  "isExpected": true,
+                  "selectedByPlan": false
+                }
+              ]
+            },
+            "failureReasons": [
+              "Missing OpenRouter key. Set OPENROUTER_API_KEY, PERSO_XXL_DIR, or configure Perso-XXL/config/env.js."
+            ]
+          },
+          "beforeScreenshotPath": "reports/browser-screenshots/run-1-medium-youtube-hide-creator-typo-before.png",
+          "consoleMessages": [
+            {
+              "type": "error",
+              "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+            }
+          ]
+        },
+        {
+          "taskId": "medium-youtube-hide-rocket-title",
+          "tier": "medium",
+          "score": 0,
+          "passed": false,
+          "durationMs": 967,
+          "error": "Missing OpenRouter key. Set OPENROUTER_API_KEY, PERSO_XXL_DIR, or configure Perso-XXL/config/env.js.",
+          "diagnostics": {
+            "phase": "generation-or-validation",
+            "semanticCandidates": {
+              "query": "rockets",
+              "expected": "Engineering a rocket",
+              "candidateKind": "youtube-title",
+              "expectedCandidateVisibleInContext": true,
+              "expectedCandidateSelectedByPlan": false,
+              "bestCandidate": {
+                "uid": "video-rocket-link",
+                "tag": "a",
+                "text": "Engineering a rocket",
+                "ariaLabel": "",
+                "dataChannel": "",
+                "scoreToQuery": 0.121,
+                "scoreToExpected": 1,
+                "isExpected": true,
+                "selectedByPlan": false
+              },
+              "candidates": [
+                {
+                  "uid": "video-rocket-link",
+                  "tag": "a",
+                  "text": "Engineering a rocket",
+                  "ariaLabel": "",
+                  "dataChannel": "",
+                  "scoreToQuery": 0.121,
+                  "scoreToExpected": 1,
+                  "isExpected": true,
+                  "selectedByPlan": false
+                },
+                {
+                  "uid": "video-first-link",
+                  "tag": "a",
+                  "text": "Backyard Squirrel Maze",
+                  "ariaLabel": "",
+                  "dataChannel": "",
+                  "scoreToQuery": 0.094,
+                  "scoreToExpected": 0.151,
+                  "isExpected": false,
+                  "selectedByPlan": false
+                },
+                {
+                  "uid": "video-sponsored-link",
+                  "tag": "a",
+                  "text": "CloudDesk AI tool",
+                  "ariaLabel": "",
+                  "dataChannel": "",
+                  "scoreToQuery": 0.086,
+                  "scoreToExpected": 0.172,
+                  "isExpected": false,
+                  "selectedByPlan": false
+                },
+                {
+                  "uid": "video-mark-rober-link",
+                  "tag": "a",
+                  "text": "World's Smallest Nerf Gun",
+                  "ariaLabel": "",
+                  "dataChannel": "",
+                  "scoreToQuery": 0.082,
+                  "scoreToExpected": 0.197,
+                  "isExpected": false,
+                  "selectedByPlan": false
+                }
+              ]
+            },
+            "failureReasons": [
+              "Missing OpenRouter key. Set OPENROUTER_API_KEY, PERSO_XXL_DIR, or configure Perso-XXL/config/env.js."
+            ]
+          },
+          "beforeScreenshotPath": "reports/browser-screenshots/run-1-medium-youtube-hide-rocket-title-before.png",
+          "consoleMessages": []
+        },
+        {
+          "taskId": "medium-youtube-hide-sponsored",
+          "tier": "medium",
+          "score": 0,
+          "passed": false,
+          "durationMs": 940,
+          "error": "Missing OpenRouter key. Set OPENROUTER_API_KEY, PERSO_XXL_DIR, or configure Perso-XXL/config/env.js.",
+          "diagnostics": {
+            "phase": "generation-or-validation",
+            "semanticCandidates": {
+              "query": "sponsored",
+              "expected": "Sponsored",
+              "candidateKind": "youtube-badge",
+              "expectedCandidateVisibleInContext": true,
+              "expectedCandidateSelectedByPlan": false,
+              "bestCandidate": {
+                "uid": "video-sponsored-card",
+                "tag": "article",
+                "text": "Sponsored CloudDesk AI tool CloudDesk",
+                "ariaLabel": "Sponsored video from CloudDesk",
+                "dataChannel": "CloudDesk",
+                "scoreToQuery": 1,
+                "scoreToExpected": 1,
+                "isExpected": true,
+                "selectedByPlan": false
+              },
+              "candidates": [
+                {
+                  "uid": "video-sponsored-card",
+                  "tag": "article",
+                  "text": "Sponsored CloudDesk AI tool CloudDesk",
+                  "ariaLabel": "Sponsored video from CloudDesk",
+                  "dataChannel": "CloudDesk",
+                  "scoreToQuery": 1,
+                  "scoreToExpected": 1,
+                  "isExpected": true,
+                  "selectedByPlan": false
+                },
+                {
+                  "uid": "video-sponsored-badge",
+                  "tag": "span",
+                  "text": "Sponsored",
+                  "ariaLabel": "",
+                  "dataChannel": "",
+                  "scoreToQuery": 1,
+                  "scoreToExpected": 1,
+                  "isExpected": true,
+                  "selectedByPlan": false
+                }
+              ]
+            },
+            "failureReasons": [
+              "Missing OpenRouter key. Set OPENROUTER_API_KEY, PERSO_XXL_DIR, or configure Perso-XXL/config/env.js."
+            ]
+          },
+          "beforeScreenshotPath": "reports/browser-screenshots/run-1-medium-youtube-hide-sponsored-before.png",
+          "consoleMessages": []
+        },
+        {
+          "taskId": "medium-youtube-hide-creator-exact",
+          "tier": "medium",
+          "score": 0,
+          "passed": false,
+          "durationMs": 937,
+          "error": "Missing OpenRouter key. Set OPENROUTER_API_KEY, PERSO_XXL_DIR, or configure Perso-XXL/config/env.js.",
+          "diagnostics": {
+            "phase": "generation-or-validation",
+            "semanticCandidates": {
+              "query": "Mark Rober",
+              "expected": "Mark Rober",
+              "candidateKind": "youtube-channel",
+              "expectedCandidateVisibleInContext": true,
+              "expectedCandidateSelectedByPlan": false,
+              "bestCandidate": {
+                "uid": "video-mark-rober-card",
+                "tag": "article",
+                "text": "World's Smallest Nerf Gun Mark Rober",
+                "ariaLabel": "",
+                "dataChannel": "Mark Rober",
+                "scoreToQuery": 1,
+                "scoreToExpected": 1,
+                "isExpected": true,
+                "selectedByPlan": false
+              },
+              "candidates": [
+                {
+                  "uid": "video-mark-rober-card",
+                  "tag": "article",
+                  "text": "World's Smallest Nerf Gun Mark Rober",
+                  "ariaLabel": "",
+                  "dataChannel": "Mark Rober",
+                  "scoreToQuery": 1,
+                  "scoreToExpected": 1,
+                  "isExpected": true,
+                  "selectedByPlan": false
+                },
+                {
+                  "uid": "video-mark-rober-channel",
+                  "tag": "a",
+                  "text": "Mark Rober",
+                  "ariaLabel": "Mark Rober channel",
+                  "dataChannel": "",
+                  "scoreToQuery": 1,
+                  "scoreToExpected": 1,
+                  "isExpected": true,
+                  "selectedByPlan": false
+                },
+                {
+                  "uid": "video-mkbhd-channel",
+                  "tag": "a",
+                  "text": "Marques Brownlee",
+                  "ariaLabel": "",
+                  "dataChannel": "",
+                  "scoreToQuery": 0.241,
+                  "scoreToExpected": 0.241,
+                  "isExpected": false,
+                  "selectedByPlan": false
+                },
+                {
+                  "uid": "video-first-channel",
+                  "tag": "a",
+                  "text": "Nature Lab",
+                  "ariaLabel": "",
+                  "dataChannel": "",
+                  "scoreToQuery": 0.217,
+                  "scoreToExpected": 0.217,
+                  "isExpected": false,
+                  "selectedByPlan": false
+                },
+                {
+                  "uid": "video-rocket-channel",
+                  "tag": "a",
+                  "text": "Everyday Astronaut",
+                  "ariaLabel": "",
+                  "dataChannel": "",
+                  "scoreToQuery": 0.161,
+                  "scoreToExpected": 0.161,
+                  "isExpected": false,
+                  "selectedByPlan": false
+                },
+                {
+                  "uid": "video-sponsored-channel",
+                  "tag": "a",
+                  "text": "CloudDesk",
+                  "ariaLabel": "",
+                  "dataChannel": "",
+                  "scoreToQuery": 0.136,
+                  "scoreToExpected": 0.136,
+                  "isExpected": false,
+                  "selectedByPlan": false
+                },
+                {
+                  "uid": "video-cooking-channel",
+                  "tag": "a",
+                  "text": "Kitchen Daily",
+                  "ariaLabel": "",
+                  "dataChannel": "",
+                  "scoreToQuery": 0.115,
+                  "scoreToExpected": 0.115,
+                  "isExpected": false,
+                  "selectedByPlan": false
+                },
+                {
+                  "uid": "video-mkbhd-card",
+                  "tag": "article",
+                  "text": "Phone awards Marques Brownlee",
+                  "ariaLabel": "",
+                  "dataChannel": "Marques Brownlee",
+                  "scoreToQuery": 0.113,
+                  "scoreToExpected": 0.113,
+                  "isExpected": false,
+                  "selectedByPlan": false
+                }
+              ]
+            },
+            "failureReasons": [
+              "Missing OpenRouter key. Set OPENROUTER_API_KEY, PERSO_XXL_DIR, or configure Perso-XXL/config/env.js."
+            ]
+          },
+          "beforeScreenshotPath": "reports/browser-screenshots/run-1-medium-youtube-hide-creator-exact-before.png",
+          "consoleMessages": []
+        },
+        {
+          "taskId": "medium-youtube-hide-creator-partial",
+          "tier": "medium",
+          "score": 0,
+          "passed": false,
+          "durationMs": 949,
+          "error": "Missing OpenRouter key. Set OPENROUTER_API_KEY, PERSO_XXL_DIR, or configure Perso-XXL/config/env.js.",
+          "diagnostics": {
+            "phase": "generation-or-validation",
+            "semanticCandidates": {
+              "query": "Rober",
+              "expected": "Mark Rober",
+              "candidateKind": "youtube-channel",
+              "expectedCandidateVisibleInContext": true,
+              "expectedCandidateSelectedByPlan": false,
+              "bestCandidate": {
+                "uid": "video-mark-rober-card",
+                "tag": "article",
+                "text": "World's Smallest Nerf Gun Mark Rober",
+                "ariaLabel": "",
+                "dataChannel": "Mark Rober",
+                "scoreToQuery": 1,
+                "scoreToExpected": 1,
+                "isExpected": true,
+                "selectedByPlan": false
+              },
+              "candidates": [
+                {
+                  "uid": "video-mark-rober-card",
+                  "tag": "article",
+                  "text": "World's Smallest Nerf Gun Mark Rober",
+                  "ariaLabel": "",
+                  "dataChannel": "Mark Rober",
+                  "scoreToQuery": 1,
+                  "scoreToExpected": 1,
+                  "isExpected": true,
+                  "selectedByPlan": false
+                },
+                {
+                  "uid": "video-mark-rober-channel",
+                  "tag": "a",
+                  "text": "Mark Rober",
+                  "ariaLabel": "Mark Rober channel",
+                  "dataChannel": "",
+                  "scoreToQuery": 1,
+                  "scoreToExpected": 1,
+                  "isExpected": true,
+                  "selectedByPlan": false
+                },
+                {
+                  "uid": "video-first-channel",
+                  "tag": "a",
+                  "text": "Nature Lab",
+                  "ariaLabel": "",
+                  "dataChannel": "",
+                  "scoreToQuery": 0.13,
+                  "scoreToExpected": 0.217,
+                  "isExpected": false,
+                  "selectedByPlan": false
+                },
+                {
+                  "uid": "video-mkbhd-channel",
+                  "tag": "a",
+                  "text": "Marques Brownlee",
+                  "ariaLabel": "",
+                  "dataChannel": "",
+                  "scoreToQuery": 0.103,
+                  "scoreToExpected": 0.241,
+                  "isExpected": false,
+                  "selectedByPlan": false
+                },
+                {
+                  "uid": "video-rocket-channel",
+                  "tag": "a",
+                  "text": "Everyday Astronaut",
+                  "ariaLabel": "",
+                  "dataChannel": "",
+                  "scoreToQuery": 0.097,
+                  "scoreToExpected": 0.161,
+                  "isExpected": false,
+                  "selectedByPlan": false
+                },
+                {
+                  "uid": "video-sponsored-channel",
+                  "tag": "a",
+                  "text": "CloudDesk",
+                  "ariaLabel": "",
+                  "dataChannel": "",
+                  "scoreToQuery": 0.091,
+                  "scoreToExpected": 0.136,
+                  "isExpected": false,
+                  "selectedByPlan": false
+                },
+                {
+                  "uid": "video-mkbhd-card",
+                  "tag": "article",
+                  "text": "Phone awards Marques Brownlee",
+                  "ariaLabel": "",
+                  "dataChannel": "Marques Brownlee",
+                  "scoreToQuery": 0.063,
+                  "scoreToExpected": 0.113,
+                  "isExpected": false,
+                  "selectedByPlan": false
+                },
+                {
+                  "uid": "video-first-card",
+                  "tag": "article",
+                  "text": "Backyard Squirrel Maze Nature Lab",
+                  "ariaLabel": "",
+                  "dataChannel": "Nature Lab",
+                  "scoreToQuery": 0.051,
+                  "scoreToExpected": 0.103,
+                  "isExpected": false,
+                  "selectedByPlan": false
+                }
+              ]
+            },
+            "failureReasons": [
+              "Missing OpenRouter key. Set OPENROUTER_API_KEY, PERSO_XXL_DIR, or configure Perso-XXL/config/env.js."
+            ]
+          },
+          "beforeScreenshotPath": "reports/browser-screenshots/run-1-medium-youtube-hide-creator-partial-before.png",
+          "consoleMessages": []
+        },
+        {
+          "taskId": "medium-youtube-hide-title-typo",
+          "tier": "medium",
+          "score": 0,
+          "passed": false,
+          "durationMs": 922,
+          "error": "Missing OpenRouter key. Set OPENROUTER_API_KEY, PERSO_XXL_DIR, or configure Perso-XXL/config/env.js.",
+          "diagnostics": {
+            "phase": "generation-or-validation",
+            "semanticCandidates": {
+              "query": "rokcet engineering",
+              "expected": "Engineering a rocket",
+              "candidateKind": "youtube-title",
+              "expectedCandidateVisibleInContext": true,
+              "expectedCandidateSelectedByPlan": false,
+              "bestCandidate": {
+                "uid": "video-rocket-link",
+                "tag": "a",
+                "text": "Engineering a rocket",
+                "ariaLabel": "",
+                "dataChannel": "",
+                "scoreToQuery": 0.224,
+                "scoreToExpected": 1,
+                "isExpected": true,
+                "selectedByPlan": false
+              },
+              "candidates": [
+                {
+                  "uid": "video-rocket-link",
+                  "tag": "a",
+                  "text": "Engineering a rocket",
+                  "ariaLabel": "",
+                  "dataChannel": "",
+                  "scoreToQuery": 0.224,
+                  "scoreToExpected": 1,
+                  "isExpected": true,
+                  "selectedByPlan": false
+                },
+                {
+                  "uid": "video-mark-rober-link",
+                  "tag": "a",
+                  "text": "World's Smallest Nerf Gun",
+                  "ariaLabel": "",
+                  "dataChannel": "",
+                  "scoreToQuery": 0.197,
+                  "scoreToExpected": 0.197,
+                  "isExpected": false,
+                  "selectedByPlan": false
+                },
+                {
+                  "uid": "video-sponsored-link",
+                  "tag": "a",
+                  "text": "CloudDesk AI tool",
+                  "ariaLabel": "",
+                  "dataChannel": "",
+                  "scoreToQuery": 0.172,
+                  "scoreToExpected": 0.172,
+                  "isExpected": false,
+                  "selectedByPlan": false
+                },
+                {
+                  "uid": "video-first-link",
+                  "tag": "a",
+                  "text": "Backyard Squirrel Maze",
+                  "ariaLabel": "",
+                  "dataChannel": "",
+                  "scoreToQuery": 0.17,
+                  "scoreToExpected": 0.151,
+                  "isExpected": false,
+                  "selectedByPlan": false
+                }
+              ]
+            },
+            "failureReasons": [
+              "Missing OpenRouter key. Set OPENROUTER_API_KEY, PERSO_XXL_DIR, or configure Perso-XXL/config/env.js."
+            ]
+          },
+          "beforeScreenshotPath": "reports/browser-screenshots/run-1-medium-youtube-hide-title-typo-before.png",
+          "consoleMessages": []
+        },
+        {
+          "taskId": "medium-youtube-hide-ad-synonym",
+          "tier": "medium",
+          "score": 0,
+          "passed": false,
+          "durationMs": 902,
+          "error": "Missing OpenRouter key. Set OPENROUTER_API_KEY, PERSO_XXL_DIR, or configure Perso-XXL/config/env.js.",
+          "diagnostics": {
+            "phase": "generation-or-validation",
+            "semanticCandidates": {
+              "query": "ads",
+              "expected": "Sponsored",
+              "candidateKind": "youtube-badge",
+              "expectedCandidateVisibleInContext": true,
+              "expectedCandidateSelectedByPlan": false,
+              "bestCandidate": {
+                "uid": "video-sponsored-badge",
+                "tag": "span",
+                "text": "Sponsored",
+                "ariaLabel": "",
+                "dataChannel": "",
+                "scoreToQuery": 0.087,
+                "scoreToExpected": 1,
+                "isExpected": true,
+                "selectedByPlan": false
+              },
+              "candidates": [
+                {
+                  "uid": "video-sponsored-badge",
+                  "tag": "span",
+                  "text": "Sponsored",
+                  "ariaLabel": "",
+                  "dataChannel": "",
+                  "scoreToQuery": 0.087,
+                  "scoreToExpected": 1,
+                  "isExpected": true,
+                  "selectedByPlan": false
+                },
+                {
+                  "uid": "video-sponsored-card",
+                  "tag": "article",
+                  "text": "Sponsored CloudDesk AI tool CloudDesk",
+                  "ariaLabel": "Sponsored video from CloudDesk",
+                  "dataChannel": "CloudDesk",
+                  "scoreToQuery": 0.024,
+                  "scoreToExpected": 1,
+                  "isExpected": true,
+                  "selectedByPlan": false
+                }
+              ]
+            },
+            "failureReasons": [
+              "Missing OpenRouter key. Set OPENROUTER_API_KEY, PERSO_XXL_DIR, or configure Perso-XXL/config/env.js."
+            ]
+          },
+          "beforeScreenshotPath": "reports/browser-screenshots/run-1-medium-youtube-hide-ad-synonym-before.png",
+          "consoleMessages": []
+        }
+      ]
+    }
+  ]
+}

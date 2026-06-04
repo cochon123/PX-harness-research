@@ -1,0 +1,195 @@
+{
+  "generatedAt": "2026-06-03T14:45:31.794Z",
+  "rows": [
+    {
+      "label": "Mimo v2.5 pro",
+      "id": "xiaomi/mimo-v2.5-pro",
+      "reportPath": "reports/model-runs/xiaomi-mimo-v2-5-pro.json",
+      "ran": true,
+      "blockedReason": null,
+      "score": 1,
+      "averageDurationMs": 32614.14285714286,
+      "passed": 7,
+      "total": 7,
+      "promptTokens": 78507,
+      "completionTokens": 7241,
+      "totalTokens": 85748,
+      "measuredCost": 0.040450215,
+      "price": {
+        "input": 0.435,
+        "output": 0.87
+      }
+    },
+    {
+      "label": "DeepSeek v4 pro",
+      "id": "deepseek/deepseek-v4-pro",
+      "reportPath": "reports/model-runs/deepseek-deepseek-v4-pro.json",
+      "ran": true,
+      "blockedReason": null,
+      "score": 1,
+      "averageDurationMs": 25537.571428571428,
+      "passed": 7,
+      "total": 7,
+      "promptTokens": 86225,
+      "completionTokens": 7967,
+      "totalTokens": 94192,
+      "measuredCost": 0.044439164999999996,
+      "price": {
+        "input": 0.435,
+        "output": 0.87
+      }
+    },
+    {
+      "label": "DeepSeek v4 flash",
+      "id": "deepseek/deepseek-v4-flash",
+      "reportPath": "reports/model-runs/deepseek-deepseek-v4-flash.json",
+      "ran": true,
+      "blockedReason": null,
+      "score": 1,
+      "averageDurationMs": 17916,
+      "passed": 7,
+      "total": 7,
+      "promptTokens": 86085,
+      "completionTokens": 4081,
+      "totalTokens": 90166,
+      "measuredCost": 0.009264480099999998,
+      "price": {
+        "input": 0.0983,
+        "output": 0.1966
+      }
+    },
+    {
+      "label": "MiniMax m2.7",
+      "id": "minimax/minimax-m2.7",
+      "reportPath": "reports/model-runs/minimax-minimax-m2-7.json",
+      "ran": true,
+      "blockedReason": null,
+      "score": 0.9711428571428572,
+      "averageDurationMs": 9092.714285714286,
+      "passed": 6,
+      "total": 7,
+      "promptTokens": 79572,
+      "completionTokens": 2574,
+      "totalTokens": 82146,
+      "measuredCost": 0.025289388000000003,
+      "price": {
+        "input": 0.279,
+        "output": 1.2
+      }
+    },
+    {
+      "label": "MiniMax M3",
+      "id": "minimax/minimax-m3",
+      "reportPath": "reports/model-runs/minimax-minimax-m3.json",
+      "ran": true,
+      "blockedReason": null,
+      "score": 1,
+      "averageDurationMs": 21684.285714285714,
+      "passed": 7,
+      "total": 7,
+      "promptTokens": 80658,
+      "completionTokens": 6648,
+      "totalTokens": 87306,
+      "measuredCost": 0.032174999999999995,
+      "price": {
+        "input": 0.3,
+        "output": 1.2
+      }
+    },
+    {
+      "label": "Gemma 4 27b",
+      "id": "google/gemma-4-26b-a4b-it",
+      "reportPath": "reports/model-runs/google-gemma-4-26b-a4b-it.json",
+      "ran": true,
+      "blockedReason": null,
+      "score": 1,
+      "averageDurationMs": 29530.285714285714,
+      "passed": 7,
+      "total": 7,
+      "promptTokens": 87623,
+      "completionTokens": 8808,
+      "totalTokens": 96431,
+      "measuredCost": 0.008164020000000001,
+      "price": {
+        "input": 0.06,
+        "output": 0.33
+      }
+    },
+    {
+      "label": "Gemma 4 31b",
+      "id": "google/gemma-4-31b-it",
+      "reportPath": "reports/model-runs/google-gemma-4-31b-it.json",
+      "ran": true,
+      "blockedReason": null,
+      "score": 1,
+      "averageDurationMs": 20729.85714285714,
+      "passed": 7,
+      "total": 7,
+      "promptTokens": 87614,
+      "completionTokens": 3095,
+      "totalTokens": 90709,
+      "measuredCost": 0.011658829999999999,
+      "price": {
+        "input": 0.12,
+        "output": 0.37
+      }
+    },
+    {
+      "label": "Qwen 3.6 plus",
+      "id": "qwen/qwen3.6-plus",
+      "reportPath": "reports/model-runs/qwen-qwen3-6-plus.json",
+      "ran": true,
+      "blockedReason": null,
+      "score": 1,
+      "averageDurationMs": 34863.42857142857,
+      "passed": 7,
+      "total": 7,
+      "promptTokens": 78526,
+      "completionTokens": 11547,
+      "totalTokens": 90073,
+      "measuredCost": 0.0480376,
+      "price": {
+        "input": 0.325,
+        "output": 1.95
+      }
+    },
+    {
+      "label": "Grok 4.3",
+      "id": "x-ai/grok-4.3",
+      "reportPath": "reports/model-runs/x-ai-grok-4-3.json",
+      "ran": true,
+      "blockedReason": null,
+      "score": 0.8571428571428571,
+      "averageDurationMs": 22929.428571428572,
+      "passed": 6,
+      "total": 7,
+      "promptTokens": 66476,
+      "completionTokens": 3596,
+      "totalTokens": 70072,
+      "measuredCost": 0.09208499999999999,
+      "price": {
+        "input": 1.25,
+        "output": 2.5
+      }
+    },
+    {
+      "label": "Qwen3.5 9b",
+      "id": "qwen/qwen3.5-9b",
+      "reportPath": "reports/model-runs/qwen-qwen3-5-9b.json",
+      "ran": true,
+      "blockedReason": null,
+      "score": 0.5714285714285714,
+      "averageDurationMs": 63970.857142857145,
+      "passed": 4,
+      "total": 7,
+      "promptTokens": 45164,
+      "completionTokens": 1927,
+      "totalTokens": 47091,
+      "measuredCost": 0.0020956100000000004,
+      "price": {
+        "input": 0.04,
+        "output": 0.15
+      }
+    }
+  ]
+}

@@ -262,7 +262,10 @@ function candidateEnvJsPaths() {
 }
 
 function candidateDotEnvPaths() {
-  return candidatePersoRoots().map((root) => resolve(root, ".env"));
+  return [
+    resolve(process.cwd(), ".env"),
+    ...candidatePersoRoots().map((root) => resolve(root, ".env"))
+  ];
 }
 
 function extractContent(message) {
